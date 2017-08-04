@@ -117,7 +117,7 @@ if __name__ == '__main__':
             setup.change_xField()
             setup.change_yField()
             setup.change_fluence()
-            setup.writeFile()
+            setup.write_file()
 
             # Run geant4 for hadron therapy
             subprocess.call(["./hadrontherapy", "hadron_therapy.mac"]);
