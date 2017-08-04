@@ -59,7 +59,7 @@
 /gps/ang/sigma_r 0. deg
 
 /gps/ene/type Gauss
-/gps/ene/mono 210 MeV
+/gps/ene/mono 131.1 MeV
 
 
 ##########################
@@ -117,12 +117,4 @@
 # For dose average LET computations of primary and secondary particles
 #/analysis/computeLet
 
-/run/beamOn 100000
-#########################
-# Move the generated .root & .out
-# files into the
-# "SimulationOutputs" folder
-# if this folder has been created
-
-/control/shell mv DoseDistribution.root experimentalData/proton/BraggPeak/protonBraggPeak.root
-/control/shell mv Dose.out experimentalData/proton/BraggPeak/Dose.out
+/run/beamOn 12000.0

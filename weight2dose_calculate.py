@@ -7,8 +7,8 @@ import time;
 # Class for loading weight data from commercial TPS
 class load_dose_weight:
     def __init__(self,fname):
-        self.data = np.loadtxt(fname,skiprows=1)
-        self.dataLength = len(data[:,0])
+        self.data = np.loadtxt(fname,skiprows=1,delimiter=',')
+        self.dataLength = len(self.data[:,0])
 
         if np.abs(sum(self.data[:,2])-1)>0.5:
             warnings.warn('Sum of weight not equal to 1...')
@@ -76,11 +76,11 @@ class G4_setup:
         self.lines[61] = particleEnergyLine
 
     def change_xField(self):
-        field_x = self.xPos * 10 * np.sqrt(self.energy) / self.prop_const
+        field_x = self.xPos * 10 * np.sqrt(self.energy) / self.prop_constant
         # add geant4 mac file modification here
 
     def change_yField(self):
-        field_x = self.yPos * 10 * np.sqrt(self.energy)s / self.prop_const
+        field_x = self.yPos * 10 * np.sqrt(self.energy) / self.prop_constant
         # add geant4 mac file modification here
 
     def change_fluence(self):
@@ -94,6 +94,7 @@ if __name__ == '__main__':
 
     if testing:
         weightData = load_dose_weight('T_1311000.txt')
+        energy = 131.1
         totalEnergyLayers = 1
     else:
         # Read the entire possible energy layers and spot size
@@ -104,6 +105,7 @@ if __name__ == '__main__':
         if not testing:
             fname_doseWeight = 'T_' + str(energyLayersInfo[kk,0]*10000) + '.txt'
             weightData = load_dose_weight(fname_doseWeight)
+            energy = energyLayersInfo[kk,0] / 10000
 
         for k in xrange(weightData.dataLength):
             xPos   = weightData.data[k,0] # in mm
@@ -127,4 +129,5 @@ if __name__ == '__main__':
 
             # Verbosity
             print('Processing Energy Layers %d' %kk)
-            print('Elapsed time = %f hours' %(time.time()-startTime)/3600)
+            elapsedTime = (time.time()-startTime)/3600
+            print('Elapsed time = %f hours' %elapsedTime)
