@@ -2,6 +2,7 @@ import numpy as np;
 import os.path;
 import subprocess;
 import warnings;
+import time;
 
 # Class for loading weight data from commercial TPS
 class load_dose_weight:
@@ -12,7 +13,7 @@ class load_dose_weight:
         if np.abs(sum(self.data[:,2])-1)>0.5:
             warnings.warn('Sum of weight not equal to 1...')
 
-# 
+#
 class merge_data:
     def __init__(self,fname_masterdata):
         self.data = np.loadtxt('Dose.out',skiprows=1)
@@ -56,6 +57,7 @@ class G4_setup:
         self.yPos = yPos
         self.weight = weight
         self._totalFluence = 6000000
+        self.prop_constant = 180; # for magnetic field spot position mapping
 
     def read_file(self):
         with open(self.fname_G4,'r') as f:
@@ -74,8 +76,12 @@ class G4_setup:
         self.lines[61] = particleEnergyLine
 
     def change_xField(self):
+        field_x = self.xPos * 10 * np.sqrt(self.energy) / self.prop_const
+        # add geant4 mac file modification here
 
     def change_yField(self):
+        field_x = self.yPos * 10 * np.sqrt(self.energy)s / self.prop_const
+        # add geant4 mac file modification here
 
     def change_fluence(self):
         fluenceLine = '/run/beamOn ' + str(np.rint(self.weight*self._totalFluence))
@@ -83,24 +89,42 @@ class G4_setup:
 
 # This is the main code
 if __name__ == '__main__':
-    weightData = load_dose_weight('T_1311000.txt')
+    testing = True
+    startTime = time.time();
 
-    for k in xrange(weightData.dataLength):
-        xPos   = weightData.data[k,0] # in mm
-        yPos   = weightData.data[k,1] # in mm
-        weight = weightData.data[k,2]
+    if testing:
+        weightData = load_dose_weight('T_1311000.txt')
+        totalEnergyLayers = 1
+    else:
+        # Read the entire possible energy layers and spot size
+        energyLayersInfo = np.loadtxt('List.txt',skiprows=1)
+        totalEnergyLayers = len(energyLayersInfo[:,0])
 
-        #Setup Geant4 parameters
-        setup = G4_setup(energy,xPos,yPos,weight)
-        setup.read_file()
-        setup.change_energy()
-        setup.change_xField()
-        setup.change_yField()
-        setup.change_fluence()
-        setup.writeFile()
+    for kk in xrange(totalEnergyLayers):
+        if not testing:
+            fname_doseWeight = 'T_' + str(energyLayersInfo[kk,0]*10000) + '.txt'
+            weightData = load_dose_weight(fname_doseWeight)
 
-        # Run geant4 for hadron therapy
-        subprocess.call(["./hadrontherapy", "hadron_therapy.mac"]);
+        for k in xrange(weightData.dataLength):
+            xPos   = weightData.data[k,0] # in mm
+            yPos   = weightData.data[k,1] # in mm
+            weight = weightData.data[k,2]
 
-        # Process data from geant 4
-        processData = merge_data()
+            #Setup Geant4 parameters
+            setup = G4_setup(energy,xPos,yPos,weight)
+            setup.read_file()
+            setup.change_energy()
+            setup.change_xField()
+            setup.change_yField()
+            setup.change_fluence()
+            setup.writeFile()
+
+            # Run geant4 for hadron therapy
+            subprocess.call(["./hadrontherapy", "hadron_therapy.mac"]);
+
+            # Process data from geant 4
+            processData = merge_data()
+
+            # Verbosity
+            print('Processing Energy Layers %d' %kk)
+            print('Elapsed time = %f hours' %(time.time()-startTime)/3600)
