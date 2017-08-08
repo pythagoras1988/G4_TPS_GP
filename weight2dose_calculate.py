@@ -4,6 +4,9 @@ import subprocess;
 import warnings;
 import time;
 
+global testing
+testing = True
+
 # Class for loading weight data from commercial TPS
 class load_dose_weight:
     def __init__(self,fname):
@@ -56,7 +59,7 @@ class G4_setup:
         self.xPos = xPos
         self.yPos = yPos
         self.weight = weight
-        self._totalFluence = 6000000
+        self._totalFluence = 5000000
         self.prop_constant = 180; # for magnetic field spot position mapping
 
     def read_file(self):
@@ -73,24 +76,33 @@ class G4_setup:
 
     def change_energy(self):
         particleEnergyLine = '/gps/ene/mono ' + str(self.energy) + ' MeV' + '\n'
-        self.lines[61] = particleEnergyLine
+        self.lines[59] = particleEnergyLine
 
-    def change_xField(self):
-        field_x = self.xPos * 10 * np.sqrt(self.energy) / self.prop_constant
-        # add geant4 mac file modification here
+    def change_field(self):
+        field_x = self.xPos / 10 * np.sqrt(self.energy) / self.prop_constant
+        field_y = self.yPos / 10 * np.sqrt(self.energy) / self.prop_constant
+        field_x = round(field_x,4)
+        field_y = round(field_y,4)
 
-    def change_yField(self):
-        field_x = self.yPos * 10 * np.sqrt(self.energy) / self.prop_constant
-        # add geant4 mac file modification here
+        fieldLine = '/beamLine/setField ' + '0.0 ' + str(field_x) + ' ' + str(field_y) +'\n'
+        self.lines[60] = fieldLine
 
     def change_fluence(self):
-        fluenceLine = '/run/beamOn ' + str(np.rint(self.weight*self._totalFluence))
-        self.lines[119] = fluenceLine
+        fluenceLine = '/run/beamOn ' + str(int(np.rint(self.weight*self._totalFluence)))
+        self.lines[115] = fluenceLine
 
 # This is the main code
 if __name__ == '__main__':
-    testing = True
     startTime = time.time();
+
+    # Check for masterDose files
+    fname_masterDose = 'masterDose.txt'
+    if os.path.isfile(fname_masterDose):
+        answer = raw_input('masterDose.txt file exists. Do you want to overwrite? (y/n)')
+        if answer == 'n':
+            raise Exception('Stopped program!')
+        else:
+            os.remove(fname_masterDose)
 
     if testing:
         weightData = load_dose_weight('T_1311000.txt')
@@ -116,8 +128,7 @@ if __name__ == '__main__':
             setup = G4_setup(energy,xPos,yPos,weight)
             setup.read_file()
             setup.change_energy()
-            setup.change_xField()
-            setup.change_yField()
+            setup.change_field()
             setup.change_fluence()
             setup.write_file()
 
@@ -125,7 +136,7 @@ if __name__ == '__main__':
             subprocess.call(["./hadrontherapy", "hadron_therapy.mac"]);
 
             # Process data from geant 4
-            processData = merge_data()
+            processData = merge_data(fname_masterDose)
 
             # Verbosity
             print('Processing Energy Layers %d' %kk)
