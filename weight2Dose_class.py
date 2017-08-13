@@ -2,22 +2,22 @@ import numpy as np;
 import os.path;
 import subprocess;
 import warnings;
-import time;
-
-global testing
-testing = True
 
 # Class for loading weight data from commercial TPS
 class Load_dose_weight:
     def __init__(self,fname):
-        self.data = np.loadtxt(fname,skiprows=1,delimiter=',')
-        self.dataLength = len(self.data[:,0])
-
+    	try: 
+        	self.data = np.loadtxt(fname,skiprows=1,delimiter=',')
+        	self.dataLength = len(self.data[:,0])
+        except: 
+            # if unable to load file, set length of data to be 0
+        	self.dataLength = 0 
+        
         if np.abs(sum(self.data[:,2])-1)>0.5:
             warnings.warn('Sum of weight not equal to 1...')
 
 #
-class Merge_data:
+class MergeDataToFile:
     def __init__(self,fname_masterdata):
         self.data = np.loadtxt('Dose.out',skiprows=1)
         if os.path.isfile(fname_masterdata):
@@ -42,6 +42,26 @@ class Merge_data:
             return -1
         else:
             return np.argmax(tmp)
+
+class RegisterDataToMemory: 
+    def __init__(self,dimX=150,dimY=150,dimZ=150,fname_masterdata):
+        self.data = np.zeros(dimX*dimY*dimZ) 
+        self.fname = fname_masterdata 
+        self.dim = [dimX,dimY,dimZ] 
+        print('Memory allocated for dose scoring...')
+
+    def saveData(self): 
+        np.savetxt(fname_masterdata,self.data)
+
+    def registerData(self): 
+        doseData = np.loadtxt('Dose.out',skiprows=1)
+        for k in xrange(len(doseData[:,0])):
+            index = self.__convert1d(doseData[k,0],doseData[k,1],doseData[k,2])
+            self.data[index] = self.data[index] + doseData[k,3]
+    
+    def __convert1d(self,x,y,z): 
+        return x + y*self.dim[0] + z*self.dim[0]*self.dim[1]
+
 
 #
 class Rename_data:
@@ -103,58 +123,3 @@ class CreateLogFile:
 		self.data[self.index,0] = energy 
 		self.data[self.index,1] = run_number
 		self.data[self.index,0] = elapsedTime
-
-# This is the main code
-if __name__ == '__main__':
-    startTime = time.time()
-    logFile   = CreateLogFile()
-
-    # Check for masterDose files
-    fname_masterDose = 'masterDose.txt'
-    if os.path.isfile(fname_masterDose):
-        answer = raw_input('masterDose.txt file exists. Do you want to overwrite? (y/n)')
-        if answer == 'n':
-            raise Exception('Stopped program!')
-        else:
-            os.remove(fname_masterDose)
-
-    if testing:
-        weightData = Load_dose_weight('T_1311000.txt')
-        energy = 131.1
-        totalEnergyLayers = 1
-    else:
-        # Read the entire possible energy layers and spot size
-        energyLayersInfo = np.loadtxt('List.txt',skiprows=1)
-        totalEnergyLayers = len(energyLayersInfo[:,0])
-
-    # Main code for running Geant4
-    for kk in xrange(totalEnergyLayers):
-        if not testing:
-            fname_doseWeight = 'T_' + str(energyLayersInfo[kk,0]*10000) + '.txt'
-            weightData = load_dose_weight(fname_doseWeight)
-            energy = energyLayersInfo[kk,0] / 10000 # in MeV
-
-        for k in xrange(weightData.dataLength):
-            xPos   = weightData.data[k,0] # in mm
-            yPos   = weightData.data[k,1] # in mm
-            weight = weightData.data[k,2]
-
-            #Setup Geant4 parameters
-            setup = G4_setup(energy,xPos,yPos,weight)
-            setup.read_file()
-            setup.change_energy()
-            setup.change_field()
-            setup.change_fluence()
-            setup.write_file()
-
-            # Run geant4 for hadron therapy
-            subprocess.call(["./hadrontherapy", "hadron_therapy.mac"]);
-
-            # Process data from geant 4
-            processData = Merge_data(fname_masterDose)
-
-            # Verbosity
-            print('Processing Energy Layers %d' %kk)
-            elapsedTime = (time.time()-startTime)/3600
-            print('Elapsed time = %f hours' %elapsedTime)
-            logFile.saveLog(elapsedTime,energy,k)
