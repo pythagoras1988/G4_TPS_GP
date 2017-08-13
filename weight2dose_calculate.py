@@ -8,7 +8,7 @@ global testing
 testing = True
 
 # Class for loading weight data from commercial TPS
-class load_dose_weight:
+class Load_dose_weight:
     def __init__(self,fname):
         self.data = np.loadtxt(fname,skiprows=1,delimiter=',')
         self.dataLength = len(self.data[:,0])
@@ -17,7 +17,7 @@ class load_dose_weight:
             warnings.warn('Sum of weight not equal to 1...')
 
 #
-class merge_data:
+class Merge_data:
     def __init__(self,fname_masterdata):
         self.data = np.loadtxt('Dose.out',skiprows=1)
         if os.path.isfile(fname_masterdata):
@@ -44,7 +44,7 @@ class merge_data:
             return np.argmax(tmp)
 
 #
-class rename_data:
+class Rename_data:
     def __init__(self,fname_Dose_out):
         if not os.path.isfile(fname_Dose_out):
             os.rename('Dose.out',fname_Dose_out)
@@ -91,9 +91,23 @@ class G4_setup:
         fluenceLine = '/run/beamOn ' + str(int(np.rint(self.weight*self._totalFluence)))
         self.lines[115] = fluenceLine
 
+# create log file for debug use
+class CreateLogFile: 
+	def __init__(self): 
+		self.data  = np.array([])
+		self.index = 0
+		if os.path.isfile('log.txt'): 
+			os.remove('log.txt') 
+
+	def saveLog(self,elapsedTime,energy,run_number):
+		self.data[self.index,0] = energy 
+		self.data[self.index,1] = run_number
+		self.data[self.index,0] = elapsedTime
+
 # This is the main code
 if __name__ == '__main__':
-    startTime = time.time();
+    startTime = time.time()
+    logFile   = CreateLogFile()
 
     # Check for masterDose files
     fname_masterDose = 'masterDose.txt'
@@ -105,7 +119,7 @@ if __name__ == '__main__':
             os.remove(fname_masterDose)
 
     if testing:
-        weightData = load_dose_weight('T_1311000.txt')
+        weightData = Load_dose_weight('T_1311000.txt')
         energy = 131.1
         totalEnergyLayers = 1
     else:
@@ -113,11 +127,12 @@ if __name__ == '__main__':
         energyLayersInfo = np.loadtxt('List.txt',skiprows=1)
         totalEnergyLayers = len(energyLayersInfo[:,0])
 
+    # Main code for running Geant4
     for kk in xrange(totalEnergyLayers):
         if not testing:
             fname_doseWeight = 'T_' + str(energyLayersInfo[kk,0]*10000) + '.txt'
             weightData = load_dose_weight(fname_doseWeight)
-            energy = energyLayersInfo[kk,0] / 10000
+            energy = energyLayersInfo[kk,0] / 10000 # in MeV
 
         for k in xrange(weightData.dataLength):
             xPos   = weightData.data[k,0] # in mm
@@ -136,9 +151,10 @@ if __name__ == '__main__':
             subprocess.call(["./hadrontherapy", "hadron_therapy.mac"]);
 
             # Process data from geant 4
-            processData = merge_data(fname_masterDose)
+            processData = Merge_data(fname_masterDose)
 
             # Verbosity
             print('Processing Energy Layers %d' %kk)
             elapsedTime = (time.time()-startTime)/3600
             print('Elapsed time = %f hours' %elapsedTime)
+            logFile.saveLog(elapsedTime,energy,k)
