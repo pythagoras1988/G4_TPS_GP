@@ -5,11 +5,11 @@ import warnings;
 import time;
 
 # import classes
-from weight2Dose_class import Load_dose_weight
-from weight2Dose_class import MergeDataToFile
-from weight2Dose_class import RegisterDataToMemory
-from weight2Dose_class import G4_setup
-from weight2Dose_class import CreateLogFile
+from weight2dose_class import Load_dose_weight
+from weight2dose_class import MergeDataToFile
+from weight2dose_class import RegisterDataToMemory
+from weight2dose_class import G4_setup
+from weight2dose_class import CreateLogFile
 
 global testing
 testing = True
@@ -63,7 +63,7 @@ if __name__ == '__main__':
 
             # Process data from geant 4
             #processData = MergeDataToFile(fname_masterDose)
-            regData.RegisterData()
+            regData.registerData()
             regData.saveData()
 
             # Verbosity

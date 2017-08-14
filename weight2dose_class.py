@@ -6,13 +6,13 @@ import warnings;
 # Class for loading weight data from commercial TPS
 class Load_dose_weight:
     def __init__(self,fname):
-    	try: 
+    	try:
         	self.data = np.loadtxt(fname,skiprows=1,delimiter=',')
         	self.dataLength = len(self.data[:,0])
-        except: 
+        except:
             # if unable to load file, set length of data to be 0
-        	self.dataLength = 0 
-        
+        	self.dataLength = 0
+
         if np.abs(sum(self.data[:,2])-1)>0.5:
             warnings.warn('Sum of weight not equal to 1...')
 
@@ -43,23 +43,24 @@ class MergeDataToFile:
         else:
             return np.argmax(tmp)
 
-class RegisterDataToMemory: 
-    def __init__(self,dimX=150,dimY=150,dimZ=150,fname_masterdata):
-        self.data = np.zeros(dimX*dimY*dimZ) 
-        self.fname = fname_masterdata 
-        self.dim = [dimX,dimY,dimZ] 
+class RegisterDataToMemory:
+    def __init__(self,fname_masterdata,dimX=200,dimY=200,dimZ=200):
+        self.data = np.zeros(dimX*dimY*dimZ)
+        self.fname = fname_masterdata
+        self.dim = [dimX,dimY,dimZ]
         print('Memory allocated for dose scoring...')
 
-    def saveData(self): 
-        np.savetxt(fname_masterdata,self.data)
+    def saveData(self):
+        np.savetxt(self.fname,self.data)
 
-    def registerData(self): 
+    def registerData(self):
         doseData = np.loadtxt('Dose.out',skiprows=1)
         for k in xrange(len(doseData[:,0])):
             index = self.__convert1d(doseData[k,0],doseData[k,1],doseData[k,2])
+            index = int(index)
             self.data[index] = self.data[index] + doseData[k,3]
-    
-    def __convert1d(self,x,y,z): 
+
+    def __convert1d(self,x,y,z):
         return x + y*self.dim[0] + z*self.dim[0]*self.dim[1]
 
 
@@ -112,14 +113,14 @@ class G4_setup:
         self.lines[115] = fluenceLine
 
 # create log file for debug use
-class CreateLogFile: 
-	def __init__(self): 
-		self.data  = np.array([])
-		self.index = 0
-		if os.path.isfile('log.txt'): 
-			os.remove('log.txt') 
+class CreateLogFile:
+    def __init__(self):
+	self.data  = np.array([])
+	self.index = 0
+	if os.path.isfile('log.txt'):
+	    os.remove('log.txt')
 
-	def saveLog(self,elapsedTime,energy,run_number):
-		self.data[self.index,0] = energy 
-		self.data[self.index,1] = run_number
-		self.data[self.index,0] = elapsedTime
+    def saveLog(self,elapsedTime,energy,run_number):
+	temp = [energy,run_number,elapsedTime]
+	temp = np.array(temp)
+	self.data = np.append(self.data,temp,axis=0)
