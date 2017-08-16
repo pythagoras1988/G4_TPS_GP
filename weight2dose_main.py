@@ -12,7 +12,7 @@ from weight2dose_class import G4_setup
 from weight2dose_class import CreateLogFile
 
 global testing
-testing = True
+testing = False
 
 # This is the main code
 if __name__ == '__main__':
@@ -35,15 +35,16 @@ if __name__ == '__main__':
         totalEnergyLayers = 1
     else:
         # Read the entire possible energy layers and spot size
-        energyLayersInfo = np.loadtxt('List.txt',skiprows=1)
+        energyLayersInfo = np.loadtxt('List.txt',skiprows=1,delimiter=',')
         totalEnergyLayers = len(energyLayersInfo[:,0])
 
     # Main code for running Geant4
     for kk in xrange(totalEnergyLayers):
         if not testing:
-            fname_doseWeight = 'T_' + str(energyLayersInfo[kk,0]*10000) + '.txt'
-            weightData = load_dose_weight(fname_doseWeight)
-            energy = energyLayersInfo[kk,0] / 10000 # in MeV
+            fname_doseWeight = 'T_' + str(int(energyLayersInfo[kk,0]*10000)) + '.txt'
+            print fname_doseWeight
+            weightData = Load_dose_weight(fname_doseWeight)
+            energy = energyLayersInfo[kk,0] # in MeV
 
         for k in xrange(weightData.dataLength):
             xPos   = weightData.data[k,0] # in mm

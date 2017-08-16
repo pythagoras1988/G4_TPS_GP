@@ -16,6 +16,19 @@ class Load_dose_weight:
         if np.abs(sum(self.data[:,2])-1)>0.5:
             warnings.warn('Sum of weight not equal to 1...')
 
+# create log file for debug use
+class CreateLogFile:
+    def __init__(self):
+        self.data = np.empty((1,3))
+        self.index = 0
+        if os.path.isfile('log.txt'):
+            os.remove('log.txt')
+
+    def saveLog(self,elapsedTime,energy,run_number):
+        temp = [energy,int(run_number),elapsedTime]
+        temp = np.array([temp])
+        self.data = np.append(self.data,temp,axis=0)
+        np.savetxt('log.txt',self.data)
 #
 class MergeDataToFile:
     def __init__(self,fname_masterdata):
@@ -80,7 +93,7 @@ class G4_setup:
         self.xPos = xPos
         self.yPos = yPos
         self.weight = weight
-        self._totalFluence = 5000000
+        self._totalFluence = 500000
         self.prop_constant = 180; # for magnetic field spot position mapping
 
     def read_file(self):
@@ -112,15 +125,5 @@ class G4_setup:
         fluenceLine = '/run/beamOn ' + str(int(np.rint(self.weight*self._totalFluence)))
         self.lines[115] = fluenceLine
 
-# create log file for debug use
-class CreateLogFile:
-    def __init__(self):
-	self.data  = np.array([])
-	self.index = 0
-	if os.path.isfile('log.txt'):
-	    os.remove('log.txt')
-
-    def saveLog(self,elapsedTime,energy,run_number):
-	temp = [energy,run_number,elapsedTime]
-	temp = np.array(temp)
-	self.data = np.append(self.data,temp,axis=0)
+    def __calibrateEnergy(self):
+        pass
