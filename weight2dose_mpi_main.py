@@ -40,6 +40,7 @@ if __name__ == '__main__':
 
         # run scheduler to allocate energy layer processing to different processes
         scheduler = InitMPI.scheduler_simple(energyLayersInfo,totalEnergyLayers,size)
+        print scheduler
 
         if rank == scheduler[kk]:
             print('Process %d processing energy layers %d...' %(rank,kk))
@@ -72,4 +73,4 @@ if __name__ == '__main__':
                 print('Processing Energy Layers %d' %kk)
                 elapsedTime = (time.time()-startTime)/3600
                 print('Elapsed time = %f hours' %elapsedTime)
-                logFile.saveLog(elapsedTime,energy,k)
+                #logFile.saveLog(elapsedTime,energy,k)
