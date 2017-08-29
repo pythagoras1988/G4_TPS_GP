@@ -3,6 +3,7 @@ import os.path;
 import subprocess;
 import warnings;
 import time;
+import argparse;
 
 # import classes
 from weight2dose_class import Load_dose_weight
@@ -52,7 +53,7 @@ if __name__ == '__main__':
             weight = weightData.data[k,2]
 
             #Setup Geant4 parameters
-            setup = G4_setup(energy,xPos,yPos,weight)
+            setup = G4_setup(energy,xPos,yPos,weight,'hadron_therapy.mac')
             setup.read_file()
             setup.change_energy()
             setup.change_field()

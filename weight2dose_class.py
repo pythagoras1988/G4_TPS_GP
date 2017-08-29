@@ -87,13 +87,13 @@ class Rename_data:
 
 # This class for configuring the setup condition of geant4
 class G4_setup:
-    def __init__(self,energy,xPos,yPos,weight):
-        self.fname_G4 = 'hadron_therapy.mac'
+    def __init__(self,energy,xPos,yPos,weight,fname):
+        self.fname_G4 = fname
         self.energy   = energy
         self.xPos = xPos
         self.yPos = yPos
         self.weight = weight
-        self._totalFluence = 500000
+        self._totalFluence = 100000
         self.prop_constant = 180; # for magnetic field spot position mapping
 
     def read_file(self):
