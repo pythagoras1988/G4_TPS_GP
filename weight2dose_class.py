@@ -3,6 +3,8 @@ import os.path;
 import subprocess;
 import warnings;
 
+fluenceConstant = 100000
+
 # Class for loading weight data from commercial TPS
 class Load_dose_weight:
     def __init__(self,fname):
@@ -12,9 +14,8 @@ class Load_dose_weight:
         except:
             # if unable to load file, set length of data to be 0
         	self.dataLength = 0
-
-        if np.abs(sum(self.data[:,2])-1)>0.5:
-            warnings.warn('Sum of weight not equal to 1...')
+        #if np.abs(sum(self.data[:,2])-1)>0.5:
+        #    warnings.warn('Sum of weight not equal to 1...')
 
 # create log file for debug use
 class CreateLogFile:
@@ -76,14 +77,31 @@ class RegisterDataToMemory:
     def __convert1d(self,x,y,z):
         return x + y*self.dim[0] + z*self.dim[0]*self.dim[1]
 
-
-#
 class Rename_data:
     def __init__(self,fname_Dose_out):
         if not os.path.isfile(fname_Dose_out):
             os.rename('Dose.out',fname_Dose_out)
         else:
             raise Exception('File name already exists!')
+
+# This class estimates the total fluence that needs to be run
+class EstimateTotalFluence:
+    def __init__(self,fname_energyInfo):
+        self.energyInfo = np.loadtxt(fname_energyInfo,skiprows=1,delimiter=',')
+        self.totalEnergyLayers = len(self.energyInfo[:,0])
+        assert self.totalEnergyLayers > 0
+        self.totalFluence = fluenceConstant
+        self.totalWeight  = 0;
+        self._sumFluenceAllEnergy()
+
+    def _sumFluenceAllEnergy(self):
+        for kk in xrange(self.totalEnergyLayers):
+            fname_doseWeight = 'T_' + str(int(self.energyInfo[kk,0]*10000)) + '.txt'
+            weightData = Load_dose_weight(fname_doseWeight)
+            self.totalWeight += sum(weightData.data[:,2])
+
+    def getTotalFluenceForRun(self):
+        return self.totalWeight*self.totalFluence
 
 # This class for configuring the setup condition of geant4
 class G4_setup:
@@ -93,7 +111,7 @@ class G4_setup:
         self.xPos = xPos
         self.yPos = yPos
         self.weight = weight
-        self._totalFluence = 100000
+        self._totalFluence = fluenceConstant
         self.prop_constant = 180; # for magnetic field spot position mapping
 
     def read_file(self):
@@ -107,6 +125,10 @@ class G4_setup:
             writeFile.write("%s" % item)
         writeFile.close();
         print('Geant4 input file created.....')
+
+    def change_numThreads(self,numThreads):
+        threadLine = '/run/numberOfThreads ' + str(numThreads) + '\n'
+        self.lines[29] = threadLine
 
     def change_energy(self):
         particleEnergyLine = '/gps/ene/mono ' + str(self.energy) + ' MeV' + '\n'
@@ -125,5 +147,5 @@ class G4_setup:
         fluenceLine = '/run/beamOn ' + str(int(np.rint(self.weight*self._totalFluence)))
         self.lines[115] = fluenceLine
 
-    def __calibrateEnergy(self):
+    def _calibrateEnergy(self):
         pass
