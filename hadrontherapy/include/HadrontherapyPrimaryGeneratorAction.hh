@@ -30,6 +30,7 @@
 #define HadrontherapyPrimaryGeneratorAction_h 1
 
 #include "G4VUserPrimaryGeneratorAction.hh"
+#include "HadrontherapyPrimaryGeneratorMessenger.hh"
 #include "G4ParticleGun.hh"
 #include "globals.hh"
 
@@ -46,20 +47,14 @@ public:
 public:
   // Methods to change the parameters of primary particle generation
   // interactively
-  void SetsigmaEnergy(G4double);
-  void SetmeanKineticEnergy(G4double);
   void GeneratePrimaries(G4Event*);
-  void SetXposition(G4double);
-  void SetYposition(G4double);
-  void SetZposition(G4double);
-  void SetsigmaY(G4double);
-  void SetsigmaZ(G4double);
-  void SetsigmaMomentumY(G4double);
-  void SetsigmaMomentumZ(G4double);
-  G4double GetmeanKineticEnergy(void);
-  G4double GetSigmaEnergy(void);
+  void SetTwissAlpha(G4double);
+  void SetTwissBeta(G4double);
+  void SetTwissEmittance_y(G4double);
+  void SetTwissEmittance_z(G4double);
 
 private:
+  HadrontherapyPrimaryGeneratorMessenger* messenger;
   G4double epsilon_y, epsilon_z;
   G4double alpha, beta, gamma;
   G4double xPos, y_sample, z_sample;

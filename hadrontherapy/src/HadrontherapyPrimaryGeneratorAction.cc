@@ -46,6 +46,7 @@ using namespace std;
 /////////////////////////////////////////////////////////////////////////////
 HadrontherapyPrimaryGeneratorAction::HadrontherapyPrimaryGeneratorAction()
 {
+  messenger = new HadrontherapyPrimaryGeneratorMessenger(this);
   // Definition of the General particle Source
   //particleGun = new G4GeneralParticleSource();
   particleGun   = new G4ParticleGun(1);
@@ -53,12 +54,12 @@ HadrontherapyPrimaryGeneratorAction::HadrontherapyPrimaryGeneratorAction()
   particleGun->SetParticleDefinition(particle);
 
   // Define Twiss parameters
+  /*
   epsilon_y = 2.2/pi; // in pi * mm * mrad
   epsilon_z = 2.0/pi;
   alpha     = 2.4;
   beta      = 6.6;
-  gamma     = (1 + alpha*alpha) / beta;
-  xPos      = -236.1*cm;
+  */
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -75,12 +76,17 @@ HadrontherapyPrimaryGeneratorAction::~HadrontherapyPrimaryGeneratorAction()
     HadrontherapyAnalysisManager::GetInstance()->startNewEvent();
 #endif
     // Determine Covariance matrix
+    gamma     = (1 + alpha*alpha) / beta;
+    xPos      = -236.1*cm;
+
     var_y = epsilon_y * beta;
     var_z = epsilon_z * beta;
     var_yp = epsilon_y * gamma;
     var_zp = epsilon_z * gamma;
     cov_y    = 1 * alpha * epsilon_y;
     cov_z    = 1 * alpha * epsilon_z;
+
+    //G4cout << alpha <<'\t'<<beta<<'\t'<<gamma<<G4endl;
 
     // Perform Cholesky Decomposition on the covariance matrix for (a b)
     //                                                             (b c)
@@ -117,3 +123,19 @@ HadrontherapyPrimaryGeneratorAction::~HadrontherapyPrimaryGeneratorAction()
 
     particleGun -> GeneratePrimaryVertex( anEvent );
     }
+
+    void HadrontherapyPrimaryGeneratorAction::SetTwissAlpha(G4double value)
+    {
+      alpha = value; }
+
+    void HadrontherapyPrimaryGeneratorAction::SetTwissBeta(G4double value)
+    {
+      beta = value; }
+
+    void HadrontherapyPrimaryGeneratorAction::SetTwissEmittance_y(G4double value)
+    {
+      epsilon_y = value / pi; }
+
+    void HadrontherapyPrimaryGeneratorAction::SetTwissEmittance_z(G4double value)
+    {
+      epsilon_z = value / pi; }
