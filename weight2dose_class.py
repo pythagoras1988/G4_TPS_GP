@@ -147,5 +147,8 @@ class G4_setup:
         fluenceLine = '/run/beamOn ' + str(int(np.rint(self.weight*self._totalFluence)))
         self.lines[115] = fluenceLine
 
+    def change_twissParam(self):
+        pass
+
     def _calibrateEnergy(self):
         pass
