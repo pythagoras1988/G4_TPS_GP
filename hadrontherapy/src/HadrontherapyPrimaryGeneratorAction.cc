@@ -120,6 +120,7 @@ HadrontherapyPrimaryGeneratorAction::~HadrontherapyPrimaryGeneratorAction()
       saveFile << zp_sample << '\n';
     }
     saveFile.close();
+    
 
     particleGun -> GeneratePrimaryVertex( anEvent );
     }

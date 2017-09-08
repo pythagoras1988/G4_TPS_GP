@@ -46,6 +46,10 @@
 #include "G4UniformMagField.hh"
 #include "G4FieldManager.hh"
 #include "G4ChordFinder.hh"
+#include "G4Mag_UsualEqRhs.hh"
+#include "G4MagIntegratorStepper.hh"
+#include "G4MagIntegratorDriver.hh"
+#include "G4HelixImplicitEuler.hh"
 //#include "FaradayCup.hh"
 
 //G4bool PassiveProtonBeamLine::doCalculation = false;
@@ -381,9 +385,9 @@ void PassiveProtonBeamLine::ConstructPassiveProtonBeamLine()
     HadrontherapyMagnetX();
     HadrontherapyVacuumPipe();
 //    HadrontherapyMagnetY();
-//    HadrontherapyBeamMonitoring();
-//    HadrontherapySpotPositionMonitorDetector();
-    //HadrontherapyRangeShifter();
+    HadrontherapyBeamMonitoring();
+    HadrontherapySpotPositionMonitorDetector();
+    HadrontherapyRangeShifter();
     HadrontherapyNozzleBoundary();
 
     // The following lines construc a typical modulator wheel inside the Passive Beam line.
@@ -430,7 +434,7 @@ void PassiveProtonBeamLine::HadrontherapyVacuumPipe()
     G4double defaultKaptonWindowZSize = 15*cm;
     kaptonWindowZSize = defaultKaptonWindowZSize;
 
-    G4double defaultKaptonWindowXPosition = (-770.0*mm - defaultKaptonWindowXSize/2) ; // The exact value does not matter if no field/material before window
+    G4double defaultKaptonWindowXPosition = (-770.0*mm + defaultKaptonWindowXSize/2) ; // The exact value does not matter if no field/material before window
     kaptonWindowXPosition = defaultKaptonWindowXPosition;
 
 
@@ -446,8 +450,8 @@ void PassiveProtonBeamLine::HadrontherapyVacuumPipe()
     G4double lengthVacuumZone1 = lengthVacuumPipe1;
     G4double VacuumZoneXPosition1 = VacuumPipeXPosition1;
 
-    G4double lengthVacuumPipe2 = (-1*(magnetX_x + magnetX_y/2) + (-770*mm-defaultKaptonWindowXSize));
-    G4double VacuumPipeXPosition2 = ((magnetX_x + magnetX_y/2) + (-770*mm-defaultKaptonWindowXSize))/2;
+    G4double lengthVacuumPipe2 = (-1*(magnetX_x + magnetX_y/2) + (-770*mm));
+    G4double VacuumPipeXPosition2 = ((magnetX_x + magnetX_y/2) + (-770*mm))/2;
     G4double lengthVacuumZone2 = lengthVacuumPipe2;
     G4double VacuumZoneXPosition2 = VacuumPipeXPosition2;
 
@@ -997,10 +1001,20 @@ void PassiveProtonBeamLine::SetMagneticField(G4ThreeVector value)
   //create magnetic field
   G4UniformMagField* magField = new G4UniformMagField(value*tesla);
   G4FieldManager* fieldMgr = new G4FieldManager;
-  //G4FieldManager* fieldMgr    = G4TransportationManager::GetTransportationManager()->GetFieldManager();
+  G4Mag_UsualEqRhs* fEquation = new G4Mag_UsualEqRhs(magField);
+  G4MagIntegratorStepper* fStepper ;
+  fStepper = new G4HelixImplicitEuler( fEquation );
+
   fieldMgr->SetDetectorField(magField);
-  G4ChordFinder*  localChordFinder = new G4ChordFinder(magField,0.3*mm);
+  G4MagInt_Driver* fIntgrDriver = new G4MagInt_Driver(1.*mm,
+                                     fStepper);
+
+  //G4ChordFinder*  localChordFinder = new G4ChordFinder(magField,0.5*mm);
+  G4ChordFinder*  localChordFinder = new G4ChordFinder(fIntgrDriver);
+
   fieldMgr->SetChordFinder(localChordFinder);
+  fieldMgr->GetChordFinder()->SetDeltaChord(0.5*mm);
+  fieldMgr->SetDeltaOneStep(.5*mm);
   //fieldMgr->CreateChordFinder(magField);
   logicMagnetX->SetFieldManager(fieldMgr,true);
 

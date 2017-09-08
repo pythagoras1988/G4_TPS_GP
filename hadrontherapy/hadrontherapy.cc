@@ -113,8 +113,8 @@ int main(int argc ,char ** argv)
 #ifdef G4MULTITHREADED
     G4MTRunManager* runManager = new G4MTRunManager;
     //runManager->SetNumberOfThreads(8); // Is equal to 2 by default, it can be setted also with the macro command: /run/numberOfThread 2
-//#else
-  //  G4RunManager* runManager = new G4RunManager;
+#else
+   G4RunManager* runManager = new G4RunManager;
 #endif
 
 
