@@ -11,15 +11,12 @@ from weight2dose_class import MergeDataToFile
 from weight2dose_class import RegisterDataToMemory
 from weight2dose_class import G4_setup
 from weight2dose_class import CreateLogFile
-from weight2dose_error_handler import ErrorHandler
 
 global testing
 testing = False
 
 # This is the main code
 if __name__ == '__main__':
-    # Initialize various classes
-    ErrorHandler()
     startTime = time.time()
     logFile   = CreateLogFile()
     regData   = RegisterDataToMemory('masterDose.txt')

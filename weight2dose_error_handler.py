@@ -10,17 +10,22 @@ class ErrorHandler:
         if os.path.isfile('hadrontherapy'):
             print('Geant4 exe found...')
         else:
-            raise Exception('Geant4 exe not found!')
+            raise IOError('Geant4 exe not found!')
 
         if os.path.isfile('hadron_therapy.mac'):
             print('Geant4 .mac file found...')
         else:
-            raise Exception('Geant4 .mac file not found')
+            raise IOError('Geant4 .mac file not found')
 
         if os.path.isfile('List.txt'):
             print('Energy layers file found...')
         else:
-            raise Exception('Energy layers file not found')
+            raise IOError('Energy layers file not found')
+
+        if os.path.isfile('energy_calibration_list.txt'):
+            print('Energy calibration list file found...')
+        else:
+            raise IOError('Energy calibration list file not found')
 
         self._checkSpotWeightFile()
 
