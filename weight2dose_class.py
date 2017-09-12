@@ -131,7 +131,8 @@ class G4_setup:
         self.lines[29] = threadLine
 
     def change_energy(self):
-        particleEnergyLine = '/gps/ene/mono ' + str(self.energy) + ' MeV' + '\n'
+        energy = self._calibrateEnergy(self.energy)
+        particleEnergyLine = '/gps/ene/mono ' + str(energy) + ' MeV' + '\n'
         self.lines[59] = particleEnergyLine
 
     def change_field(self):
@@ -147,5 +148,11 @@ class G4_setup:
         fluenceLine = '/run/beamOn ' + str(int(np.rint(self.weight*self._totalFluence)))
         self.lines[115] = fluenceLine
 
-    def _calibrateEnergy(self):
+    def _calibrateEnergy(self,energy_hitachi):
+        data = np.loadtxt('energy_calibration_list.txt')
+        energy_input = data[:,1]
+        index = energy_input.index(energy_hitachi)
+        return data[index,4]
+
+    def _changeTwiss(self):
         pass
