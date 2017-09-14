@@ -11,25 +11,22 @@ from weight2dose_class import MergeDataToFile
 from weight2dose_class import RegisterDataToMemory
 from weight2dose_class import G4_setup
 from weight2dose_class import CreateLogFile
+from weight2dose_error_handler import ErrorHandler
 
 global testing
 testing = False
 
 # This is the main code
 if __name__ == '__main__':
-    startTime = time.time()
-    logFile   = CreateLogFile()
-    regData   = RegisterDataToMemory('masterDose.txt')
+    # Parsing arguments
+    parser = argparse.ArgumentParser('Set the number of computers to be used')
+    helpStatement = 'First input: Total number of computers, Second input: Computer number'
+    parser.add_argument('--ncpus',required=True,type=int,nargs=2, help=helpStatement)
+    args = parser.parse_args()
+    if args.ncpus[0]<1 or arg.cpus[1]<1:
+        raise ValueError('Invalid option in --ncpus')
 
-    # Check for masterDose files
-    fname_masterDose = 'masterDose.txt'
-    if os.path.isfile(fname_masterDose):
-        answer = raw_input('masterDose.txt file exists. Do you want to overwrite? (y/n)')
-        if answer == 'n':
-            raise Exception('Stopped program!')
-        else:
-            os.remove(fname_masterDose)
-
+    # Read total energy layers
     if testing:
         weightData = Load_dose_weight('T_1311000.txt')
         energy = 131.1
@@ -39,8 +36,31 @@ if __name__ == '__main__':
         energyLayersInfo = np.loadtxt('List.txt',skiprows=1,delimiter=',')
         totalEnergyLayers = len(energyLayersInfo[:,0])
 
+    # Check for option to manually partition the run of the energy layers ->
+    if args.ncpus[0]==1:
+        startEnergyLayers = 0
+        stepEnergyLayers  = 1
+    else:
+        startEnergyLayers = args.ncpus[1] - 1
+        stepEnergyLayers  = args.ncpus[0]
+        fname_masterDose = 'masterDose' + str(args.ncpus[1]) + '.txt'
+
+    # Initialization
+    ErrorHandler()
+    startTime = time.time()
+    logFile   = CreateLogFile()
+    regData   = RegisterDataToMemory(fname_masterDose)
+
+    # Check for masterDose files
+    if os.path.isfile(fname_masterDose):
+        answer = raw_input('masterDose.txt file exists. Do you want to overwrite? (y/n)')
+        if answer == 'n':
+            raise Exception('Stopped program!')
+        else:
+            os.remove(fname_masterDose)
+
     # Main code for running Geant4
-    for kk in xrange(totalEnergyLayers):
+    for kk in xrange(startEnergyLayers,totalEnergyLayers,stepEnergyLayers):
         if not testing:
             fname_doseWeight = 'T_' + str(int(energyLayersInfo[kk,0]*10000)) + '.txt'
             print fname_doseWeight
