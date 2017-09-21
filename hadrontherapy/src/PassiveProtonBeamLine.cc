@@ -40,7 +40,6 @@
 #include "G4NistManager.hh"
 #include "G4NistElementBuilder.hh"
 #include "HadrontherapyDetectorConstruction.hh"
-#include "HadrontherapyModulator.hh"
 #include "PassiveProtonBeamLine.hh"
 #include "PassiveProtonBeamLineMessenger.hh"
 #include "G4UniformMagField.hh"
@@ -55,7 +54,7 @@
 //G4bool PassiveProtonBeamLine::doCalculation = false;
 /////////////////////////////////////////////////////////////////////////////
 PassiveProtonBeamLine::PassiveProtonBeamLine():
-modulator(0), physicalTreatmentRoom(0),hadrontherapyDetectorConstruction(0),physiVacuumPipe1(0),physiVacuumZone1(0), physiVacuumPipe2(0),physiVacuumZone2(0),physiKaptonWindow(0), physiMagnet1(0),
+ physicalTreatmentRoom(0),hadrontherapyDetectorConstruction(0),physiVacuumPipe1(0),physiVacuumZone1(0), physiVacuumPipe2(0),physiVacuumZone2(0),physiKaptonWindow(0), physiMagnet1(0),
 solidRangeShifterBox(0), logicRangeShifterBox(0), physiRangeShifterBox(0), physiSpotPositionMonitorMotherVolume(0),
 physiFirstMonitorLayer1(0), physiFirstMonitorLayer2(0), physiFirstMonitorLayer3(0), physiFirstMonitorLayer4(0), physiFirstMonitorLayer5(0),
 physiSecondMonitorLayer1(0), physiSecondMonitorLayer2(0), physiSecondMonitorLayer3(0), physiSecondMonitorLayer4(0), physiSecondMonitorLayer5(0)
@@ -989,11 +988,6 @@ void PassiveProtonBeamLine::SetRSMaterial(G4String materialChoice)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void PassiveProtonBeamLine::SetModulatorAngle(G4double value)
-{
-    modulator -> SetModulatorAngle(value);
-    //G4RunManager::GetRunManager() -> GeometryHasBeenModified();
-}
 /////////////////////////////////////////////////////////////////////////////
 
 void PassiveProtonBeamLine::SetMagneticField(G4ThreeVector value)

@@ -39,7 +39,6 @@
 class G4VPhysicalVolume;
 class HadrontherapyDetectorConstruction;
 //class FaradayCup;
-class HadrontherapyModulator;
 class PassiveProtonBeamLineMessenger;
 class HadrontherapyDetectorROGeometry;
 
@@ -93,9 +92,6 @@ public:
     void SetRSMaterial(G4String);
     // This method allows to change the material
     // of the range shifter
-
-    void SetModulatorAngle(G4double angle);
-    // This method allows moving the modulator through UI commands
 
     void SetMagneticField(G4ThreeVector);
 
