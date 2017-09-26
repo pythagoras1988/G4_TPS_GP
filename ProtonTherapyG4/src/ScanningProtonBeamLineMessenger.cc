@@ -26,16 +26,16 @@
 // Hadrontherapy advanced example for Geant4
 // See more at: https://twiki.cern.ch/twiki/bin/view/Geant4/AdvancedExamplesHadrontherapy
 
-#include "PassiveProtonBeamLineMessenger.hh"
-#include "PassiveProtonBeamLine.hh"
+#include "ScanningProtonBeamLineMessenger.hh"
+#include "ScanningProtonBeamLine.hh"
 #include "G4UIdirectory.hh"
 #include "G4UIcmdWithADoubleAndUnit.hh"
 #include "G4UIcmdWithAString.hh"
 #include "G4UIcmdWith3Vector.hh"
 #include "G4SystemOfUnits.hh"
 
-    PassiveProtonBeamLineMessenger::PassiveProtonBeamLineMessenger(PassiveProtonBeamLine* beamLine)
-:passiveProton(beamLine)
+    ScanningProtonBeamLineMessenger::ScanningProtonBeamLineMessenger(PassiveProtonBeamLine* beamLine)
+:scanningProton(beamLine)
 
 {
     changeTheBeamLineDir = new G4UIdirectory("/ChangeBeamLine/");
@@ -46,21 +46,11 @@
     changeTheBeamLineNameCmd -> SetParameterName("List",false);
     changeTheBeamLineNameCmd -> AvailableForStates(G4State_PreInit);
 
-    modulatorDir = new G4UIdirectory("/modulator/");
-    modulatorDir -> SetGuidance("Command to rotate the modulator wheel");
-
     beamLineDir = new G4UIdirectory("/beamLine/");
     beamLineDir -> SetGuidance("set specification of range shifter");
 
     rangeShifterDir = new G4UIdirectory("/beamLine/RangeShifter/");
     rangeShifterDir -> SetGuidance("set specification of range shifter");
-
-    modulatorAngleCmd = new G4UIcmdWithADoubleAndUnit("/modulator/angle",this);
-    modulatorAngleCmd -> SetGuidance("Set Modulator Angle");
-    modulatorAngleCmd -> SetParameterName("Size",false);
-    modulatorAngleCmd -> SetRange("Size>=0.");
-    modulatorAngleCmd -> SetUnitCategory("Angle");
-    modulatorAngleCmd -> AvailableForStates(G4State_Idle);
 
     rangeShifterMatCmd = new G4UIcmdWithAString("/beamLine/RangeShifter/RSMat",this);
     rangeShifterMatCmd -> SetGuidance("Set material of range shifter");
@@ -88,41 +78,33 @@
 
 }
 
-PassiveProtonBeamLineMessenger::~PassiveProtonBeamLineMessenger()
+ScanningProtonBeamLineMessenger::~ScanningProtonBeamLineMessenger()
 {
 
     delete rangeShifterXPositionCmd;
     delete rangeShifterXSizeCmd;
     delete rangeShifterMatCmd;
-    delete modulatorAngleCmd;
     delete magneticFieldCmd;
     delete rangeShifterDir;
     delete beamLineDir;
-    delete modulatorDir;
 }
 
-
-
-
-void PassiveProtonBeamLineMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
+void ScanningProtonBeamLineMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
 {
-    if( command == modulatorAngleCmd )
-    { passiveProton -> SetModulatorAngle
-	(modulatorAngleCmd -> GetNewDoubleValue(newValue));}
 
     else if( command == rangeShifterMatCmd )
-    { passiveProton -> SetRSMaterial(newValue);}
+    { scanningProton -> SetRSMaterial(newValue);}
 
     else if( command == rangeShifterXSizeCmd )
-    { passiveProton -> SetRangeShifterXSize
+    { scanningProton -> SetRangeShifterXSize
 	(rangeShifterXSizeCmd -> GetNewDoubleValue(newValue));}
 
     else if( command == rangeShifterXPositionCmd )
-    { passiveProton -> SetRangeShifterXPosition
+    { scanningProton -> SetRangeShifterXPosition
 	(rangeShifterXPositionCmd -> GetNewDoubleValue(newValue));}
 
     else if( command == magneticFieldCmd) {
-      passiveProton -> SetMagneticField(magneticFieldCmd->GetNew3VectorValue(newValue));
+      scanningProton -> SetMagneticField(magneticFieldCmd->GetNew3VectorValue(newValue));
     }
 
 }

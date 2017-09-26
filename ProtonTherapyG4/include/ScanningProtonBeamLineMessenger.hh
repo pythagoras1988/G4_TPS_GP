@@ -26,55 +26,39 @@
 // Hadrontherapy advanced example for Geant4
 // See more at: https://twiki.cern.ch/twiki/bin/view/Geant4/AdvancedExamplesHadrontherapy
 
-#ifndef PassiveProtonBeamLineMessenger_h
-#define PassiveProtonBeamLineMessenger_h 1
+#ifndef ScanningProtonBeamLineMessenger_h
+#define ScanningProtonBeamLineMessenger_h 1
 
 #include "globals.hh"
 #include "G4UImessenger.hh"
 
 
-class PassiveProtonBeamLine;
+class ScanningProtonBeamLine;
 class G4UIdirectory;
 class G4UIcmdWithADoubleAndUnit;
 class G4UIcmdWithAString;
 class G4UIcmdWith3Vector;
 
-class PassiveProtonBeamLineMessenger: public G4UImessenger
+class ScanningProtonBeamLineMessenger: public G4UImessenger
 {
   public:
-  PassiveProtonBeamLineMessenger(PassiveProtonBeamLine*);
-  ~PassiveProtonBeamLineMessenger();
+  ScanningProtonBeamLineMessenger(ScanningProtonBeamLine*);
+  ~ScanningProtonBeamLineMessenger();
 
     void SetNewValue(G4UIcommand*, G4String);
 
 private:
 
   // Pointer to the detector component
-  PassiveProtonBeamLine* passiveProton;
+  ScanningProtonBeamLine* scanningProton;
 
   G4UIdirectory* changeTheBeamLineDir;
   G4UIcmdWithAString*        changeTheBeamLineNameCmd; // Control the name of the beam line
 
-  G4UIdirectory* modulatorDir; // Control of the modulator
   G4UIdirectory* beamLineDir;  // Control of the beam line
 
   G4UIdirectory* rangeShifterDir;
   // Control of the range shifter component of the beam line
-
-  G4UIdirectory* firstScatteringFoilDir;
-  // Control of the first scattering foil component of the beam line
-
-  G4UIdirectory* secondScatteringFoilDir;
-  // Control of the first scattering foil component of the beam line
-
-  G4UIdirectory* rangeStopperDir;
-  // Control of the range stopper component of the beam line
-
-  G4UIdirectory* finalCollimatorDir;
-  // Control of the final collimator component of the beam line
-
-  G4UIcmdWithADoubleAndUnit* modulatorAngleCmd;
-  // UI command to rotate the modulator wheel
 
   G4UIcmdWithAString* rangeShifterMatCmd;
   // UI command to set the material of the rangeShifter component of
@@ -86,22 +70,6 @@ private:
 
   G4UIcmdWithADoubleAndUnit* rangeShifterXPositionCmd;
   // UI command to change the X position of the rangeShifter component of
-  // the beam line
-
-  G4UIcmdWithADoubleAndUnit* firstScatteringFoilXSizeCmd;
-  // UI command to set half X size of the first scattering foil of
-  // the beam line
-
-  G4UIcmdWithADoubleAndUnit* secondScatteringFoilXSizeCmd;
-  // UI command to set half X size of the second scattering foil
-  // the beam line
-
-  G4UIcmdWithADoubleAndUnit* outerRadiusStopperCmd;
-  // UI command to set the outer radius of the range stopper component of
-  // the beam line
-
-  G4UIcmdWithADoubleAndUnit* innerRadiusFinalCollimatorCmd;
-  // UI command to set the inner radius of the final collimator component of
   // the beam line
 
   G4UIcmdWith3Vector* magneticFieldCmd;

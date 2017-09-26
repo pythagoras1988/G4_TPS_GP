@@ -39,9 +39,9 @@
 #include "G4RotationMatrix.hh"
 #include "G4NistManager.hh"
 #include "G4NistElementBuilder.hh"
-#include "HadrontherapyDetectorConstruction.hh"
-#include "PassiveProtonBeamLine.hh"
-#include "PassiveProtonBeamLineMessenger.hh"
+#include "ProtontherapyDetectorConstruction.hh"
+#include "ScanningProtonBeamLine.hh"
+#include "ScanningProtonBeamLineMessenger.hh"
 #include "G4UniformMagField.hh"
 #include "G4FieldManager.hh"
 #include "G4ChordFinder.hh"
@@ -49,19 +49,17 @@
 #include "G4MagIntegratorStepper.hh"
 #include "G4MagIntegratorDriver.hh"
 #include "G4HelixImplicitEuler.hh"
-//#include "FaradayCup.hh"
 
-//G4bool PassiveProtonBeamLine::doCalculation = false;
 /////////////////////////////////////////////////////////////////////////////
-PassiveProtonBeamLine::PassiveProtonBeamLine():
- physicalTreatmentRoom(0),hadrontherapyDetectorConstruction(0),physiVacuumPipe1(0),physiVacuumZone1(0), physiVacuumPipe2(0),physiVacuumZone2(0),physiKaptonWindow(0), physiMagnet1(0),
+ScanningProtonBeamLine::ScanningProtonBeamLine():
+ physicalTreatmentRoom(0),protontherapyDetectorConstruction(0),physiVacuumPipe1(0),physiVacuumZone1(0), physiVacuumPipe2(0),physiVacuumZone2(0),physiKaptonWindow(0), physiMagnet1(0),
 solidRangeShifterBox(0), logicRangeShifterBox(0), physiRangeShifterBox(0), physiSpotPositionMonitorMotherVolume(0),
 physiFirstMonitorLayer1(0), physiFirstMonitorLayer2(0), physiFirstMonitorLayer3(0), physiFirstMonitorLayer4(0), physiFirstMonitorLayer5(0),
 physiSecondMonitorLayer1(0), physiSecondMonitorLayer2(0), physiSecondMonitorLayer3(0), physiSecondMonitorLayer4(0), physiSecondMonitorLayer5(0)
 //physiHoleNozzleSupport(0),
 {
     // Messenger to change parameters of the passiveProtonBeamLine geometry
-    passiveMessenger = new PassiveProtonBeamLineMessenger(this);
+    scanningMessenger = new ScanningProtonBeamLineMessenger(this);
 
     //***************************** PW ***************************************
     static G4String ROGeometryName = "DetectorROGeometry";
@@ -78,33 +76,27 @@ physiSecondMonitorLayer1(0), physiSecondMonitorLayer2(0), physiSecondMonitorLaye
 	}*/
 }
 /////////////////////////////////////////////////////////////////////////////
-PassiveProtonBeamLine::~PassiveProtonBeamLine()
+ScanningProtonBeamLine::~ScanningProtonBeamLine()
 {
-    delete passiveMessenger;
-    delete hadrontherapyDetectorConstruction;
-    /* if (!pFaradayCup)
-    {
-        delete pFaradayCup;
-	}*/
+    delete scanningMessenger;
+    delete protontherapyDetectorConstruction;
 }
 
 /////////////////////////////////////////////////////////////////////////////
-G4VPhysicalVolume* PassiveProtonBeamLine::Construct()
+G4VPhysicalVolume* ScanningProtonBeamLine::Construct()
 {
     // Sets default geometry and materials
-
     SetDefaultDimensions();
 
     // Construct the whole Passive Beam Line
-    ConstructPassiveProtonBeamLine();
+    ConstructScanningProtonBeamLine();
 
     //***************************** PW ***************************************
-    if (!hadrontherapyDetectorConstruction)
-
+    if (!protontherapyDetectorConstruction)
         //***************************** PW ***************************************
 
         // HadrontherapyDetectorConstruction builds ONLY the phantom and the detector with its associated ROGeometry
-        hadrontherapyDetectorConstruction = new HadrontherapyDetectorConstruction(physicalTreatmentRoom);
+        protontherapyDetectorConstruction = new ProtontherapyDetectorConstruction(physicalTreatmentRoom);
 
 
     //***************************** PW ***************************************
@@ -112,11 +104,6 @@ G4VPhysicalVolume* PassiveProtonBeamLine::Construct()
     hadrontherapyDetectorConstruction->InitializeDetectorROGeometry(RO,hadrontherapyDetectorConstruction->GetDetectorToWorldPosition());
 
     //***************************** PW ***************************************
-    /*  if (doCalculation)
-    {
-        pFaradayCup = new FaradayCup(physicalTreatmentRoom);
-        G4cout << "Faraday Cup detector has been activated" << G4endl;
-	}*/
     return physicalTreatmentRoom;
 }
 
@@ -130,7 +117,7 @@ G4VPhysicalVolume* PassiveProtonBeamLine::Construct()
 // and COLOURS ARE ALSO DEFINED
 // ----------------------------------------------------------
 /////////////////////////////////////////////////////////////////////////////
-void PassiveProtonBeamLine::SetDefaultDimensions()
+void ScanningProtonBeamLine::SetDefaultDimensions()
 {
     // Set of coulors that can be used
     white = new G4VisAttributes( G4Colour());
@@ -353,7 +340,7 @@ void PassiveProtonBeamLine::SetDefaultDimensions()
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void PassiveProtonBeamLine::ConstructPassiveProtonBeamLine()
+void ScanningProtonBeamLine::ConstructScanningProtonBeamLine()
 {
     // -----------------------------
     // Treatment room - World volume
@@ -381,20 +368,16 @@ void PassiveProtonBeamLine::ConstructPassiveProtonBeamLine()
     logicTreatmentRoom -> SetVisAttributes (G4VisAttributes::GetInvisible());
 
     // Components of the Passive Proton Beam Line
-    HadrontherapyMagnetX();
-    HadrontherapyVacuumPipe();
+    ProtontherapyMagnetX();
+    ProtontherapyVacuumPipe();
 //    HadrontherapyMagnetY();
-    HadrontherapyBeamMonitoring();
-    HadrontherapySpotPositionMonitorDetector();
-    HadrontherapyRangeShifter();
-    HadrontherapyNozzleBoundary();
-
-    // The following lines construc a typical modulator wheel inside the Passive Beam line.
-    // Please remember to set the nodulator material (default is air, i.e. no modulator!)
-    // in the HadrontherapyModulator.cc file
+    ProtontherapyBeamMonitoring();
+    ProtontherapySpotPositionMonitorDetector();
+    ProtontherapyRangeShifter();
+    ProtontherapyNozzleBoundary();
 }
 
-void PassiveProtonBeamLine::HadrontherapyMagnetX() {
+void ScanningProtonBeamLine::ProtontherapyMagnetX() {
 
   magnetX_x = -1350.0 * mm;
   magnetX_y = 200.0 * mm;
@@ -417,7 +400,7 @@ void PassiveProtonBeamLine::HadrontherapyMagnetX() {
 
 
 /////////////////////////////////////////////////////////////////////////////
-void PassiveProtonBeamLine::HadrontherapyVacuumPipe()
+void ScanningProtonBeamLine::ProtontherapyVacuumPipe()
 {
     // ------------------//
     //    Vacuum Pipe    //
@@ -577,7 +560,7 @@ void PassiveProtonBeamLine::HadrontherapyVacuumPipe()
 
 
 /////////////////////////////////////////////////////////////////////////////
-void PassiveProtonBeamLine::HadrontherapyBeamMonitoring()
+void ScanningProtonBeamLine::ProtontherapyBeamMonitoring()
 {
     // ----------------------------
     //   THE MAIN DOSE MONITOR CHAMBER
@@ -737,7 +720,7 @@ void PassiveProtonBeamLine::HadrontherapyBeamMonitoring()
 
 }
 /////////////////////////////////////////////////////////////////////////////
-void PassiveProtonBeamLine::HadrontherapySpotPositionMonitorDetector()
+void ScanningProtonBeamLine::ProtontherapySpotPositionMonitorDetector()
 {
     // -------------------------------------------------//
     //        THE SPOT POSITION MONITOR DETECTOR        //
@@ -875,7 +858,7 @@ void PassiveProtonBeamLine::HadrontherapySpotPositionMonitorDetector()
 
 }
 /////////////////////////////////////////////////////////////////////////////
-void PassiveProtonBeamLine::HadrontherapyRangeShifter()
+void ScanningProtonBeamLine::ProtontherapyRangeShifter()
 {
     // ---------------------------- //
     //         THE RANGE SHIFTER    //
@@ -926,7 +909,7 @@ void PassiveProtonBeamLine::HadrontherapyRangeShifter()
     logicRangeShifterBox -> SetVisAttributes(yellow);
 }
 
-void PassiveProtonBeamLine::HadrontherapyNozzleBoundary() {
+void ScanningProtonBeamLine::ProtontherapyNozzleBoundary() {
 
     G4double centerPos = -345.0*mm - 600.0/2*mm;
     G4RotationMatrix* rm1 = new G4RotationMatrix;
@@ -952,14 +935,14 @@ void PassiveProtonBeamLine::HadrontherapyNozzleBoundary() {
 
 /////////////////////////// MESSENGER ///////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-void PassiveProtonBeamLine::SetRangeShifterXPosition(G4double value)
+void ScanningProtonBeamLine::SetRangeShifterXPosition(G4double value)
 {
     physiRangeShifterBox -> SetTranslation(G4ThreeVector(value, 0., 0.));
     G4RunManager::GetRunManager() -> GeometryHasBeenModified();
     G4cout << "The Range Shifter is translated to"<< value/mm <<"mm along the X axis" <<G4endl;
 }
 /////////////////////////////////////////////////////////////////////////////
-void PassiveProtonBeamLine::SetRangeShifterXSize(G4double value)
+void ScanningProtonBeamLine::SetRangeShifterXSize(G4double value)
 {
     solidRangeShifterBox -> SetXHalfLength(value) ;
     G4cout << "RangeShifter size X (mm): "<< ((solidRangeShifterBox -> GetXHalfLength())*2.)/mm
@@ -968,7 +951,7 @@ void PassiveProtonBeamLine::SetRangeShifterXSize(G4double value)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void PassiveProtonBeamLine::SetRSMaterial(G4String materialChoice)
+void ScanningProtonBeamLine::SetRSMaterial(G4String materialChoice)
 {
     if (G4Material* pttoMaterial = G4NistManager::Instance()->FindOrBuildMaterial(materialChoice, false) )
     {
@@ -990,7 +973,7 @@ void PassiveProtonBeamLine::SetRSMaterial(G4String materialChoice)
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-void PassiveProtonBeamLine::SetMagneticField(G4ThreeVector value)
+void ScanningProtonBeamLine::SetMagneticField(G4ThreeVector value)
 {
   //create magnetic field
   G4UniformMagField* magField = new G4UniformMagField(value*tesla);
