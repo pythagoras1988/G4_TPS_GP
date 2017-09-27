@@ -26,8 +26,8 @@
 // Hadrontherapy advanced example for Geant4
 // See more at: https://twiki.cern.ch/twiki/bin/view/Geant4/AdvancedExamplesHadrontherapy
 
-#ifndef PassiveProtonBeamLine_H
-#define PassiveProtonBeamLine_H 1
+#ifndef ScanningProtonBeamLine_H
+#define ScanningProtonBeamLine_H 1
 
 #include "globals.hh"
 #include "G4VUserDetectorConstruction.hh"
@@ -37,49 +37,48 @@
 #include "G4LogicalVolume.hh"
 
 class G4VPhysicalVolume;
-class HadrontherapyDetectorConstruction;
+class ProtontherapyDetectorConstruction;
 //class FaradayCup;
-class PassiveProtonBeamLineMessenger;
+class ScanningProtonBeamLineMessenger;
 class HadrontherapyDetectorROGeometry;
 
-class PassiveProtonBeamLine : public G4VUserDetectorConstruction
+class ScanningProtonBeamLine : public G4VUserDetectorConstruction
 {
 public:
 
     //PassiveProtonBeamLine(G4VPhysicalVolume*);
-    PassiveProtonBeamLine();
-    ~PassiveProtonBeamLine();
+    ScanningProtonBeamLine();
+    ~ScanningProtonBeamLine();
   // static G4bool doCalculation;
 
     G4VPhysicalVolume* Construct();
     //***************************** PW **************NON SERVE*************************
 
-    static PassiveProtonBeamLine* GetInstance();
+    static ScanningProtonBeamLine* GetInstance();
 
     //***************************** PW **************NON SERVE*************************
 
-    void HadrontherapyRangeShifter();
+    void ProtontherapyRangeShifter();
     // This defines the "range shifter". Is is a slab
     // (usually of PMMA" acting as energy degrader
     // of primary beam
 
-    void HadrontherapyVacuumPipe();
-    // This defines the Vacuum Chamber. Currently defined to be 1cm thick titanium-walled
-    // cylinder. *Subjected to change when inputs from hitachi has been confirmed
+    void ProtontherapyVacuumPipe();
+    // This defines the Vacuum Chamber. 
 
-    void HadrontherapyMagnetX();
+    void ProtontherapyMagnetX();
     // This is for magnets for x direction
 
-    void HadrontherapyBeamMonitoring();
+    void ProtontherapyBeamMonitoring();
     // Definition of three monitor chambers
 
-    void HadrontherapySpotPositionMonitorDetector();
+    void ProtontherapySpotPositionMonitorDetector();
     // Construct the MOPI on-line detector
 
     // The following methods allow to change parameters
     // of some beam line components
 
-    void HadrontherapyNozzleBoundary();
+    void ProtontherapyNozzleBoundary();
 
     void SetRangeShifterXPosition(G4double value);
     // This method allows to move the Range Shifter along
@@ -97,19 +96,16 @@ public:
 
 
 private:
-    static PassiveProtonBeamLine* instance;
+    static ScanningProtonBeamLine* instance;
     //passive proton line dimensions
     void SetDefaultDimensions();
-    void ConstructPassiveProtonBeamLine();
+    void ConstructScanningProtonBeamLine();
 
-    HadrontherapyModulator* modulator; // Pointer to the modulator
     // geometry component
-    PassiveProtonBeamLineMessenger* passiveMessenger;
+    ScanningProtonBeamLineMessenger* scanningMessenger;
     G4VPhysicalVolume* physicalTreatmentRoom;
-    HadrontherapyDetectorConstruction* hadrontherapyDetectorConstruction;
+    ProtontherapyDetectorConstruction* protontherapyDetectorConstruction;
 
-    // Pointer to the Faraday Cup class file
-  // FaradayCup *pFaradayCup;
 
     G4LogicalVolume* logicMagnetX;
     G4VPhysicalVolume* physiMagnetX;
@@ -282,9 +278,6 @@ private:
     G4Material* SpotPositionMonitorSecondCopperLayerMaterial;
     G4Material* SpotPositionMonitorSecondAluminumLayerMaterial;
     G4Material* SpotPositionMonitorSecondKaptonLayerMaterial;
-
-
-    HadrontherapyDetectorROGeometry* RO;
 
 
 };

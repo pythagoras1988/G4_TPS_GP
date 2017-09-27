@@ -94,16 +94,9 @@ G4VPhysicalVolume* ScanningProtonBeamLine::Construct()
     //***************************** PW ***************************************
     if (!protontherapyDetectorConstruction)
         //***************************** PW ***************************************
-
         // HadrontherapyDetectorConstruction builds ONLY the phantom and the detector with its associated ROGeometry
         protontherapyDetectorConstruction = new ProtontherapyDetectorConstruction(physicalTreatmentRoom);
 
-
-    //***************************** PW ***************************************
-
-    hadrontherapyDetectorConstruction->InitializeDetectorROGeometry(RO,hadrontherapyDetectorConstruction->GetDetectorToWorldPosition());
-
-    //***************************** PW ***************************************
     return physicalTreatmentRoom;
 }
 
