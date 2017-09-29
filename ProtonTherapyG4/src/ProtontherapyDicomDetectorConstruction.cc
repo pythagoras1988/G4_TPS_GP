@@ -41,27 +41,27 @@
 #include "G4PVPlacement.hh"
 #include "G4PVParameterised.hh"
 
-#include "DicomNestedParamDetectorConstruction.hh"
-#include "DicomNestedPhantomParameterisation.hh"
+#include "ProtontherapyDicomDetectorConstruction.hh"
+#include "ProtontherapyDicomParameterisation.hh"
 
 #include "G4VisAttributes.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-DicomNestedParamDetectorConstruction::DicomNestedParamDetectorConstruction()
+ProtontherapyDicomDetectorConstruction::ProtontherapyDicomParamDetectorConstruction()
  : DicomDetectorConstruction()
 {
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-DicomNestedParamDetectorConstruction::~DicomNestedParamDetectorConstruction()
+ProtontherapyDicomDetectorConstruction::~ProtontherapyDicomParamDetectorConstruction()
 {
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void DicomNestedParamDetectorConstruction::ConstructPhantom()
+void ProtontherapyDicomDetectorConstruction::ConstructPhantom()
 {
 #ifdef G4VERBOSE
-    G4cout << "DicomNestedParamDetectorConstruction::ConstructPhantom " 
+    G4cout << "ProtontherapyDicomDetectorConstruction::ConstructPhantom " 
     << G4endl;
 #endif
 
@@ -70,10 +70,10 @@ void DicomNestedParamDetectorConstruction::ConstructPhantom()
     G4String yRepName("RepY");
     G4VSolid* solYRep = new G4Box(yRepName,fNVoxelX*fVoxelHalfDimX,
                                   fVoxelHalfDimY,
-                  fNVoxelZ*fVoxelHalfDimZ);
+                                  fNVoxelZ*fVoxelHalfDimZ);
     G4LogicalVolume* logYRep = new G4LogicalVolume(solYRep,fAir,yRepName);
     new G4PVReplica(yRepName,logYRep,fContainer_logic,kYAxis,
-    fNVoxelY,fVoxelHalfDimY*2.);
+                    fNVoxelY,fVoxelHalfDimY*2.);
 
     logYRep->SetVisAttributes(new G4VisAttributes(G4VisAttributes::GetInvisible()));
 
@@ -89,7 +89,7 @@ void DicomNestedParamDetectorConstruction::ConstructPhantom()
     //----- Voxel solid and logical volumes
     //--- Z Slice
     G4VSolid* solVoxel = new G4Box("phantom",fVoxelHalfDimX,
-    fVoxelHalfDimY,fVoxelHalfDimZ);
+                                  fVoxelHalfDimY,fVoxelHalfDimZ);
     G4LogicalVolume* logicVoxel = new G4LogicalVolume(solVoxel,fAir,"phantom");
 
     logicVoxel->
@@ -101,8 +101,7 @@ void DicomNestedParamDetectorConstruction::ConstructPhantom()
     //    e.g. nested parameterisation handles material 
     //    and transfomation of voxels.)
     G4ThreeVector voxelSize(fVoxelHalfDimX,fVoxelHalfDimY,fVoxelHalfDimZ);
-    DicomNestedPhantomParameterisation* param =
-    new DicomNestedPhantomParameterisation(voxelSize, fMaterials);
+    DicomNestedPhantomParameterisation* param = new DicomNestedPhantomParameterisation(voxelSize, fMaterials);
 
     new G4PVParameterised("phantom",    // their name
                           logicVoxel, // their logical volume

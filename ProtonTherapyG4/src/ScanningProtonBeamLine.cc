@@ -61,19 +61,6 @@ physiSecondMonitorLayer1(0), physiSecondMonitorLayer2(0), physiSecondMonitorLaye
     // Messenger to change parameters of the passiveProtonBeamLine geometry
     scanningMessenger = new ScanningProtonBeamLineMessenger(this);
 
-    //***************************** PW ***************************************
-    static G4String ROGeometryName = "DetectorROGeometry";
-    RO = new HadrontherapyDetectorROGeometry(ROGeometryName);
-
-    G4cout << "Going to register Parallel world...";
-    RegisterParallelWorld(RO);
-    G4cout << "... done" << G4endl;
-    //***************************** PW ***************************************
-    /* // For the Faraday Cup activation
-    if (name)
-    {
-        doCalculation = true;
-	}*/
 }
 /////////////////////////////////////////////////////////////////////////////
 ScanningProtonBeamLine::~ScanningProtonBeamLine()

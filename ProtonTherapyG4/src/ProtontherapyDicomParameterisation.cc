@@ -29,7 +29,7 @@
 // $Id: DicomNestedPhantomParameterisation.cc 101905 2016-12-07 11:34:39Z gunter $
 //
 
-#include "DicomNestedPhantomParameterisation.hh"
+#include "ProtontherapyDicomParameterisation.hh"
 
 #include "G4VPhysicalVolume.hh"
 #include "G4VTouchable.hh"
