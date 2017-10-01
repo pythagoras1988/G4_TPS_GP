@@ -29,7 +29,7 @@
 /// \brief Definition of the DicomNestedPhantomParameterisation class
 //
 
-#ifndef DProtontherapyDicomParameterisation_hh
+#ifndef ProtontherapyDicomParameterisation_hh
 #define ProtontherapyDicomParameterisation_hh
 
 #include <vector>
@@ -50,7 +50,7 @@ class G4Box;
 
 /// Implements a G4VNestedParameterisation
 
-class DProtontherapyDicomParameterisation : public G4VNestedParameterisation
+class ProtontherapyDicomParameterisation : public G4VNestedParameterisation
 {
 public:
   
