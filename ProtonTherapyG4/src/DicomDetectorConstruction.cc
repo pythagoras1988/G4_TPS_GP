@@ -122,6 +122,15 @@ G4VPhysicalVolume* DicomDetectorConstruction::Construct()
 
 void DicomDetectorConstruction::ReadPhantomData() {
   DicomReader = new ProtontherapyDicomAsciiReader;
+
+  G4ThreeVector pixelNumberVector = DicomReader->GetNumberOfPixels();
+  G4ThreeVector pixelSizeVector = DicomReader->GetPixelSize();
+  fNVoxelX = pixelNumberVector[0];
+  fNVoxelY = pixelNumberVector[1];
+  fNVoxelZ = pixelNumberVector[2];
+  fVoxelHalfDimX = pixelSizeVector[0]/2;
+  fVoxelHalfDimY = pixelSizeVector[1]/2;
+  fVoxelHalfDimZ = pixelSizeVector[2]/2;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
