@@ -131,6 +131,7 @@ void DicomDetectorConstruction::ReadPhantomData() {
   fVoxelHalfDimX = pixelSizeVector[0]/2;
   fVoxelHalfDimY = pixelSizeVector[1]/2;
   fVoxelHalfDimZ = pixelSizeVector[2]/2;
+  
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
