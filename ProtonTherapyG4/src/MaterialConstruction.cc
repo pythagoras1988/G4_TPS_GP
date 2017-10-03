@@ -59,6 +59,7 @@ void MaterialConstruction::CreateMaterials() {
   //Create Materials according to Schneider's method
   G4String materialName;
   G4double meanHu;
+  G4double density;
   numBins = 24;
   fHUThresholdVector.reserve(numBins+1);
   fHUThresholdVector = {-1000, -950, -120, -83, -53,
@@ -68,16 +69,10 @@ void MaterialConstruction::CreateMaterials() {
                         1200, 1300, 1400, 1500, 1600};
   fMaterialSets.reserve(numBins);
 
-  // Create List of Materials
-  G4Material* material1 = new G4Material(name='material1',density,ncomponents=12);
-  ConfigureMaterials(material1,0,0,75.5,23.2,0,0,0,0,0,1.3,0,0);
-  fMaterialSets.push_back(material1);
-
-  G4Material* material2 = new G4Material(name='material2',density,ncomponents=12);
-  ConfigureMaterials(material2,10.3,10.5,3.1,74.9,0.2,0,0.2,0.3,0.3,0,0.2,0);
-  fMaterialSets.push_back(material2);
-
-
+  for(G4int k; k<numBins; k++) { 
+    fMaterialSets.push_back(new G4Material(materialName,density,ncomponents=12));
+    ConfigureMaterials(fMaterialSets[k],);
+  }
 }
 
 void MaterialConstruction::ConfigureMaterials(G4Material* material,
