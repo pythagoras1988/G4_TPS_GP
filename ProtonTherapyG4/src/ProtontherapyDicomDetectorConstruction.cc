@@ -47,8 +47,8 @@
 #include "G4VisAttributes.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-ProtontherapyDicomDetectorConstruction::ProtontherapyDicomParamDetectorConstruction()
- : DicomDetectorConstruction()
+ProtontherapyDicomDetectorConstruction::ProtontherapyDicomParamDetectorConstruction(G4VPhysicalVolume* physicalTreatmentRoom)
+ : DicomDetectorConstruction(physicalTreatmentRoom)
 {
 }
 
@@ -61,7 +61,7 @@ ProtontherapyDicomDetectorConstruction::~ProtontherapyDicomParamDetectorConstruc
 void ProtontherapyDicomDetectorConstruction::ConstructPhantom()
 {
 #ifdef G4VERBOSE
-    G4cout << "ProtontherapyDicomDetectorConstruction::ConstructPhantom " 
+    G4cout << "ProtontherapyDicomDetectorConstruction::ConstructPhantom "
     << G4endl;
 #endif
 
@@ -85,7 +85,7 @@ void ProtontherapyDicomDetectorConstruction::ConstructPhantom()
     new G4PVReplica(xRepName,logXRep,logYRep,kXAxis,fNVoxelX,fVoxelHalfDimX*2.);
 
     logXRep->SetVisAttributes(new G4VisAttributes(G4VisAttributes::GetInvisible()));
-    
+
     //----- Voxel solid and logical volumes
     //--- Z Slice
     G4VSolid* solVoxel = new G4Box("phantom",fVoxelHalfDimX,
@@ -98,7 +98,7 @@ void ProtontherapyDicomDetectorConstruction::ConstructPhantom()
     //
     // Parameterisation for transformation of voxels.
     //  (voxel size is fixed in this example.
-    //    e.g. nested parameterisation handles material 
+    //    e.g. nested parameterisation handles material
     //    and transfomation of voxels.)
     G4ThreeVector voxelSize(fVoxelHalfDimX,fVoxelHalfDimY,fVoxelHalfDimZ);
     DicomNestedPhantomParameterisation* param = new DicomNestedPhantomParameterisation(voxelSize, fMaterials);

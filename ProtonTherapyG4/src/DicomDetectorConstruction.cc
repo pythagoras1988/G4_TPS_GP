@@ -40,6 +40,7 @@
 #include "G4UIcommand.hh"
 #include "G4PhysicalConstants.hh"
 #include "G4NistManager.hh"
+#include "G4RunManager.hh"
 // #include "G4SystemOfUnits.hh"
 #include "CLHEP/Units/SystemOfUnits.h"
 
@@ -50,6 +51,8 @@
 #include "DicomRun.hh"
 #include "G4VisAttributes.hh"
 
+using namespace std;
+
 using CLHEP::m;
 using CLHEP::cm3;
 using CLHEP::mole;
@@ -57,15 +60,8 @@ using CLHEP::g;
 using CLHEP::mg;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-DicomDetectorConstruction::DicomDetectorConstruction()
- : G4VUserDetectorConstruction(),
-   fAir(0),
-
-   fWorld_solid(0),
-   fWorld_logic(0),
-   fWorld_phys(0),
-
-   fNoFiles(0),
+DicomDetectorConstruction::DicomDetectorConstruction(G4VPhysicalVolume* physicalTreatmentRoom)
+ : fWorld_phys(physicalTreatmentRoom),
 
    fNVoxelX(0),
    fNVoxelY(0),
@@ -76,48 +72,17 @@ DicomDetectorConstruction::DicomDetectorConstruction()
 
    fConstructed(false)
 {
+  if(!fConstructed) {
+    fConstructed = true;
+    InitialisationOfMaterials();
+    ReadPhantomData();
+    ConstructPhantom();
+  }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 DicomDetectorConstruction::~DicomDetectorConstruction()
 {
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-G4VPhysicalVolume* DicomDetectorConstruction::Construct()
-{
-  if(!fConstructed || fWorld_phys == 0) {
-    fConstructed = true;
-    InitialisationOfMaterials();
-
-    //----- Build world
-    G4double worldXDimension = 1.*m;
-    G4double worldYDimension = 1.*m;
-    G4double worldZDimension = 1.*m;
-
-    fWorld_solid = new G4Box( "WorldSolid",
-                             worldXDimension,
-                             worldYDimension,
-                             worldZDimension );
-
-    fWorld_logic = new G4LogicalVolume( fWorld_solid,
-                                       fAir,
-                                       "WorldLogical",
-                                       0, 0, 0 );
-
-    fWorld_phys = new G4PVPlacement( 0,
-                                    G4ThreeVector(0,0,0),
-                                    "World",
-                                    fWorld_logic,
-                                    0,
-                                    false,
-                                    0 );
-
-
-    ReadPhantomData();
-    ConstructPhantom();
-  }
-    return fWorld_phys;
 }
 
 void DicomDetectorConstruction::ReadPhantomData() {
@@ -131,60 +96,15 @@ void DicomDetectorConstruction::ReadPhantomData() {
   fVoxelHalfDimX = pixelSizeVector[0]/2;
   fVoxelHalfDimY = pixelSizeVector[1]/2;
   fVoxelHalfDimZ = pixelSizeVector[2]/2;
-  
+  fMasterHUData = DicomReader->GetMasterHUData();
+}
+
+void DicomDetectorConstruction::UpdateGeometry() {
+  G4RunManager::GetRunManager() -> GeometryHasBeenModified();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void DicomDetectorConstruction::InitialisationOfMaterials()
 {
-    // Creating elements :
-    G4double z, a, density;
-    G4String name, symbol;
 
-    G4Element* elC = new G4Element( name = "Carbon",
-                                   symbol = "C",
-                                   z = 6.0, a = 12.011 * g/mole );
-    G4Element* elH = new G4Element( name = "Hydrogen",
-                                   symbol = "H",
-                                   z = 1.0, a = 1.008  * g/mole );
-    G4Element* elN = new G4Element( name = "Nitrogen",
-                                   symbol = "N",
-                                   z = 7.0, a = 14.007 * g/mole );
-    G4Element* elO = new G4Element( name = "Oxygen",
-                                   symbol = "O",
-                                   z = 8.0, a = 16.00  * g/mole );
-    G4Element* elNa = new G4Element( name = "Sodium",
-                                    symbol = "Na",
-                                    z= 11.0, a = 22.98977* g/mole );
-    G4Element* elS = new G4Element( name = "Sulfur",
-                                   symbol = "S",
-                                   z = 16.0,a = 32.065* g/mole );
-    G4Element* elCl = new G4Element( name = "Chlorine",
-                                    symbol = "P",
-                                    z = 17.0, a = 35.453* g/mole );
-    G4Element* elK = new G4Element( name = "Potassium",
-                                   symbol = "P",
-                                   z = 19.0, a = 39.0983* g/mole );
-    G4Element* elP = new G4Element( name = "Phosphorus",
-                                   symbol = "P",
-                                   z = 15.0, a = 30.973976* g/mole );
-    G4Element* elFe = new G4Element( name = "Iron",
-                                    symbol = "Fe",
-                                    z = 26, a = 56.845* g/mole );
-    G4Element* elMg = new G4Element( name = "Magnesium",
-                                    symbol = "Mg",
-                                    z = 12.0, a = 24.3050* g/mole );
-    G4Element* elCa = new G4Element( name="Calcium",
-                                    symbol = "Ca",
-                                    z = 20.0, a = 40.078* g/mole );
-
-    // Creating Materials :
-    G4int numberofElements;
-
-    // Air
-    fAir = new G4Material( "Air",
-                          1.290*mg/cm3,
-                          numberofElements = 2 );
-    fAir->AddElement(elN, 0.7);
-    fAir->AddElement(elO, 0.3);
 }

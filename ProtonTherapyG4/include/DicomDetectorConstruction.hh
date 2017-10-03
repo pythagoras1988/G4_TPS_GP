@@ -33,8 +33,8 @@
 #define DicomDetectorConstruction_h 1
 
 #include "globals.hh"
-#include "G4VUserDetectorConstruction.hh"
 #include "ProtontherapyDicomAsciiReader.hh"
+#include "G4VPhysicalVolume.hh"
 
 #include <set>
 #include <map>
@@ -55,22 +55,12 @@ class G4LogicalVolume;
 /// \author  P. Arce
 //*******************************************************
 
-struct matInfo 
-{
-  G4double fSumdens;
-  G4int fNvoxels;
-  G4int fId;
-};
-
-class DicomDetectorConstruction : public G4VUserDetectorConstruction
+class DicomDetectorConstruction
 {
 public:
 
-    DicomDetectorConstruction();
+    DicomDetectorConstruction(G4VPhysicalVolume*);
     ~DicomDetectorConstruction();
-
-    virtual G4VPhysicalVolume* Construct();
-    // trigger the construction of the geometry
 
 protected:
     void InitialisationOfMaterials();
@@ -80,30 +70,25 @@ protected:
     // read the DICOM files describing the phantom
 
     G4Material* BuildMaterialWithChangingDensity( const G4Material* origMate,
-    float density, G4String newMateName );
     // build a new material if the density of the voxel is different to the other voxels
+
+    void UpdateGeometry();
 
     virtual void ConstructPhantom() = 0;
     // construct the phantom volumes.
     //  This method should be implemented for each of the derived classes
-    
-protected:
-    ProtontherapyDicomAsciiReader* DicomReader; 
-    G4Material* fAir;
 
-    // World ...
-    G4Box* fWorld_solid;
-    G4LogicalVolume* fWorld_logic;
-    G4VPhysicalVolume* fWorld_phys;
+protected:
+    ProtontherapyDicomAsciiReader* DicomReader;
 
     G4int fNoFiles; // number of DICOM files
-    std::vector<G4Material*> fMaterials;
+    vector<G4Material*> fMaterials;
+    vector<G4double> fMasterHUData;
 
     G4int fNVoxelX, fNVoxelY, fNVoxelZ;
     G4double fVoxelHalfDimX, fVoxelHalfDimY, fVoxelHalfDimZ;
-    
+
     G4bool fConstructed;
 };
 
 #endif
-

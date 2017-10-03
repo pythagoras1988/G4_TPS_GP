@@ -62,30 +62,6 @@ DicomNestedPhantomParameterisation::~DicomNestedPhantomParameterisation()
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void DicomNestedPhantomParameterisation::ReadColourData()
-{
-    //----- Add a G4VisAttributes for materials not defined in file;
-    G4VisAttributes* blankAtt = new G4VisAttributes;
-    blankAtt->SetVisibility( FALSE );
-    fColours["Default"] = blankAtt;
-
-    //----- Read file
-    G4String colourFile = "ColourMap.dat";
-    std::ifstream fin(colourFile.c_str());
-    G4int nMate;
-    G4String mateName;
-    G4double cred, cgreen, cblue, copacity;
-    fin >> nMate;
-    for( G4int ii = 0; ii < nMate; ii++ ){
-        fin >> mateName >> cred >> cgreen >> cblue >> copacity;
-        G4Colour colour( cred, cgreen, cblue, copacity );
-        G4VisAttributes* visAtt = new G4VisAttributes( colour );
-        //visAtt->SetForceSolid(true);
-        fColours[mateName] = visAtt;
-    }
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void DicomNestedPhantomParameterisation::
 SetNoVoxel( unsigned int nx, unsigned int ny, unsigned int nz )
 {
@@ -115,7 +91,7 @@ ComputeMaterial(G4VPhysicalVolume* physVol, const G4int iz,
     unsigned int matIndex = GetMaterialIndex(copyID);
     static G4Material* mate = 0;
     mate = fMaterials[matIndex];
-    
+
     return mate;
 }
 
