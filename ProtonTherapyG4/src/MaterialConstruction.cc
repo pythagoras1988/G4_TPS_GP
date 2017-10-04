@@ -3,9 +3,14 @@
 #include "G4Element.hh"
 #include "G4SystemOfUnits.hh"
 #include <vector>
+#include <string>
+#include <fstream>
+#include <map>
+#include <math>
 
 MaterialConstruction::MaterialConstruction() {
   CreateElements();
+  CreateElementalWeights();
   CreateMaterials();
 }
 
@@ -53,25 +58,86 @@ void MaterialConstruction::CreateElements() {
   elCa = new G4Element( name="Calcium",
                         symbol = "Ca",
                         z = 20.0, a = 40.078* g/mole );
+  elAr = new G4Element( name="Argon", 
+                        symbol = "Ar", 
+                        z = 18.0, a = 39.948* g/mole );
+}
+
+void MaterialConstruction::CreateElementalWeights() { 
+  ifstream readFile("elemental_weights_Schneider.txt");
+  if(readFile.is_open()) { 
+    string line; 
+    G4double startHU, endHU, weight; 
+    getline(readFile,line); 
+
+    while(!readFile.eof()) { 
+      readFile >> startHU; 
+      readFile >> endHU;
+      for(G4int k; k<12; k++) { 
+        // read all the weight 
+        readFile >> weight; 
+        fElementalWeights[startHU].push_back(weight);
+      }
+    }
+  }
 }
 
 void MaterialConstruction::CreateMaterials() {
   //Create Materials according to Schneider's method
+  vector<G4double> elementalWeight;
   G4String materialName;
-  G4double meanHu;
+  G4double startHU, stepHU;
   G4double density;
-  numBins = 24;
+  numBins = 260;
+  binSize = 10; 
   fHUThresholdVector.reserve(numBins+1);
+  /*
   fHUThresholdVector = {-1000, -950, -120, -83, -53,
                         -23, 7, 18, 80, 120,
                         200, 300, 400, 500, 600,
                         700, 800, 900, 1000, 1100,
                         1200, 1300, 1400, 1500, 1600};
-  fMaterialSets.reserve(numBins);
+  */
 
-  for(G4int k; k<numBins; k++) { 
+  fMaterialSets.reserve(numBins+1);
+
+  startHU = -1000; // Correspond to air
+  while(startHU<=1600) { 
+    materialName = "material" + "_" + to_string(startHU);
+    // ****************determine the elemental composition******************************
+    for (map<G4double,G4double>::iterator it = fElementalWeights.begin(); it!=fElementalWeights.end(); ++it) { 
+      if (it->first <= startHU) {stepHU = it->first;}  // stepHU is the elemental composition
+      else {break;} 
+    }    
+    // ****************determine the density using Scheider's method********************
+    if (startHU>=100) { 
+      density = (1.017 + 0.592*0.001*startHU) * g/cm3;
+    }
+    else if (startHU<-98) {
+      density = (1.030*pow(10,-3)*startHU + 1.031) * g/cm3;
+    }
+    else if (startHU>14 && startHU<23) {
+      density = 1.03*g/cm3;
+    }
+    else if (startHU>=-98 && startHU<=14){ 
+      //equation (21) in Schneider's paper
+      density = (1.018 + 0.893*0.001*startHU) * g/cm3;
+    }
+    else if (startHU>=23 && startHU<=100){
+      //equation (23) in Schneider's paper
+      density = (1.003 + 1.169*0.001*startHU) * g/cm3;
+    }
+
+    // ******************Push Material into Vector***************************************
+    elementalWeight = fElementalWeights[stepHU]; 
     fMaterialSets.push_back(new G4Material(materialName,density,ncomponents=12));
-    ConfigureMaterials(fMaterialSets[k],);
+    ConfigureMaterials(fMaterialSets[k],elementalWeight[0],elementalWeight[1],elementalWeight[2], 
+                        elementalWeight[3], elementalWeight[4], elementalWeight[5], 
+                        elementalWeight[6], elementalWeight[7], elementalWeight[8],
+                        elementalWeight[9], elementalWeight[10], elementalWeight[11]);
+    fHUThresholdVector.push_back(startHU);
+
+    startHU += binSize;
   }
 }
 

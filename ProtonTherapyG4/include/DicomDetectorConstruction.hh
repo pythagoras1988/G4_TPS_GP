@@ -35,6 +35,7 @@
 #include "globals.hh"
 #include "ProtontherapyDicomAsciiReader.hh"
 #include "G4VPhysicalVolume.hh"
+#include "G4VisAttributes.hh"
 
 #include <set>
 #include <map>
@@ -51,8 +52,6 @@ class G4LogicalVolume;
 ///      - Creation of the world
 ///      - Reading of the DICOM data
 ///
-/// History: 30.11.07  First version
-/// \author  P. Arce
 //*******************************************************
 
 class DicomDetectorConstruction
@@ -69,10 +68,9 @@ protected:
     void ReadPhantomData();
     // read the DICOM files describing the phantom
 
-    G4Material* BuildMaterialWithChangingDensity( const G4Material* origMate,
-    // build a new material if the density of the voxel is different to the other voxels
-
     void UpdateGeometry();
+
+    void ConstructColorData();
 
     virtual void ConstructPhantom() = 0;
     // construct the phantom volumes.
@@ -84,6 +82,8 @@ protected:
     G4int fNoFiles; // number of DICOM files
     vector<G4Material*> fMaterials;
     vector<G4double> fMasterHUData;
+    vector<G4double> fHUThresholdVector; 
+    vector<G4VisAttributes*> fColorData;
 
     G4int fNVoxelX, fNVoxelY, fNVoxelZ;
     G4double fVoxelHalfDimX, fVoxelHalfDimY, fVoxelHalfDimZ;

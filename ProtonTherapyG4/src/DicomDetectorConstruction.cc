@@ -46,6 +46,7 @@
 
 #include "DicomDetectorConstruction.hh"
 #include "ProtontherapyDicomAsciiReader.hh"
+#include "MaterialConstruction.hh"
 
 #include "DicomRunAction.hh"
 #include "DicomRun.hh"
@@ -75,6 +76,7 @@ DicomDetectorConstruction::DicomDetectorConstruction(G4VPhysicalVolume* physical
   if(!fConstructed) {
     fConstructed = true;
     InitialisationOfMaterials();
+    ConstructColorData();
     ReadPhantomData();
     ConstructPhantom();
   }
@@ -106,5 +108,11 @@ void DicomDetectorConstruction::UpdateGeometry() {
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void DicomDetectorConstruction::InitialisationOfMaterials()
 {
+  MaterialConstruction* materialConstruction = new MaterialConstruction;
+  fMaterials = materialConstruction->GetMaterialSets();
+  fHUThresholdVector = materialConstruction->GetHUThresholdVector();
+}
+
+void DicomDetectorConstruction::ConstructColorData(){ 
 
 }
