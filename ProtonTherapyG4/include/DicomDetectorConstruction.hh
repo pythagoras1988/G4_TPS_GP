@@ -35,6 +35,7 @@
 #include "globals.hh"
 #include "ProtontherapyDicomAsciiReader.hh"
 #include "G4VPhysicalVolume.hh"
+#include "G4LogicalVolume.hh"
 #include "G4VisAttributes.hh"
 
 #include <set>
@@ -58,7 +59,7 @@ class DicomDetectorConstruction
 {
 public:
 
-    DicomDetectorConstruction(G4VPhysicalVolume*);
+    DicomDetectorConstruction(G4LogicalVolume*);
     ~DicomDetectorConstruction();
 
 protected:
@@ -70,7 +71,7 @@ protected:
 
     void UpdateGeometry();
 
-    void ConstructColorData();
+    void ConstructContainerVolume();
 
     virtual void ConstructPhantom() = 0;
     // construct the phantom volumes.
@@ -78,13 +79,19 @@ protected:
 
 protected:
     ProtontherapyDicomAsciiReader* DicomReader;
+    G4Material* fAir; 
+    G4Box* fContainer_solid;
+    G4LogicalVolume* fContainer_logic;
+    G4VPhysicalVolume* fContainer_phys;
+    G4LogicalVolume* fWorld_logic;
 
     G4int fNoFiles; // number of DICOM files
     vector<G4Material*> fMaterials;
     vector<G4double> fMasterHUData;
     vector<G4double> fHUThresholdVector; 
-    vector<G4VisAttributes*> fColorData;
+    vector<G4ThreeVector> fSliceRefPosition; 
 
+    G4double fDirectionCosine_row, fDirectionCosine_col;
     G4int fNVoxelX, fNVoxelY, fNVoxelZ;
     G4double fVoxelHalfDimX, fVoxelHalfDimY, fVoxelHalfDimZ;
 

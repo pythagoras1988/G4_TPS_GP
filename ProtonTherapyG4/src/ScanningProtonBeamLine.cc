@@ -83,7 +83,7 @@ G4VPhysicalVolume* ScanningProtonBeamLine::Construct()
         //***************************** PW ***************************************
         // HadrontherapyDetectorConstruction builds ONLY the phantom and the detector with its associated ROGeometry
         DicomDetectorConstruction* protontherapyDetectorConstruction; // This is the derived class
-        protontherapyDetectorConstruction = new ProtontherapyDicomDetectorConstruction(physicalTreatmentRoom);
+        protontherapyDetectorConstruction = new ProtontherapyDicomDetectorConstruction(logicTreatmentRoom);
 
     return physicalTreatmentRoom;
 }
@@ -334,10 +334,10 @@ void ScanningProtonBeamLine::ConstructScanningProtonBeamLine()
 
     G4Material* airNist =  G4NistManager::Instance()->FindOrBuildMaterial("G4_AIR", isotopes);
     G4Box* treatmentRoom = new G4Box("TreatmentRoom",worldX,worldY,worldZ);
-    G4LogicalVolume* logicTreatmentRoom = new G4LogicalVolume(treatmentRoom,                        //Combine the materials and dimensions together
-                                                              airNist,
-                                                              "logicTreatmentRoom",
-                                                              0,0,0);
+    logicTreatmentRoom = new G4LogicalVolume(treatmentRoom,                        //Combine the materials and dimensions together
+                                              airNist,
+                                              "logicTreatmentRoom",
+                                              0,0,0);
     physicalTreatmentRoom = new G4PVPlacement(0,                                                    //This is where I place the volume to be
                                               G4ThreeVector(),
                                               "physicalTreatmentRoom",

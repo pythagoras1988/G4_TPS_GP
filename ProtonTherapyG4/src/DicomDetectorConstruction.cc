@@ -22,12 +22,6 @@
 // * use  in  resulting  scientific  publications,  and indicate your *
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
-//
-// $Id: DicomDetectorConstruction.cc 105190 2017-07-14 12:08:43Z gcosmo $
-//
-/// \file  medical/DICOM/src/DicomDetectorConstruction.cc
-/// \brief Implementation of the DicomDetectorConstruction class
-//
 
 #include "globals.hh"
 
@@ -48,9 +42,8 @@
 #include "ProtontherapyDicomAsciiReader.hh"
 #include "MaterialConstruction.hh"
 
-#include "DicomRunAction.hh"
-#include "DicomRun.hh"
 #include "G4VisAttributes.hh"
+#include "G4Color.hh"
 
 using namespace std;
 
@@ -61,8 +54,8 @@ using CLHEP::g;
 using CLHEP::mg;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-DicomDetectorConstruction::DicomDetectorConstruction(G4VPhysicalVolume* physicalTreatmentRoom)
- : fWorld_phys(physicalTreatmentRoom),
+DicomDetectorConstruction::DicomDetectorConstruction(G4LogicalVolume* logicTreatmentRoom)
+ : fWorld_logic(logicTreatmentRoom),
 
    fNVoxelX(0),
    fNVoxelY(0),
@@ -76,8 +69,8 @@ DicomDetectorConstruction::DicomDetectorConstruction(G4VPhysicalVolume* physical
   if(!fConstructed) {
     fConstructed = true;
     InitialisationOfMaterials();
-    ConstructColorData();
     ReadPhantomData();
+    ConstructContainerVolume();
     ConstructPhantom();
   }
 }
@@ -99,6 +92,9 @@ void DicomDetectorConstruction::ReadPhantomData() {
   fVoxelHalfDimY = pixelSizeVector[1]/2;
   fVoxelHalfDimZ = pixelSizeVector[2]/2;
   fMasterHUData = DicomReader->GetMasterHUData();
+  fDirectionCosine_row = DicomReader->GetDirectionCosine_row();
+  fDirectionCosine_col = DicomReader->GetDirectionCosine_col();
+  fSliceRefPosition = DicomReader->GetSliceRefPosition();
 }
 
 void DicomDetectorConstruction::UpdateGeometry() {
@@ -108,11 +104,47 @@ void DicomDetectorConstruction::UpdateGeometry() {
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void DicomDetectorConstruction::InitialisationOfMaterials()
 {
-  MaterialConstruction* materialConstruction = new MaterialConstruction;
+  fAir =  G4NistManager::Instance()->FindOrBuildMaterial("G4_AIR"); // Build Air
+  MaterialConstruction* materialConstruction = new MaterialConstruction; // Build phantom materials
   fMaterials = materialConstruction->GetMaterialSets();
   fHUThresholdVector = materialConstruction->GetHUThresholdVector();
 }
 
-void DicomDetectorConstruction::ConstructColorData(){ 
+void DicomDetectorConstruction::ConstructContainerVolume() { 
+   //----- Define the volume that contains all the voxels
+  fContainer_solid = new G4Box("phantomContainer",fNVoxelX*fVoxelHalfDimX,
+                               fNVoxelY*fVoxelHalfDimY,
+                               fNVoxelZ*fVoxelHalfDimZ);
+  fContainer_logic =
+    new G4LogicalVolume( fContainer_solid,
+   //the material is not important, it will be fully filled by the voxels
+                         fMaterials[0],
+                         "phantomContainer",
+                         0, 0, 0 );
 
+  G4double minX(10000); minY(10000); minZ(10000);
+  G4ThreeVector refPosition;  
+
+  for (vector<G4double>::iterator it=fSliceRefPosition.begin(); it!=fSliceRefPosition.end(); ++it) { 
+    refPosition = *it; 
+    if (refPosition[0]<minX) {minX = refPosition[0];}
+    if (refPosition[1]<minX) {minY = refPosition[1];}
+    if (refPosition[2]<minX) {minZ = refPosition[2];}
+  }
+
+  G4double fOffsetX = (minX+fNVoxelX*fVoxelHalfDimX);                      
+  G4double fOffsetY = (minY+fNVoxelY*fVoxelHalfDimY);  
+  G4double fOffsetZ = (minZ+fNVoxelZ*fVoxelHalfDimZ);  
+                       
+  G4ThreeVector posCentreVoxels(fOffsetX,fOffsetY,fOffsetZ);
+
+  fContainer_phys =
+    new G4PVPlacement(0,  // rotation
+                      posCentreVoxels,
+                      fContainer_logic,     // The logic volume
+                      "phantomContainer",  // Name
+                      fWorld_logic,  // Mother which is the world
+                      false,           // No op. bool.
+                      1);              // Copy number
 }
+

@@ -41,28 +41,31 @@
 #include "G4VisAttributes.hh"
 #include "G4VVisManager.hh"
 
+using namespace std;
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-DicomNestedPhantomParameterisation::
-DicomNestedPhantomParameterisation(const G4ThreeVector& voxelSize,
-                                   std::vector<G4Material*>& mat,
-                                   G4int fnZ_, G4int fnY_, G4int fnX_)
+ProtontherapyDicomParameterisation::
+ProtontherapyDicomParameterisation(const G4ThreeVector& voxelSize,
+                                   vector<G4Material*>& mat,
+                                   vector<G4double> HUMasterData, vector<G4double>thresholdVector)
 :
-  //G4VNestedParameterisation(),
   fdX(voxelSize.x()), fdY(voxelSize.y()), fdZ(voxelSize.z()),
-  fnX(fnX_), fnY(fnY_), fnZ(fnZ_),
+  fnX(0), fnY(0), fnZ(0),
   fMaterials(mat),
-  fMaterialIndices(0)
+  fMaterialIndices(0),
+  fHUThresholdVector(thresholdVector),
+  fHUMasterData(HUMasterData)
 {
-    ReadColourData();
+    ConstructColorData();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-DicomNestedPhantomParameterisation::~DicomNestedPhantomParameterisation()
+ProtontherapyDicomParameterisation::~ProtontherapyDicomParameterisation()
 {
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void DicomNestedPhantomParameterisation::
+void ProtontherapyDicomParameterisation::
 SetNoVoxel( unsigned int nx, unsigned int ny, unsigned int nz )
 {
   fnX = nx;
@@ -71,7 +74,7 @@ SetNoVoxel( unsigned int nx, unsigned int ny, unsigned int nz )
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-G4Material* DicomNestedPhantomParameterisation::
+G4Material* ProtontherapyDicomParameterisation::
 ComputeMaterial(G4VPhysicalVolume* physVol, const G4int iz,
                 const G4VTouchable* parentTouch)
 {
@@ -86,17 +89,27 @@ ComputeMaterial(G4VPhysicalVolume* physVol, const G4int iz,
     G4int ix = parentTouch->GetReplicaNumber(0);
     G4int iy = parentTouch->GetReplicaNumber(1);
 
-    G4int copyID = ix + fnX*iy + fnX*fnY*iz;
+    G4int copyID = ix + fnX*iy + fnX*fnY*iz; // same formula as compressData method in ProtontherapyDicomAsciiReader class
 
-    unsigned int matIndex = GetMaterialIndex(copyID);
+    unsigned int matIndex;
     static G4Material* mate = 0;
+    G4double voxelHU;
+    voxelHU = fHUMasterData[copyID]; 
+
+    for (matIndex=0; matIndex<fHUThresholdVector.size();matIndex++) { 
+      if (voxelHU<=fHUThresholdVector[matIndex]) { 
+        break;
+      }
+    }
+
     mate = fMaterials[matIndex];
+    physVol->GetLogicalVolume()->SetVisAttributes(fColours[matIndex]);
 
     return mate;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-unsigned int DicomNestedPhantomParameterisation::
+unsigned int ProtontherapyDicomParameterisationn::
 GetMaterialIndex( unsigned int copyNo ) const
 {
     //return *(fMaterialIndices+copyNo);
@@ -107,8 +120,7 @@ GetMaterialIndex( unsigned int copyNo ) const
 // Number of Materials
 // Material scanner is required for preparing physics tables and so on before
 // starting simulation, so that G4 has to know number of materials.
-//
-G4int DicomNestedPhantomParameterisation::GetNumberOfMaterials() const
+G4int ProtontherapyDicomParameterisation::GetNumberOfMaterials() const
 {
     return fMaterials.size();
 }
@@ -118,7 +130,7 @@ G4int DicomNestedPhantomParameterisation::GetNumberOfMaterials() const
 // GetMaterial
 //  This is needed for material scanner and realizing geometry.
 //
-G4Material* DicomNestedPhantomParameterisation::GetMaterial(G4int i) const
+G4Material* ProtontherapyDicomParameterisation::GetMaterial(G4int i) const
 {
     return fMaterials[i];
 }
@@ -126,7 +138,7 @@ G4Material* DicomNestedPhantomParameterisation::GetMaterial(G4int i) const
 //
 // Transformation of voxels.
 //
-void DicomNestedPhantomParameterisation::
+void ProtontherapyDicomParameterisation::
 ComputeTransformation(const G4int copyNo, G4VPhysicalVolume* physVol) const
 {
     // Position of voxels.
@@ -140,10 +152,26 @@ ComputeTransformation(const G4int copyNo, G4VPhysicalVolume* physVol) const
 //
 // Dimensions are always same in this RE02 example.
 //
-void DicomNestedPhantomParameterisation::
+void ProtontherapyDicomParameterisation::
 ComputeDimensions( G4Box& box, const G4int, const G4VPhysicalVolume* ) const
 {
     box.SetXHalfLength(fdX);
     box.SetYHalfLength(fdY);
     box.SetZHalfLength(fdZ);
+}
+
+
+void ProtontherapyDicomParameterisation::ConstructColorData() {  
+  G4double blueFraction, redFraction; 
+  G4double colorDataLength; 
+  colorDataLength = fHUThresholdVector.size(); 
+  fColors.reserve(colorDataLength); 
+
+  for (G4int k; k<colorDataLength; k++) { 
+    blueFraction = 1 - k/colorDataLength; 
+    redFraction  = k/colorDataLength; 
+    fColors.push_back(new G4VisAttributes(G4Color(redFraction,0,blueFraction)));
+    fcolors[k] -> SetVisibility(true);
+    fColors[k] -> SetForceSolid(true);
+  }
 }

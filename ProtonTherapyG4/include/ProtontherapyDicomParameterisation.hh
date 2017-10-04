@@ -33,7 +33,6 @@
 #define ProtontherapyDicomParameterisation_hh
 
 #include <vector>
-#include <map>
 
 #include "G4Types.hh"
 #include "G4ThreeVector.hh"
@@ -111,7 +110,7 @@ private:  // Dummy declarations to get rid of warnings ...
   void ComputeDimensions (G4Polyhedra&, const G4int,
                           const G4VPhysicalVolume*) const {}
   
-  void ReadColourData();
+  void ConstructColorData();
   
   using G4VNestedParameterisation::ComputeMaterial;
   
@@ -119,9 +118,11 @@ private:
   
   G4double fdX,fdY,fdZ;
   G4int fnX,fnY,fnZ;
-  std::vector<G4Material*> fMaterials;
+  vector<G4double> fMasterHUData;
+  vector<G4double> fHUThresholdVector;
+  vector<G4Material*> fMaterials;
   size_t* fMaterialIndices; // Index in materials corresponding to each voxel
-  std::map<G4String,G4VisAttributes*> fColours;
-  std::vector<G4double> fpZ;
+  vector<G4VisAttributes*> fColors;
+
 };
 #endif

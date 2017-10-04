@@ -104,6 +104,7 @@ private:
     // geometry component
     ScanningProtonBeamLineMessenger* scanningMessenger;
     G4VPhysicalVolume* physicalTreatmentRoom;
+    G4LogicalVolume* logicTreatmentRoom;
     ProtontherapyDetectorConstruction* protontherapyDetectorConstruction;
 
 

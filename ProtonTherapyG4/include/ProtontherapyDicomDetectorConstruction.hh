@@ -46,8 +46,8 @@ class ProtontherapyDicomDetectorConstruction : public DicomDetectorConstruction
 {
 public:
 
-  ProtontherapyDicomDetectorConstruction(G4VPhysicalVolume* physicalTreatmentRoom)
-  : DicomDetectorConstruction(physicalTreatmentRoom);
+  ProtontherapyDicomDetectorConstruction(G4LogicalVolume* logicTreatmentRoom)
+  : DicomDetectorConstruction(logicTreatmentRoom);
   ~ProtontherapyDicomDetectorConstruction();
 
 private:

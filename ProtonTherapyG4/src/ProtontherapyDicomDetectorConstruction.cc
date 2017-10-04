@@ -47,8 +47,8 @@
 #include "G4VisAttributes.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-ProtontherapyDicomDetectorConstruction::ProtontherapyDicomParamDetectorConstruction(G4VPhysicalVolume* physicalTreatmentRoom)
- : DicomDetectorConstruction(physicalTreatmentRoom)
+ProtontherapyDicomDetectorConstruction::ProtontherapyDicomParamDetectorConstruction(G4LogicalVolume* logicTreatmentRoom)
+ : DicomDetectorConstruction(logicTreatmentRoom)
 {
 }
 
@@ -60,11 +60,6 @@ ProtontherapyDicomDetectorConstruction::~ProtontherapyDicomParamDetectorConstruc
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void ProtontherapyDicomDetectorConstruction::ConstructPhantom()
 {
-#ifdef G4VERBOSE
-    G4cout << "ProtontherapyDicomDetectorConstruction::ConstructPhantom "
-    << G4endl;
-#endif
-
     //----- Replication of Water Phantom Volume.
     //--- Y Slice
     G4String yRepName("RepY");
@@ -72,8 +67,8 @@ void ProtontherapyDicomDetectorConstruction::ConstructPhantom()
                                   fVoxelHalfDimY,
                                   fNVoxelZ*fVoxelHalfDimZ);
     G4LogicalVolume* logYRep = new G4LogicalVolume(solYRep,fAir,yRepName);
-    new G4PVReplica(yRepName,logYRep,fContainer_logic,kYAxis,
-                    fNVoxelY,fVoxelHalfDimY*2.);
+    new G4PVReplica(yRepName,logYRep,fContainer_logic,kYAxis, 
+                    fNVoxelY,fVoxelHalfDimY*2.); // With reference to the container!
 
     logYRep->SetVisAttributes(new G4VisAttributes(G4VisAttributes::GetInvisible()));
 
@@ -100,8 +95,8 @@ void ProtontherapyDicomDetectorConstruction::ConstructPhantom()
     //  (voxel size is fixed in this example.
     //    e.g. nested parameterisation handles material
     //    and transfomation of voxels.)
-    G4ThreeVector voxelSize(fVoxelHalfDimX,fVoxelHalfDimY,fVoxelHalfDimZ);
-    DicomNestedPhantomParameterisation* param = new DicomNestedPhantomParameterisation(voxelSize, fMaterials);
+    G4ThreeVector voxelSize(fVoxelHalfDimX,fVoxelHalfDimY,fVoxelHalfDimZ); 
+    ProtontherapyDicomParameterisation* param = new ProtontherapyDicomParameterisation(voxelSize, fMaterials, fMasterHUData,fHUThresholdVector);
 
     new G4PVParameterised("phantom",    // their name
                           logicVoxel, // their logical volume
@@ -114,10 +109,4 @@ void ProtontherapyDicomDetectorConstruction::ConstructPhantom()
 
     param->SetMaterialIndices( fMateIDs );
     param->SetNoVoxel( fNVoxelX, fNVoxelY, fNVoxelZ );
-
-    //phantom_phys->SetRegularStructureId(0);
-
-    // Z logical volume
-    SetScorer(logicVoxel);
-
 }

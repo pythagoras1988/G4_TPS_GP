@@ -59,28 +59,17 @@ endif()
 # build hadrontherapy. This is so that we can run the executable directly because it
 # relies on these scripts being in the current working directory.
 #
-set(EXAMPLEhadrontherapy_SCRIPTS
-  clean.sh
- batch.mac
- ModoulWeight.txt
- macro/GUIPersonalisation.mac
+set(SCRIPTS
+	elemental_weights_Schneider.txt
+	)
 
-
-  )
-
-foreach(_script ${EXAMPLEhadrontherapy_SCRIPTS})
+foreach(_script ${SCRIPTS})
   configure_file(
     ${PROJECT_SOURCE_DIR}/${_script}
     ${PROJECT_BINARY_DIR}/${_script}
     COPYONLY
     )
 endforeach()
-
-#----------------------------------------------------------------------------
-# For internal Geant4 use - but has no effect if you build this
-# example standalone
-#
-#add_custom_target(hadrontherapy DEPENDS hadrontherapy)
 
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
