@@ -29,25 +29,23 @@
 /// \brief Definition of the DicomNestedParamDetectorConstruction class
 //
 
+#include "globals.hh"
+#include "G4LogicalVolume.hh"
+#include "DicomDetectorConstruction.hh"
+
 #ifndef ProtontherapyDicomDetectorConstruction_h
 #define ProtontherapyDicomDetectorConstruction_h 1
 
-#include "globals.hh"
-#include "DicomDetectorConstruction.hh"
 
 //*******************************************************
 /// Construct the phantom using DicomPhantomParameterisationColour
-///
-/// History: 30.11.07  First version
-/// \author  P. Arce
 //*******************************************************
 
 class ProtontherapyDicomDetectorConstruction : public DicomDetectorConstruction
 {
 public:
 
-  ProtontherapyDicomDetectorConstruction(G4LogicalVolume* logicTreatmentRoom)
-  : DicomDetectorConstruction(logicTreatmentRoom);
+  ProtontherapyDicomDetectorConstruction(G4LogicalVolume*);
   ~ProtontherapyDicomDetectorConstruction();
 
 private:

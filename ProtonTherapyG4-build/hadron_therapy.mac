@@ -1,0 +1,93 @@
+# G.A.P.Cirrone
+# cirrone@lns.infn.it
+#
+# Macro file recommended for the use with proton beams and built-in physic list.
+# This macro uses the physics list already contained in the Geant4 distribution
+#
+#    The 'Reference Physics Lists' can be activated setting a specific enviroment variable to the name
+#    of the physics. For example if the QGSP_BIC Reference Physics Lists must be activated the User
+#    must set export PHYSLIST=QGSP_BIC (or setenv PHYSLIST QGSP_BIC).
+#    A 'Reference Physics Lists' contains all the physics process necessary to a particle transport
+#    If the User set the PHYSLIST variable Hadrontherapy will start with the defaultMacroWithReferencePhysicsList.mac
+#    macro. See this macro file for more details
+
+#########################
+# Set of the verboses
+#
+/control/verbose 1
+/tracking/verbose 0
+/run/verbose 1
+/event/verbose 0
+
+##########################
+# Set of the physic models
+#
+#/Physics/addPhysics QGSP_BIC_EMY
+
+##########################
+# Initialisation procedure
+#
+#/run/numberOfThreads 8
+/run/initialize
+#/process/em/deexcitation phantom false false false
+#/process/em/fluo false
+#/process/em/auger false
+#/process/em/pixe false
+#/control/cout/setCerrFile worker_error.txt
+#########################
+
+/twiss/alpha 2.4
+/twiss/beta 6.6
+/twiss/emittance_y 2.1
+/twiss/emittance_z 2.0
+/gun/energy 150.0 MeV
+/beamLine/setField 0.0 0.3 0.1
+
+# Suggested values of cut and step:
+# Set cuts OUTSIDE the detector
+#
+#/run/setCut 2 cm
+
+# Set cuts ONLY inside the detector
+#
+#/run/setCutForRegion phantom 1. mm
+
+#/Step/waterPhantomStepMax 0.5 mm
+
+###################################################
+# USE THE FOLLOWING FOR A VOXELLIZED DETECTOR
+###################################################
+
+# Visualisation
+
+#/vis/scene/create
+#/vis/open DAWNFILE
+#/vis/drawVolume
+#/vis/viewer/flush
+#/vis/viewer/set/viewpointThetaPhi 90 90 deg
+#/vis/viewer/zoomTo 1.6
+#/vis/viewer/panTo 100  20 cm
+#/vis/viewer/panTo 10  0 cm
+#/vis/scene/add/trajectories smooth
+#/vis/modeling/trajectories/create/drawByCharge
+#/vis/modeling/trajectories/create/drawByParticleID
+#/vis/modeling/trajectories/drawByParticleID-0/set proton blue
+#/vis/modeling/trajectories/drawByParticleID-0/set e- red
+#/vis/modeling/trajectories/drawByParticleID-0/set gamma green
+#/vis/modeling/trajectories/drawByParticleID-0/set neutron cyan
+
+#/tracking/storeTrajectory 0
+#/vis/scene/endOfEventAction accumulate
+#/vis/viewer/update
+
+#########################
+# Display the event number
+# during the run
+#
+/event/printEventNumber 500
+
+
+# Default material is liquid water (G4_WATER)
+#/changePhantom/material G4_Pb
+
+/run/beamOn 1

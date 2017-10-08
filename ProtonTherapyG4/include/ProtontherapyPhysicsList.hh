@@ -34,16 +34,16 @@
 #include "globals.hh"
 
 class G4VPhysicsConstructor;
-class HadrontherapyStepMax;
+class ProtontherapyStepMax;
 class ProtontherapyPhysicsListMessenger;
 
 class ProtontherapyPhysicsList: public G4VModularPhysicsList
 {
 public:
-    
+
     ProtontherapyPhysicsList();
     virtual ~ProtontherapyPhysicsList();
-    
+
     void ConstructParticle();
     void SetCuts();
     void SetCutForGamma(G4double);
@@ -53,12 +53,11 @@ public:
     void AddPhysicsList(const G4String& name);
     void ConstructProcess();
     void AddStepMax();
-    void AddPackage(const G4String& name);
-    
+
 private:
-    
+
     G4EmConfigurator em_config;
-    
+
     G4double cutForGamma;
     G4double cutForElectron;
     G4double cutForPositron;
@@ -68,9 +67,9 @@ private:
     G4VPhysicsConstructor* emPhysicsList;
     G4VPhysicsConstructor* decay_List;
     G4VPhysicsConstructor* radioactiveDecay_List;
-    
+
     std::vector<G4VPhysicsConstructor*>  hadronPhys;
-        
+
     ProtontherapyPhysicsListMessenger* pMessenger;
 };
 

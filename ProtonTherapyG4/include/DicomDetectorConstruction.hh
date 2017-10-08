@@ -41,9 +41,10 @@
 #include <set>
 #include <map>
 
+using namespace std;
+
 class G4Material;
 class G4Box;
-class G4LogicalVolume;
 
 //*******************************************************
 /// Dicom detector construction
@@ -73,13 +74,14 @@ protected:
 
     void ConstructContainerVolume();
 
-    virtual void ConstructPhantom() = 0;
+    //virtual void ConstructPhantom() = 0;
     // construct the phantom volumes.
     //  This method should be implemented for each of the derived classes
+    //void StartConstructPhantom();
 
 protected:
     ProtontherapyDicomAsciiReader* DicomReader;
-    G4Material* fAir; 
+    G4Material* fAir;
     G4Box* fContainer_solid;
     G4LogicalVolume* fContainer_logic;
     G4VPhysicalVolume* fContainer_phys;
@@ -88,10 +90,10 @@ protected:
     G4int fNoFiles; // number of DICOM files
     vector<G4Material*> fMaterials;
     vector<G4double> fMasterHUData;
-    vector<G4double> fHUThresholdVector; 
-    vector<G4ThreeVector> fSliceRefPosition; 
+    vector<G4double> fHUThresholdVector;
+    vector<G4ThreeVector> fSliceRefPosition;
 
-    G4double fDirectionCosine_row, fDirectionCosine_col;
+    G4ThreeVector fDirectionCosine_row, fDirectionCosine_col;
     G4int fNVoxelX, fNVoxelY, fNVoxelZ;
     G4double fVoxelHalfDimX, fVoxelHalfDimY, fVoxelHalfDimZ;
 

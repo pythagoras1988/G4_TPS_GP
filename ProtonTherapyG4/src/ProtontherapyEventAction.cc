@@ -34,36 +34,32 @@
 #include "G4VVisManager.hh"
 
 #include "ProtontherapyEventAction.hh"
-#include "ProtontherapyDetectorConstruction.hh"
 #include "ProtontherapyEventActionMessenger.hh"
 
 /////////////////////////////////////////////////////////////////////////////
-HadrontherapyEventAction::HadrontherapyEventAction() :
+ProtontherapyEventAction::ProtontherapyEventAction() :
   drawFlag("all" ),printModulo(10), pointerEventMessenger(0)
-{ 
-  hitsCollectionID = -1;
-  pointerEventMessenger = new HadrontherapyEventActionMessenger(this);
+{
+  pointerEventMessenger = new ProtontherapyEventActionMessenger(this);
 }
 
 /////////////////////////////////////////////////////////////////////////////
-HadrontherapyEventAction::~HadrontherapyEventAction()
+ProtontherapyEventAction::~ProtontherapyEventAction()
 {
  delete pointerEventMessenger;
-}  
+}
 
 /////////////////////////////////////////////////////////////////////////////
-void HadrontherapyEventAction::BeginOfEventAction(const G4Event* evt)
-{ 
+void ProtontherapyEventAction::BeginOfEventAction(const G4Event* evt)
+{
   G4int evtNb = evt->GetEventID();
   //printing survey
   if (evtNb%printModulo == 0)
      G4cout << "\n---> Begin of Event: " << evtNb << G4endl;
-  
+
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void HadrontherapyEventAction::EndOfEventAction(const G4Event* evt)
-{ 
-  
+void ProtontherapyEventAction::EndOfEventAction(const G4Event* evt)
+{
 }
-

@@ -45,18 +45,18 @@
 #include "G4SystemOfUnits.hh"
 
 /////////////////////////////////////////////////////////////////////////////
-HadrontherapySteppingAction::HadrontherapySteppingAction( ProtontherapyRunAction *run)
+ProtontherapySteppingAction::ProtontherapySteppingAction( ProtontherapyRunAction *run)
 {
     runAction = run;
 }
 
 /////////////////////////////////////////////////////////////////////////////
-HadrontherapySteppingAction::~HadrontherapySteppingAction()
+ProtontherapySteppingAction::~ProtontherapySteppingAction()
 {
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void HadrontherapySteppingAction::UserSteppingAction(const G4Step* aStep)
+void ProtontherapySteppingAction::UserSteppingAction(const G4Step* aStep)
 {
 G4StepPoint* PreStep = aStep->GetPreStepPoint();
 G4StepPoint* PostStep = aStep->GetPostStepPoint();
@@ -104,6 +104,6 @@ G4Track* theTrack = aStep->GetTrack();
 
 if (PostStepX>30.0) {
   theTrack->SetTrackStatus(fStopAndKill);
-}   
+}
 
 }

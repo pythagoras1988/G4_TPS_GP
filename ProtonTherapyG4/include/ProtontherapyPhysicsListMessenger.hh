@@ -39,24 +39,23 @@ class G4UIcmdWithAString;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-class HadrontherapyPhysicsListMessenger: public G4UImessenger
+class ProtontherapyPhysicsListMessenger: public G4UImessenger
 {
 public:
-  
+
   ProtontherapyPhysicsListMessenger(ProtontherapyPhysicsList* );
   ~ProtontherapyPhysicsListMessenger();
-    
+
   void SetNewValue(G4UIcommand*, G4String);
-    
+
 private:
-  
+
   ProtontherapyPhysicsList* pPhysicsList;
-    
-  G4UIdirectory*             physDir;        
+
+  G4UIdirectory*             physDir;
     G4UIcmdWithAString*      pListCmd;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 #endif
-

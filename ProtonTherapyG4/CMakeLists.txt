@@ -61,6 +61,9 @@ endif()
 #
 set(SCRIPTS
 	elemental_weights_Schneider.txt
+	#ReadMe.txt
+	#ProtonTherapy.mac
+	#DicomHandler.py
 	)
 
 foreach(_script ${SCRIPTS})

@@ -46,9 +46,9 @@ class HepHistogram;
 class ProtontherapySteppingAction : public G4UserSteppingAction
 {
 public:
-  ProtontherapySteppingAction(HadrontherapyRunAction*);
+  ProtontherapySteppingAction(ProtontherapyRunAction*);
   ~ProtontherapySteppingAction();
-  
+
   void UserSteppingAction(const G4Step*);
 
 private:

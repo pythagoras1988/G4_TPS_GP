@@ -30,7 +30,6 @@
 #include "ProtontherapyPrimaryGeneratorAction.hh"
 #include "ProtontherapyRunAction.hh"
 #include "ProtontherapySteppingAction.hh"
-#include "ProtontherapyDetectorConstruction.hh"
 #include "G4GeneralParticleSource.hh"
 
 #include "ProtontherapyEventAction.hh"
@@ -46,7 +45,7 @@ ProtontherapyActionInitialization::ProtontherapyActionInitialization(/*G4VUserDe
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 ProtontherapyActionInitialization::~ProtontherapyActionInitialization()
-{/
+{
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -69,24 +68,24 @@ void ProtontherapyActionInitialization::BuildForMaster() const
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void ProtontherapyActionInitialization::Build() const
-{       
+{
  // Initialize the primary particles
   ProtontherapyPrimaryGeneratorAction *pPrimaryGenerator = new ProtontherapyPrimaryGeneratorAction();
   SetUserAction(pPrimaryGenerator);
-	
+
   // Optional UserActions: run, event, stepping
   ProtontherapyRunAction* pRunAction = new ProtontherapyRunAction();
   SetUserAction(pRunAction);
 
-	
+
   ProtontherapyEventAction* pEventAction = new ProtontherapyEventAction();
   SetUserAction(pEventAction);
-	
-  ProtontherapySteppingAction* steppingAction = new ProtontherapySteppingAction(pRunAction); 
-  SetUserAction(steppingAction);  
+
+  ProtontherapySteppingAction* steppingAction = new ProtontherapySteppingAction(pRunAction);
+  SetUserAction(steppingAction);
 
 
-       
-}  
+
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

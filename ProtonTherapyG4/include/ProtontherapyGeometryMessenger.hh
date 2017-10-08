@@ -41,18 +41,17 @@ class G4UIcmdWithAString;
 class ProtontherapyGeometryMessenger: public G4UImessenger
 {
 public:
-  ProtontherapyGeometryMessenger(HadrontherapyGeometryController* );
+  ProtontherapyGeometryMessenger(ProtontherapyGeometryController* );
   ~ProtontherapyGeometryMessenger();
-    
+
   void SetNewValue(G4UIcommand*, G4String);
-    
+
 private:
 
   // Pointer to the detector component
-  ProtontherapyGeometryController* hadrontherapyGeometryController;
+  ProtontherapyGeometryController* protontherapyGeometryController;
 
   G4UIdirectory *changeTheGeometryDir;      ///> UI directory for the geometry control
   G4UIcmdWithAString *changeTheGeometryCmd;//, *changeTheDetectorCmd; ///> Select the geometry and the detector
 };
 #endif
-

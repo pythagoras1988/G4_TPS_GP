@@ -29,17 +29,20 @@
 /// \brief Definition of the DicomNestedPhantomParameterisation class
 //
 
-#ifndef ProtontherapyDicomParameterisation_hh
-#define ProtontherapyDicomParameterisation_hh
+#ifndef ProtontherapyDicomParameterisation_h
+#define ProtontherapyDicomParameterisation_h 1
 
 #include <vector>
 
+#include "globals.hh"
 #include "G4Types.hh"
 #include "G4ThreeVector.hh"
-#include "G4VNestedParameterisation.hh" 
+#include "G4VNestedParameterisation.hh"
+
+using namespace std;
 
 class G4VPhysicalVolume;
-class G4VTouchable; 
+class G4VTouchable;
 class G4VSolid;
 class G4Material;
 class G4VisAttributes;
@@ -52,39 +55,39 @@ class G4Box;
 class ProtontherapyDicomParameterisation : public G4VNestedParameterisation
 {
 public:
-  
+
   ProtontherapyDicomParameterisation(const G4ThreeVector& voxelSize,
                                      std::vector<G4Material*>& mat,
-                                     G4int fnZ_ = 0, G4int fnY_ = 0, G4int fnX_ = 0);
-  ~ProtontherapyDicomParameterisation(); 
-  
+                                     vector<G4double>&, vector<G4double>&);
+  ~ProtontherapyDicomParameterisation();
+
   G4Material* ComputeMaterial(G4VPhysicalVolume *currentVol,
-                              const G4int repNo, 
+                              const G4int repNo,
                               const G4VTouchable *parentTouch );
   // Must cope with parentTouch for navigator's SetupHierarchy
-  
+
   G4int       GetNumberOfMaterials() const;
   G4Material* GetMaterial(G4int idx) const;
-  // Needed to define materials for instances of Nested Parameterisation 
-  // Current convention: each call should return the materials 
+  // Needed to define materials for instances of Nested Parameterisation
+  // Current convention: each call should return the materials
   // of all instances with the same mother/ancestor volume
-  
+
   unsigned int GetMaterialIndex( unsigned int nx, unsigned int ny, unsigned int nz) const;
   unsigned int GetMaterialIndex( unsigned int copyNo) const;
   void SetMaterialIndices( size_t* matInd ) { fMaterialIndices = matInd; }
   void SetNoVoxel( unsigned int nx, unsigned int ny, unsigned int nz );
-  
+
   void ComputeTransformation(const G4int no,
                              G4VPhysicalVolume *currentPV) const;
-  
-  // Additional standard Parameterisation methods, 
+
+  // Additional standard Parameterisation methods,
   // which can be optionally defined, in case solid is used.
   void ComputeDimensions(G4Box &, const G4int,
                          const G4VPhysicalVolume *) const;
-  
-  
+
+
 private:  // Dummy declarations to get rid of warnings ...
-  
+
   void ComputeDimensions (G4Trd&, const G4int,
                           const G4VPhysicalVolume*) const {}
   void ComputeDimensions (G4Trap&, const G4int,
@@ -109,15 +112,16 @@ private:  // Dummy declarations to get rid of warnings ...
                           const G4VPhysicalVolume*) const {}
   void ComputeDimensions (G4Polyhedra&, const G4int,
                           const G4VPhysicalVolume*) const {}
-  
+
   void ConstructColorData();
-  
+
   using G4VNestedParameterisation::ComputeMaterial;
-  
+
 private:
-  
+
   G4double fdX,fdY,fdZ;
   G4int fnX,fnY,fnZ;
+  G4int fProgress;
   vector<G4double> fMasterHUData;
   vector<G4double> fHUThresholdVector;
   vector<G4Material*> fMaterials;

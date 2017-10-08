@@ -35,15 +35,19 @@
 #include "G4PhysicalConstants.hh"
 #include "G4NistManager.hh"
 #include "G4RunManager.hh"
-// #include "G4SystemOfUnits.hh"
+#include "G4SystemOfUnits.hh"
+#include "G4Region.hh"
 #include "CLHEP/Units/SystemOfUnits.h"
 
 #include "DicomDetectorConstruction.hh"
 #include "ProtontherapyDicomAsciiReader.hh"
+#include "ProtontherapyDicomDetectorConstruction.hh"
 #include "MaterialConstruction.hh"
 
 #include "G4VisAttributes.hh"
 #include "G4Color.hh"
+
+#include <vector>
 
 using namespace std;
 
@@ -71,13 +75,14 @@ DicomDetectorConstruction::DicomDetectorConstruction(G4LogicalVolume* logicTreat
     InitialisationOfMaterials();
     ReadPhantomData();
     ConstructContainerVolume();
-    ConstructPhantom();
+  //  StartConstructPhantom();
   }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 DicomDetectorConstruction::~DicomDetectorConstruction()
 {
+  delete DicomReader;
 }
 
 void DicomDetectorConstruction::ReadPhantomData() {
@@ -88,9 +93,9 @@ void DicomDetectorConstruction::ReadPhantomData() {
   fNVoxelX = pixelNumberVector[0];
   fNVoxelY = pixelNumberVector[1];
   fNVoxelZ = pixelNumberVector[2];
-  fVoxelHalfDimX = pixelSizeVector[0]/2;
-  fVoxelHalfDimY = pixelSizeVector[1]/2;
-  fVoxelHalfDimZ = pixelSizeVector[2]/2;
+  fVoxelHalfDimX = pixelSizeVector[0]/2*mm;
+  fVoxelHalfDimY = pixelSizeVector[1]/2*mm;
+  fVoxelHalfDimZ = pixelSizeVector[2]/2*mm;
   fMasterHUData = DicomReader->GetMasterHUData();
   fDirectionCosine_row = DicomReader->GetDirectionCosine_row();
   fDirectionCosine_col = DicomReader->GetDirectionCosine_col();
@@ -110,7 +115,7 @@ void DicomDetectorConstruction::InitialisationOfMaterials()
   fHUThresholdVector = materialConstruction->GetHUThresholdVector();
 }
 
-void DicomDetectorConstruction::ConstructContainerVolume() { 
+void DicomDetectorConstruction::ConstructContainerVolume() {
    //----- Define the volume that contains all the voxels
   fContainer_solid = new G4Box("phantomContainer",fNVoxelX*fVoxelHalfDimX,
                                fNVoxelY*fVoxelHalfDimY,
@@ -122,20 +127,22 @@ void DicomDetectorConstruction::ConstructContainerVolume() {
                          "phantomContainer",
                          0, 0, 0 );
 
-  G4double minX(10000); minY(10000); minZ(10000);
-  G4ThreeVector refPosition;  
+  G4double minX(10000);
+  G4double minY(10000);
+  G4double minZ(10000);
+  G4ThreeVector refPosition;
 
-  for (vector<G4double>::iterator it=fSliceRefPosition.begin(); it!=fSliceRefPosition.end(); ++it) { 
-    refPosition = *it; 
+  for (vector<G4ThreeVector>::iterator it=fSliceRefPosition.begin(); it!=fSliceRefPosition.end(); ++it) {
+    refPosition = *it;
     if (refPosition[0]<minX) {minX = refPosition[0];}
     if (refPosition[1]<minX) {minY = refPosition[1];}
     if (refPosition[2]<minX) {minZ = refPosition[2];}
   }
 
-  G4double fOffsetX = (minX+fNVoxelX*fVoxelHalfDimX);                      
-  G4double fOffsetY = (minY+fNVoxelY*fVoxelHalfDimY);  
-  G4double fOffsetZ = (minZ+fNVoxelZ*fVoxelHalfDimZ);  
-                       
+  G4double fOffsetX = (minX+fNVoxelX*fVoxelHalfDimX);
+  G4double fOffsetY = (minY+fNVoxelY*fVoxelHalfDimY);
+  G4double fOffsetZ = (minZ+fNVoxelZ*fVoxelHalfDimZ);
+
   G4ThreeVector posCentreVoxels(fOffsetX,fOffsetY,fOffsetZ);
 
   fContainer_phys =
@@ -146,5 +153,7 @@ void DicomDetectorConstruction::ConstructContainerVolume() {
                       fWorld_logic,  // Mother which is the world
                       false,           // No op. bool.
                       1);              // Copy number
-}
+    G4cout<<"ok"<< G4endl;
 
+    fContainer_logic->SetVisAttributes(G4VisAttributes::GetInvisible());
+}

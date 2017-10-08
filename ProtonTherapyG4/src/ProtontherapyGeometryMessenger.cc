@@ -35,17 +35,17 @@
 
 /////////////////////////////////////////////////////////////////////////////
 ProtontherapyGeometryMessenger::ProtontherapyGeometryMessenger(ProtontherapyGeometryController* controller)
-:ProtontherapyGeometryController(controller)
+:protontherapyGeometryController(controller)
 
 {
     changeTheGeometryDir = new G4UIdirectory("/geometrySetup/");
     changeTheGeometryDir -> SetGuidance("Geometry setup");
-    
+
     changeTheGeometryCmd = new G4UIcmdWithAString("/geometrySetup/selectGeometry",this);
     changeTheGeometryCmd -> SetGuidance("Select the geometry you wish to use");
     changeTheGeometryCmd -> SetParameterName("Geometry",false);
     changeTheGeometryCmd -> AvailableForStates(G4State_PreInit);
-    
+
     /*  changeTheDetectorCmd = new G4UIcmdWithAString("/geometrySetup/selectDetector",this);
     changeTheDetectorCmd -> SetGuidance("Select the detector you wish to use");
     changeTheDetectorCmd -> SetParameterName("Detector",false);
@@ -70,6 +70,6 @@ void ProtontherapyGeometryMessenger::SetNewValue(G4UIcommand* command,G4String n
     else*/
  if( command == changeTheGeometryCmd )
     {
-        ProtontherapyGeometryController -> SetGeometry (newValue);
+        protontherapyGeometryController -> SetGeometry (newValue);
     }
 }

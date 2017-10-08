@@ -3,21 +3,21 @@
 #include "G4RunManager.hh"
 #include "G4UImanager.hh"
 #include "G4VModularPhysicsList.hh"
-#include "HadrontherapyEventAction.hh"
+#include "ProtontherapyEventAction.hh"
 #include "ProtontherapyPhysicsList.hh"
-#include "HadrontherapyPrimaryGeneratorAction.hh"
-#include "HadrontherapyRunAction.hh"
-#include "HadrontherapyMatrix.hh"
+#include "ProtontherapyPrimaryGeneratorAction.hh"
+#include "ProtontherapyRunAction.hh"
 #include "Randomize.hh"
 
 #include "G4UImessenger.hh"
 #include "globals.hh"
-#include "HadrontherapySteppingAction.hh"
-#include "HadrontherapyGeometryController.hh"
-#include "HadrontherapyGeometryMessenger.hh"
+#include "ProtontherapySteppingAction.hh"
+#include "ProtontherapyGeometryController.hh"
+#include "ProtontherapyGeometryMessenger.hh"
+#include "FTFP_BERT.hh"
+#include "G4PhysListFactory.hh"
 
 #include "G4ScoringManager.hh"
-#include "G4ParallelWorldPhysics.hh"
 #include <time.h>
 
 //************************MT*********************
@@ -27,7 +27,7 @@
 #include "G4RunManager.hh"
 #endif
 
-#include "HadrontherapyActionInitialization.hh"
+#include "ProtontherapyActionInitialization.hh"
 
 #ifdef G4VIS_USE
 #include "G4VisExecutive.hh"
@@ -55,33 +55,42 @@ int main(int argc ,char ** argv)
     // Geometry controller is responsible for instantiating the
     // geometries. All geometry specific setup tasks are now in class
     // HadrontherapyGeometryController.
-    HadrontherapyGeometryController *geometryController = new HadrontherapyGeometryController();
+    ProtontherapyGeometryController *geometryController = new ProtontherapyGeometryController();
 
     // Connect the geometry controller to the G4 user interface
-    HadrontherapyGeometryMessenger *geometryMessenger = new HadrontherapyGeometryMessenger(geometryController);
+    ProtontherapyGeometryMessenger *geometryMessenger = new ProtontherapyGeometryMessenger(geometryController);
 
+    /*
     G4ScoringManager *scoringManager = G4ScoringManager::GetScoringManager();
     scoringManager->SetVerboseLevel(1);
+    */
 
 
     // Initialize the default Hadrontherapy geometry
     geometryController->SetGeometry("default");
 
     // Initialize command based scoring
-    G4ScoringManager::GetScoringManager();
+    //G4ScoringManager::GetScoringManager();
 
     // Initialize the physics
+    /*
     G4VModularPhysicsList* phys = 0;
 
-    // Physics List name defined via environment variable
     G4cout << "Using HadrontherapyPhysicsList()" << G4endl;
-    phys = new HadrontherapyPhysicsList();
-    
+    phys = new ProtontherapyPhysicsList();
+
+    runManager->SetUserInitialization(phys);
+    */
+
+    G4int verbose = 1;
+    G4PhysListFactory factory;
+    G4VModularPhysicsList* phys = factory.GetReferencePhysList("QGSP_BIC_EMY");
+    phys -> SetVerboseLevel(verbose);
     runManager->SetUserInitialization(phys);
 
-    //************************MT
-    runManager->SetUserInitialization(new HadrontherapyActionInitialization);
 
+    //************************MT
+    runManager->SetUserInitialization(new ProtontherapyActionInitialization);
 
     // Get the pointer to the visualization manager
 #ifdef G4VIS_USE

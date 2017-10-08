@@ -40,7 +40,7 @@ class G4UIcmdWithADouble;
 class ProtontherapyPrimaryGeneratorMessenger: public G4UImessenger
 {
 public:
-  ProtontherapyPrimaryGeneratorMessenger(HadrontherapyPrimaryGeneratorAction*);
+  ProtontherapyPrimaryGeneratorMessenger(ProtontherapyPrimaryGeneratorAction*);
   ~ProtontherapyPrimaryGeneratorMessenger();
   void SetNewValue(G4UIcommand* , G4String);
   ProtontherapyPrimaryGeneratorAction* ProtontherapyAction;

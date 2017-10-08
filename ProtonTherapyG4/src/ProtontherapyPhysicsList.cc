@@ -37,6 +37,7 @@
 #include "G4SystemOfUnits.hh"
 #include "G4RunManager.hh"
 #include "G4Region.hh"
+#include "G4UImanager.hh"
 #include "G4RegionStore.hh"
 #include "ProtontherapyPhysicsList.hh"
 #include "ProtontherapyPhysicsListMessenger.hh"
@@ -51,6 +52,7 @@
 
 #include "G4HadronPhysicsQGSP_BIC_HP.hh"
 #include "G4HadronPhysicsQGSP_BIC.hh"
+#include "G4EmStandardPhysics_option1.hh"
 #include "G4EmStandardPhysics_option3.hh"
 #include "G4EmStandardPhysics_option4.hh"
 #include "G4EmExtraPhysics.hh"
@@ -68,9 +70,16 @@
 #include "G4IonFluctuations.hh"
 #include "G4IonParametrisedLossModel.hh"
 #include "G4EmProcessOptions.hh"
-#include "G4ParallelWorldPhysics.hh"
 #include "G4EmLivermorePhysics.hh"
 #include "G4AutoDelete.hh"
+#include "G4LeptonConstructor.hh"
+#include "G4BosonConstructor.hh"
+#include "G4MesonConstructor.hh"
+#include "G4BaryonConstructor.hh"
+#include "G4ShortLivedConstructor.hh"
+#include "G4IonConstructor.hh"
+#include "G4ParticleTable.hh"
+#include "G4ParticleDefinition.hh"
 
 /////////////////////////////////////////////////////////////////////////////
 ProtontherapyPhysicsList::ProtontherapyPhysicsList() : G4VModularPhysicsList()
@@ -99,23 +108,27 @@ ProtontherapyPhysicsList::ProtontherapyPhysicsList() : G4VModularPhysicsList()
 
     // Elecromagnetic physics
     //
-    emPhysicsList = new G4EmStandardPhysics_option4();
+
+    emPhysicsList = new G4EmStandardPhysics_option3;
     emName = G4String("emstandard_opt4");
 
     // Hadronic physics
     //
-    hadronPhys.push_back( new G4DecayPhysics());
-    hadronPhys.push_back( new G4RadioactiveDecayPhysics());
-    hadronPhys.push_back( new G4IonBinaryCascadePhysics());
-    hadronPhys.push_back( new G4EmExtraPhysics());
-    hadronPhys.push_back( new G4HadronElasticPhysics());
-    hadronPhys.push_back( new G4StoppingPhysics());
-    hadronPhys.push_back( new G4HadronPhysicsQGSP_BIC());
+
+    //hadronPhys.push_back( new G4DecayPhysics());
+    //hadronPhys.push_back( new G4RadioactiveDecayPhysics());
+    //hadronPhys.push_back( new G4IonBinaryCascadePhysics());
+    //hadronPhys.push_back( new G4EmExtraPhysics());
+    //hadronPhys.push_back( new G4HadronElasticPhysics());
+    //hadronPhys.push_back( new G4StoppingPhysics());
+    //hadronPhys.push_back( new G4HadronPhysicsQGSP_BIC());
+
 
     // Decay physics
     //
     decay_List = new G4DecayPhysics();
     radioactiveDecay_List = new G4RadioactiveDecayPhysics();
+
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -135,7 +148,25 @@ ProtontherapyPhysicsList::~ProtontherapyPhysicsList()
 /////////////////////////////////////////////////////////////////////////////
 void ProtontherapyPhysicsList::ConstructParticle()
 {
-    decay_List -> ConstructParticle();
+
+    G4LeptonConstructor lepton;
+    lepton.ConstructParticle();
+
+    G4BosonConstructor boson;
+    boson.ConstructParticle();
+
+    G4MesonConstructor meson;
+    meson.ConstructParticle();
+
+    G4BaryonConstructor baryon;
+    baryon.ConstructParticle();
+
+    G4ShortLivedConstructor shortLived;
+    shortLived.ConstructParticle();
+
+    G4IonConstructor ion;
+    ion.ConstructParticle();
+
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -148,7 +179,7 @@ void ProtontherapyPhysicsList::ConstructProcess()
     // Electromagnetic physics
     //
     emPhysicsList -> ConstructProcess();
-    em_config.AddModels();
+    //em_config.AddModels();
 
     // Hadronic physics
     //
@@ -160,11 +191,6 @@ void ProtontherapyPhysicsList::ConstructProcess()
     // step limitation (as a full process)
     //
     AddStepMax();
-
-    //Parallel world sensitivity
-    //
-    G4ParallelWorldPhysics* pWorld = new G4ParallelWorldPhysics("DetectorROGeometry");
-    pWorld->ConstructProcess();
 
     return;
 }
@@ -262,13 +288,14 @@ void ProtontherapyPhysicsList::AddPhysicsList(const G4String& name)
       hadronPhys.push_back( new G4IonBinaryCascadePhysics());
       hadronPhys.push_back( new G4NeutronTrackingCut());
       hadronPhys.push_back( new G4DecayPhysics());
+      G4cout<<"QGSP_BIC_EMY Activated..."<<G4endl;
     }
      else {
         G4cout << "PhysicsList::AddPhysicsList: <" << name << ">"
         << " is not defined"
         << G4endl;
     }
-
+    G4cout<<"Construct physics process ... ... ..."<<G4endl;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -306,12 +333,13 @@ void ProtontherapyPhysicsList::SetCuts()
     // '/run/setCutForRegion <G4Region name> <cut value>'
     // must be defined here
     //
-  SetCutValue(cutForGamma, "gamma");
-  SetCutValue(cutForElectron, "e-");
-  SetCutValue(cutForPositron, "e+");
+    SetCutValue(cutForGamma, "gamma");
+    SetCutValue(cutForElectron, "e-");
+    SetCutValue(cutForPositron, "e+");
     // At moment, only 'DetectorLog' is defined as G4Region
     //
-    G4String regName[] = {"DetectorLog"};
+
+    G4String regName[] = {"phantom"};
     G4double fuc = 1.;
     for(G4int i=0;i<1;i++)
     {
@@ -321,4 +349,5 @@ void ProtontherapyPhysicsList::SetCuts()
         reg->SetProductionCuts(cuts);
         fuc *= 10.;
     }
+
 }

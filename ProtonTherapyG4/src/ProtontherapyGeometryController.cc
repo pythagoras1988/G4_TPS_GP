@@ -27,11 +27,9 @@
 // See more at: https://twiki.cern.ch/twiki/bin/view/Geant4/AdvancedExamplesHadrontherapy
 
 #include "ProtontherapyGeometryController.hh"
-#include "ProtontherapyDetectorConstruction.hh"
 
 #include "ScanningProtonBeamLine.hh"
 #include "G4RunManager.hh"
-#include "G4VUserParallelWorld.hh"
 #include "G4ThreeVector.hh"
 
 /////////////////////////////////////////////////////////////////////////////
@@ -48,7 +46,7 @@ void ProtontherapyGeometryController::SetGeometry(G4String name)
     G4cout <<"Activating geometry " << name << G4endl;
     if(name == "default")
     {
-      registerGeometry(new PassiveProtonBeamLine());
+      registerGeometry(new ScanningProtonBeamLine());
     }
     else
     {
@@ -63,4 +61,3 @@ void ProtontherapyGeometryController::registerGeometry(G4VUserDetectorConstructi
 	runManager -> SetUserInitialization(detector);
 	runManager -> GeometryHasBeenModified();
 }
-

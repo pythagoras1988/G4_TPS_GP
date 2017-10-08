@@ -34,7 +34,7 @@
 #include "G4UIcmdWith3Vector.hh"
 #include "G4SystemOfUnits.hh"
 
-    ScanningProtonBeamLineMessenger::ScanningProtonBeamLineMessenger(PassiveProtonBeamLine* beamLine)
+ScanningProtonBeamLineMessenger::ScanningProtonBeamLineMessenger(ScanningProtonBeamLine* beamLine)
 :scanningProton(beamLine)
 
 {
@@ -92,7 +92,7 @@ ScanningProtonBeamLineMessenger::~ScanningProtonBeamLineMessenger()
 void ScanningProtonBeamLineMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
 {
 
-    else if( command == rangeShifterMatCmd )
+    if( command == rangeShifterMatCmd )
     { scanningProton -> SetRSMaterial(newValue);}
 
     else if( command == rangeShifterXSizeCmd )

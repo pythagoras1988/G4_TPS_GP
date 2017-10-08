@@ -37,11 +37,9 @@
 #include "G4LogicalVolume.hh"
 
 class G4VPhysicalVolume;
-class ProtontherapyDetectorConstruction;
-//class FaradayCup;
 class ScanningProtonBeamLineMessenger;
-class HadrontherapyDetectorROGeometry;
-
+class DicomDetectorConstruction;
+class ProtontherapyDicomDetectorConstruction;
 class ScanningProtonBeamLine : public G4VUserDetectorConstruction
 {
 public:
@@ -64,7 +62,7 @@ public:
     // of primary beam
 
     void ProtontherapyVacuumPipe();
-    // This defines the Vacuum Chamber. 
+    // This defines the Vacuum Chamber.
 
     void ProtontherapyMagnetX();
     // This is for magnets for x direction
@@ -105,7 +103,7 @@ private:
     ScanningProtonBeamLineMessenger* scanningMessenger;
     G4VPhysicalVolume* physicalTreatmentRoom;
     G4LogicalVolume* logicTreatmentRoom;
-    ProtontherapyDetectorConstruction* protontherapyDetectorConstruction;
+    DicomDetectorConstruction* protontherapyDetectorConstruction;
 
 
     G4LogicalVolume* logicMagnetX;

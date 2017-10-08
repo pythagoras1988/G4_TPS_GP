@@ -37,9 +37,12 @@
 #include "G4Box.hh"
 #include "G4LogicalVolume.hh"
 #include "G4Material.hh"
+#include "G4NistManager.hh"
 
 #include "G4VisAttributes.hh"
 #include "G4VVisManager.hh"
+
+#include <vector>
 
 using namespace std;
 
@@ -47,14 +50,15 @@ using namespace std;
 ProtontherapyDicomParameterisation::
 ProtontherapyDicomParameterisation(const G4ThreeVector& voxelSize,
                                    vector<G4Material*>& mat,
-                                   vector<G4double> HUMasterData, vector<G4double>thresholdVector)
+                                   vector<G4double>& HUMasterData, vector<G4double>& thresholdVector)
 :
   fdX(voxelSize.x()), fdY(voxelSize.y()), fdZ(voxelSize.z()),
   fnX(0), fnY(0), fnZ(0),
   fMaterials(mat),
   fMaterialIndices(0),
+  fProgress(0),
   fHUThresholdVector(thresholdVector),
-  fHUMasterData(HUMasterData)
+  fMasterHUData(HUMasterData)
 {
     ConstructColorData();
 }
@@ -94,22 +98,32 @@ ComputeMaterial(G4VPhysicalVolume* physVol, const G4int iz,
     unsigned int matIndex;
     static G4Material* mate = 0;
     G4double voxelHU;
-    voxelHU = fHUMasterData[copyID]; 
+    voxelHU = fMasterHUData[copyID];
 
-    for (matIndex=0; matIndex<fHUThresholdVector.size();matIndex++) { 
-      if (voxelHU<=fHUThresholdVector[matIndex]) { 
+    for (matIndex=0; matIndex<fHUThresholdVector.size();matIndex++) {
+      if (voxelHU<=fHUThresholdVector[matIndex]) {
         break;
       }
     }
+    // To cover the case of HU>1600 for Schneider's model
+    if (matIndex==fHUThresholdVector.size()) { matIndex = fHUThresholdVector.size()-1;}
+
+    // Verbosity for debugging use
+    if (iz==0) {
+    G4cout<<"Finished placing physical volume " << ix <<"," << iy << ","
+        << copyID  << "," << matIndex << "," << fHUThresholdVector[matIndex] << "..."<< G4endl;
+    }
 
     mate = fMaterials[matIndex];
-    physVol->GetLogicalVolume()->SetVisAttributes(fColours[matIndex]);
+    if (voxelHU>1000) {physVol->GetLogicalVolume()->SetVisAttributes(fColors[matIndex]);}
+    else {physVol->GetLogicalVolume()->SetVisAttributes(G4VisAttributes::GetInvisible());}
 
+    mate = G4NistManager::Instance()->FindOrBuildMaterial("G4_AIR");
     return mate;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-unsigned int ProtontherapyDicomParameterisationn::
+unsigned int ProtontherapyDicomParameterisation::
 GetMaterialIndex( unsigned int copyNo ) const
 {
     //return *(fMaterialIndices+copyNo);
@@ -161,17 +175,17 @@ ComputeDimensions( G4Box& box, const G4int, const G4VPhysicalVolume* ) const
 }
 
 
-void ProtontherapyDicomParameterisation::ConstructColorData() {  
-  G4double blueFraction, redFraction; 
-  G4double colorDataLength; 
-  colorDataLength = fHUThresholdVector.size(); 
-  fColors.reserve(colorDataLength); 
+void ProtontherapyDicomParameterisation::ConstructColorData() {
+  G4double blueFraction, redFraction;
+  G4double colorDataLength;
+  colorDataLength = fHUThresholdVector.size();
+  fColors.reserve(colorDataLength);
 
-  for (G4int k; k<colorDataLength; k++) { 
-    blueFraction = 1 - k/colorDataLength; 
-    redFraction  = k/colorDataLength; 
+  for (G4int k; k<colorDataLength; k++) {
+    blueFraction = 1 - k/colorDataLength;
+    redFraction  = k/colorDataLength;
     fColors.push_back(new G4VisAttributes(G4Color(redFraction,0,blueFraction)));
-    fcolors[k] -> SetVisibility(true);
+    fColors[k] -> SetVisibility(true);
     fColors[k] -> SetForceSolid(true);
   }
 }

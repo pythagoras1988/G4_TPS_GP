@@ -34,8 +34,8 @@
 #include "G4SystemOfUnits.hh"
 
 ProtontherapyPrimaryGeneratorMessenger::ProtontherapyPrimaryGeneratorMessenger(
-                                             HadrontherapyPrimaryGeneratorAction* HadrontherapyGun)
-:HadrontherapyAction(HadrontherapyGun)
+                                             ProtontherapyPrimaryGeneratorAction* ProtontherapyGun)
+:ProtontherapyAction(ProtontherapyGun)
 {
   //
   // Definition of the interactive commands to modify the parameters of the
@@ -86,15 +86,15 @@ ProtontherapyPrimaryGeneratorMessenger::~ProtontherapyPrimaryGeneratorMessenger(
 void ProtontherapyPrimaryGeneratorMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
 {
   if ( command == twissAlphaCmd )
-    { HadrontherapyAction -> SetTwissAlpha(twissAlphaCmd
+    { ProtontherapyAction -> SetTwissAlpha(twissAlphaCmd
 						  -> GetNewDoubleValue(newValue));}
   if ( command == twissBetaCmd )
-    { HadrontherapyAction -> SetTwissBeta(twissBetaCmd
+    { ProtontherapyAction -> SetTwissBeta(twissBetaCmd
 						  -> GetNewDoubleValue(newValue));}
   if ( command == twissYEmittanceCmd )
-    { HadrontherapyAction -> SetTwissEmittance_y(twissYEmittanceCmd
+    { ProtontherapyAction -> SetTwissEmittance_y(twissYEmittanceCmd
 						  -> GetNewDoubleValue(newValue));}
   if ( command == twissZEmittanceCmd )
-    { HadrontherapyAction -> SetTwissEmittance_z(twissZEmittanceCmd
+    { ProtontherapyAction -> SetTwissEmittance_z(twissZEmittanceCmd
 						  -> GetNewDoubleValue(newValue));}
 }

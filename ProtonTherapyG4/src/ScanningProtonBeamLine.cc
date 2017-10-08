@@ -39,9 +39,10 @@
 #include "G4RotationMatrix.hh"
 #include "G4NistManager.hh"
 #include "G4NistElementBuilder.hh"
-#include "ProtontherapyDetectorConstruction.hh"
 #include "ScanningProtonBeamLine.hh"
 #include "ScanningProtonBeamLineMessenger.hh"
+#include "DicomDetectorConstruction.hh"
+#include "ProtontherapyDicomDetectorConstruction.hh"
 #include "G4UniformMagField.hh"
 #include "G4FieldManager.hh"
 #include "G4ChordFinder.hh"
@@ -66,7 +67,7 @@ physiSecondMonitorLayer1(0), physiSecondMonitorLayer2(0), physiSecondMonitorLaye
 ScanningProtonBeamLine::~ScanningProtonBeamLine()
 {
     delete scanningMessenger;
-    delete protontherapyDetectorConstruction;
+    //delete protontherapyDetectorConstruction;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -82,7 +83,6 @@ G4VPhysicalVolume* ScanningProtonBeamLine::Construct()
     if (!protontherapyDetectorConstruction)
         //***************************** PW ***************************************
         // HadrontherapyDetectorConstruction builds ONLY the phantom and the detector with its associated ROGeometry
-        DicomDetectorConstruction* protontherapyDetectorConstruction; // This is the derived class
         protontherapyDetectorConstruction = new ProtontherapyDicomDetectorConstruction(logicTreatmentRoom);
 
     return physicalTreatmentRoom;

@@ -28,7 +28,6 @@
 
 #include "ProtontherapyPrimaryGeneratorAction.hh"
 #include "ProtontherapyPrimaryGeneratorMessenger.hh"
-#include "ProtontherapyAnalysisManager.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4Event.hh"
 #include "G4ParticleGun.hh"
@@ -63,7 +62,7 @@ ProtontherapyPrimaryGeneratorAction::ProtontherapyPrimaryGeneratorAction()
 }
 
 /////////////////////////////////////////////////////////////////////////////
-ProtontherapyPrimaryGeneratorAction::~HadrontherapyPrimaryGeneratorAction()
+ProtontherapyPrimaryGeneratorAction::~ProtontherapyPrimaryGeneratorAction()
 {
   delete particleGun;
 
@@ -71,10 +70,6 @@ ProtontherapyPrimaryGeneratorAction::~HadrontherapyPrimaryGeneratorAction()
   /////////////////////////////////////////////////////////////////////////////
   void ProtontherapyPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   {
-#ifdef G4ANALYSIS_USE_ROOT
-    // Increment the event counter
-    HadrontherapyAnalysisManager::GetInstance()->startNewEvent();
-#endif
     // Determine Covariance matrix
     gamma     = (1 + alpha*alpha) / beta;
     xPos      = -236.1*cm;
@@ -120,7 +115,7 @@ ProtontherapyPrimaryGeneratorAction::~HadrontherapyPrimaryGeneratorAction()
       saveFile << zp_sample << '\n';
     }
     saveFile.close();
-    
+
 
     particleGun -> GeneratePrimaryVertex( anEvent );
     }
