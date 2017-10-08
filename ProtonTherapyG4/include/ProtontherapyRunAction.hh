@@ -32,9 +32,10 @@
 #include "G4UserRunAction.hh"
 #include "G4RunManager.hh"
 #include "globals.hh"
+#include <vector>
 
 class G4Run;
-class HadrontherapyDetectorConstruction;
+class ProtontherapyRun; 
 
 class ProtontherapyRunAction : public G4UserRunAction
 {
@@ -43,9 +44,9 @@ public:
   ~ProtontherapyRunAction();
 
 public:
+  virtual G4Run* GenerateRun();
   void BeginOfRunAction(const G4Run*);
   void EndOfRunAction(const G4Run* );
-  void SelectEnergy(G4int); 
 
   void AddEMProcess();
   // Counts the number of electromagnetic processes
@@ -56,6 +57,9 @@ public:
   // of primary particles in the phantom
 
 private:  
+  ProtontherapyRun* fProtontherapyrun;
+  // vector of names of Multifunctional detector
+  std::vector<G4String> fSDName;
   G4int electromagnetic;
   G4int hadronic;
 };

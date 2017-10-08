@@ -73,19 +73,18 @@ int main(int argc ,char ** argv)
     //G4ScoringManager::GetScoringManager();
 
     // Initialize the physics
-    /*
+    
     G4VModularPhysicsList* phys = 0;
 
     G4cout << "Using HadrontherapyPhysicsList()" << G4endl;
     phys = new ProtontherapyPhysicsList();
-
-    runManager->SetUserInitialization(phys);
-    */
-
+    
+    /*
     G4int verbose = 1;
     G4PhysListFactory factory;
     G4VModularPhysicsList* phys = factory.GetReferencePhysList("QGSP_BIC_EMY");
     phys -> SetVerboseLevel(verbose);
+    */
     runManager->SetUserInitialization(phys);
 
 

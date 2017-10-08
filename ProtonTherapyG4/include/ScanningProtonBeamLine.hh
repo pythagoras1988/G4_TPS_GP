@@ -35,6 +35,7 @@
 #include "G4Tubs.hh"
 #include "G4VisAttributes.hh"
 #include "G4LogicalVolume.hh"
+#include <set>
 
 class G4VPhysicalVolume;
 class ScanningProtonBeamLineMessenger;
@@ -44,17 +45,16 @@ class ScanningProtonBeamLine : public G4VUserDetectorConstruction
 {
 public:
 
-    //PassiveProtonBeamLine(G4VPhysicalVolume*);
     ScanningProtonBeamLine();
     ~ScanningProtonBeamLine();
-  // static G4bool doCalculation;
 
     G4VPhysicalVolume* Construct();
-    //***************************** PW **************NON SERVE*************************
 
-    static ScanningProtonBeamLine* GetInstance();
+    virtual void ConstructSDandField();
 
-    //***************************** PW **************NON SERVE*************************
+    void SetScorer(G4LogicalVolume*);
+
+    std::set<G4LogicalVolume*> fScorers;
 
     void ProtontherapyRangeShifter();
     // This defines the "range shifter". Is is a slab
@@ -71,12 +71,11 @@ public:
     // Definition of three monitor chambers
 
     void ProtontherapySpotPositionMonitorDetector();
-    // Construct the MOPI on-line detector
+
+    void ProtontherapyNozzleBoundary();
 
     // The following methods allow to change parameters
     // of some beam line components
-
-    void ProtontherapyNozzleBoundary();
 
     void SetRangeShifterXPosition(G4double value);
     // This method allows to move the Range Shifter along

@@ -832,21 +832,14 @@ void DicomDetectorConstruction::ConstructSDandField()
   //
   // Define MultiFunctionalDetector with name.
   // declare MFDet as a MultiFunctionalDetector scorer
-  G4MultiFunctionalDetector* MFDet = 
-    new G4MultiFunctionalDetector(concreteSDname);
+  G4MultiFunctionalDetector* MFDet = new G4MultiFunctionalDetector(concreteSDname);
   G4SDManager::GetSDMpointer()->AddNewDetector( MFDet );
   //G4VPrimitiveScorer* dosedep = new G4PSDoseDeposit("DoseDeposit");
-  G4VPrimitiveScorer* dosedep = 
-    new G4PSDoseDeposit3D("DoseDeposit", fNVoxelX, fNVoxelY, fNVoxelZ);
+  G4VPrimitiveScorer* dosedep = new G4PSDoseDeposit3D("DoseDeposit", fNVoxelX, fNVoxelY, fNVoxelZ);
   MFDet->RegisterPrimitive(dosedep);
   
   for(std::set<G4LogicalVolume*>::iterator ite = fScorers.begin(); 
       ite != fScorers.end(); ++ite) {
     SetSensitiveDetector(*ite, MFDet);
   }
-  
-  /*if(DicomRunAction::Instance()->GetDicomRun()) {
-      DicomRunAction::Instance()->GetDicomRun()->ConstructMFD(scorer_names);
-      }*/
- 
 }

@@ -109,19 +109,19 @@ ProtontherapyPhysicsList::ProtontherapyPhysicsList() : G4VModularPhysicsList()
     // Elecromagnetic physics
     //
 
-    emPhysicsList = new G4EmStandardPhysics_option3;
-    emName = G4String("emstandard_opt4");
+    emPhysicsList = new G4EmStandardPhysics_option1;
+    emName = G4String("emstandard_opt1");
 
     // Hadronic physics
     //
 
-    //hadronPhys.push_back( new G4DecayPhysics());
-    //hadronPhys.push_back( new G4RadioactiveDecayPhysics());
-    //hadronPhys.push_back( new G4IonBinaryCascadePhysics());
-    //hadronPhys.push_back( new G4EmExtraPhysics());
-    //hadronPhys.push_back( new G4HadronElasticPhysics());
-    //hadronPhys.push_back( new G4StoppingPhysics());
-    //hadronPhys.push_back( new G4HadronPhysicsQGSP_BIC());
+    hadronPhys.push_back( new G4DecayPhysics());
+    hadronPhys.push_back( new G4RadioactiveDecayPhysics());
+    hadronPhys.push_back( new G4IonBinaryCascadePhysics());
+    hadronPhys.push_back( new G4EmExtraPhysics());
+    hadronPhys.push_back( new G4HadronElasticPhysics());
+    hadronPhys.push_back( new G4StoppingPhysics());
+    hadronPhys.push_back( new G4HadronPhysicsQGSP_BIC());
 
 
     // Decay physics

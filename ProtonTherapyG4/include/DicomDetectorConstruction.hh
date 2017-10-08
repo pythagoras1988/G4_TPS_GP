@@ -74,11 +74,6 @@ protected:
 
     void ConstructContainerVolume();
 
-    //virtual void ConstructPhantom() = 0;
-    // construct the phantom volumes.
-    //  This method should be implemented for each of the derived classes
-    //void StartConstructPhantom();
-
 protected:
     ProtontherapyDicomAsciiReader* DicomReader;
     G4Material* fAir;

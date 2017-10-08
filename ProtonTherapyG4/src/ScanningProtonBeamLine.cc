@@ -274,17 +274,6 @@ void ScanningProtonBeamLine::SetDefaultDimensions()
     ABSresin->AddElement(elC, natoms=1); //Need to chang the number of Carbon   atom according to the chemical formula of ABSresin
     ABSresin->AddElement(elN, natoms=3); //Need to chang the number of Nitrogen atom according to the chemical formula of ABSresin
 
-
-
-    //***************************** PW ***************************************
-
-    // DetectorROGeometry Material
-    new G4Material("dummyMat", 1., 1.*g/mole, 1.*g/cm3);
-
-    //***************************** PW ***************************************
-
-
-
     // MATERIAL ASSIGNMENT
     // Range shifter ********************************************Currently set to random composition need to change to ABS resin compound when given by hitachi
     rangeShifterMaterial = ABSresin;
@@ -351,7 +340,6 @@ void ScanningProtonBeamLine::ConstructScanningProtonBeamLine()
     // Components of the Passive Proton Beam Line
     ProtontherapyMagnetX();
     ProtontherapyVacuumPipe();
-//    HadrontherapyMagnetY();
     ProtontherapyBeamMonitoring();
     ProtontherapySpotPositionMonitorDetector();
     ProtontherapyRangeShifter();
@@ -977,3 +965,52 @@ void ScanningProtonBeamLine::SetMagneticField(G4ThreeVector value)
   logicMagnetX->SetFieldManager(fieldMgr,true);
 
 }
+
+// This section is for scoring manager
+#include "G4SDManager.hh"
+#include "G4MultiFunctionalDetector.hh"
+#include "G4PSDoseDeposit.hh"
+#include "G4PSDoseDeposit3D.hh"
+#include <set>
+#include <vector>
+
+void ScanningProtonBeamLine::SetScorer(G4LogicalVolume* voxel_logic)
+{
+  G4cout << "\t SET SCORER : " << voxel_logic->GetName() << G4endl; 
+  fScorers.insert(voxel_logic);
+}
+
+void DicomDetectorConstruction::ConstructSDandField()
+{
+  G4cout << "\t CONSTRUCT SD AND FIELD" << G4endl;
+  
+  // Sensitive Detector Name
+  G4String concreteSDname = "phantomSD";
+  std::vector<G4String> scorer_names;
+  scorer_names.push_back(concreteSDname);
+  //------------------------
+  // MultiFunctionalDetector
+  //------------------------
+  //
+  // Define MultiFunctionalDetector with name.
+  // declare MFDet as a MultiFunctionalDetector scorer
+  G4MultiFunctionalDetector* MFDet = 
+    new G4MultiFunctionalDetector(concreteSDname);
+  G4SDManager::GetSDMpointer()->AddNewDetector( MFDet );
+
+  fNVoxelX = protontherapyDetectorConstruction->fNVoxelX; 
+  fNVoxelY = protontherapyDetectorConstruction->fNVoxelY; 
+  fNVoxelZ = protontherapyDetectorConstruction->fNVoxelZ;
+
+  G4VPrimitiveScorer* dosedep = new G4PSDoseDeposit3D("DoseDeposit", fNVoxelX, fNVoxelY, fNVoxelZ);
+  MFDet->RegisterPrimitive(dosedep);
+  
+  for(std::set<G4LogicalVolume*>::iterator ite = fScorers.begin(); ite != fScorers.end(); ++ite) {
+    SetSensitiveDetector(*ite, MFDet);
+  }
+}
+
+
+
+
+
