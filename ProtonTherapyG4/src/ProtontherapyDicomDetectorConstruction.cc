@@ -112,7 +112,5 @@ void ProtontherapyDicomDetectorConstruction::ConstructPhantom()
   	G4cout<<fNVoxelY <<G4endl;
     param->SetNoVoxel( fNVoxelX, fNVoxelY, fNVoxelZ );
 
-    G4Region*  aRegion = new G4Region("phantom");
-    logicVoxel -> SetRegion(aRegion);
-    aRegion -> AddRootLogicalVolume(logicVoxel);
+    SetScorer(logicVoxel);
 }

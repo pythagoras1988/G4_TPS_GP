@@ -48,17 +48,17 @@ using namespace std;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 ProtontherapyDicomParameterisation::
-ProtontherapyDicomParameterisation(const G4ThreeVector& voxelSize,
-                                   vector<G4Material*>& mat,
-                                   vector<G4double>& HUMasterData, vector<G4double>& thresholdVector)
+ProtontherapyDicomParameterisation(const G4ThreeVector voxelSize,
+                                   vector<G4Material*> mat,
+                                   vector<G4double> HUMasterData, vector<G4double> thresholdVector)
 :
   fdX(voxelSize.x()), fdY(voxelSize.y()), fdZ(voxelSize.z()),
   fnX(0), fnY(0), fnZ(0),
-  fMaterials(mat),
-  fMaterialIndices(0),
   fProgress(0),
+  fMasterHUData(HUMasterData),
   fHUThresholdVector(thresholdVector),
-  fMasterHUData(HUMasterData)
+  fMaterials(mat),
+  fMaterialIndices(0)
 {
     ConstructColorData();
 }
@@ -94,7 +94,7 @@ ComputeMaterial(G4VPhysicalVolume* physVol, const G4int iz,
     G4int iy = parentTouch->GetReplicaNumber(1);
 
     G4int copyID = ix + fnX*iy + fnX*fnY*iz; // same formula as compressData method in ProtontherapyDicomAsciiReader class
-
+    //G4cout<<copyID<<G4endl;
     unsigned int matIndex;
     static G4Material* mate = 0;
     G4double voxelHU;
@@ -109,16 +109,25 @@ ComputeMaterial(G4VPhysicalVolume* physVol, const G4int iz,
     if (matIndex==fHUThresholdVector.size()) { matIndex = fHUThresholdVector.size()-1;}
 
     // Verbosity for debugging use
-    if (iz==0) {
+    if (false) {
     G4cout<<"Finished placing physical volume " << ix <<"," << iy << ","
         << copyID  << "," << matIndex << "," << fHUThresholdVector[matIndex] << "..."<< G4endl;
     }
 
+    //mate = G4NistManager::Instance()->FindOrBuildMaterial("G4_WATER");
     mate = fMaterials[matIndex];
-    if (voxelHU>1000) {physVol->GetLogicalVolume()->SetVisAttributes(fColors[matIndex]);}
+    /*
+    if (voxelHU>1400) {physVol->GetLogicalVolume()->SetVisAttributes(fColors[matIndex]);}
     else {physVol->GetLogicalVolume()->SetVisAttributes(G4VisAttributes::GetInvisible());}
-
-    mate = G4NistManager::Instance()->FindOrBuildMaterial("G4_AIR");
+    */
+    if (ix%6==0 && iy%6==0) {
+      physVol->GetLogicalVolume()->SetVisAttributes(fColors[matIndex]);
+    }
+    else {
+      physVol->GetLogicalVolume()->SetVisAttributes(G4VisAttributes::GetInvisible());
+    }
+    physVol->GetLogicalVolume()->SetMaterial(mate);
+    //G4cout<<mate->GetName()<<G4endl;
     return mate;
 }
 

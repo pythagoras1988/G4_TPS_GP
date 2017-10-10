@@ -18,7 +18,7 @@ MaterialConstruction::MaterialConstruction() {
 
 MaterialConstruction::~MaterialConstruction()
 {
-  for (int k=0; k<fMaterialSets.size();k++) {
+  for (int k=0; k<(G4int) fMaterialSets.size();k++) {
     delete fMaterialSets[k];
   }
 }
@@ -97,7 +97,7 @@ void MaterialConstruction::CreateMaterials() {
   G4int ncomponents;
   int counts(0);
   numBins = 260;
-  binSize = 100;
+  binSize = 10;
   fHUThresholdVector.reserve(numBins+1);
   /*
   fHUThresholdVector = {-1000, -950, -120, -83, -53,
@@ -111,7 +111,7 @@ void MaterialConstruction::CreateMaterials() {
 
   startHU = -1000; // Correspond to air
   while(startHU<=1600) {
-    materialName = "material_" + to_string(startHU);
+    materialName = "material_" + to_string((G4int) startHU);
     // ****************determine the elemental composition******************************
     for (map<G4double,vector<G4double>>::iterator it = fElementalWeights.begin(); it!=fElementalWeights.end(); ++it) {
       if (it->first <= startHU) {stepHU = it->first;}  // stepHU is the elemental composition

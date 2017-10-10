@@ -48,6 +48,7 @@
 #include "G4Color.hh"
 
 #include <vector>
+#include <set>
 
 using namespace std;
 
@@ -139,9 +140,15 @@ void DicomDetectorConstruction::ConstructContainerVolume() {
     if (refPosition[2]<minX) {minZ = refPosition[2];}
   }
 
-  G4double fOffsetX = (minX+fNVoxelX*fVoxelHalfDimX);
-  G4double fOffsetY = (minY+fNVoxelY*fVoxelHalfDimY);
-  G4double fOffsetZ = (minZ+fNVoxelZ*fVoxelHalfDimZ);
+  // Use offset from DICOM data;
+  //G4double fOffsetX = (minX+fNVoxelX*fVoxelHalfDimX);
+  //G4double fOffsetY = (minY+fNVoxelY*fVoxelHalfDimY);
+  //G4double fOffsetZ = (minZ+fNVoxelZ*fVoxelHalfDimZ);
+
+  // Take offset as isocentre
+  G4double fOffsetX = 0;
+  G4double fOffsetY = 0;
+  G4double fOffsetZ = 0;
 
   G4ThreeVector posCentreVoxels(fOffsetX,fOffsetY,fOffsetZ);
 
@@ -153,7 +160,20 @@ void DicomDetectorConstruction::ConstructContainerVolume() {
                       fWorld_logic,  // Mother which is the world
                       false,           // No op. bool.
                       1);              // Copy number
-    G4cout<<"ok"<< G4endl;
 
     fContainer_logic->SetVisAttributes(G4VisAttributes::GetInvisible());
+
+    G4Region*  aRegion = new G4Region("phantomContainer");
+    fContainer_logic -> SetRegion(aRegion);
+    aRegion -> AddRootLogicalVolume(fContainer_logic);
+}
+
+void DicomDetectorConstruction::SetScorer(G4LogicalVolume* voxel_logic)
+{
+  G4cout << "\t SET SCORER : " << voxel_logic->GetName() << G4endl;
+  fScorers.insert(voxel_logic);
+}
+
+set<G4LogicalVolume*> DicomDetectorConstruction::GetScorerLogicalVolume() {
+  return fScorers;
 }

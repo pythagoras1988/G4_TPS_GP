@@ -599,6 +599,33 @@ src/ProtontherapyPrimaryGeneratorMessenger.cc.s:
 	$(MAKE) -f CMakeFiles/ProtonTherapyG4.dir/build.make CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPrimaryGeneratorMessenger.cc.s
 .PHONY : src/ProtontherapyPrimaryGeneratorMessenger.cc.s
 
+src/ProtontherapyRun.o: src/ProtontherapyRun.cc.o
+
+.PHONY : src/ProtontherapyRun.o
+
+# target to build an object file
+src/ProtontherapyRun.cc.o:
+	$(MAKE) -f CMakeFiles/ProtonTherapyG4.dir/build.make CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.o
+.PHONY : src/ProtontherapyRun.cc.o
+
+src/ProtontherapyRun.i: src/ProtontherapyRun.cc.i
+
+.PHONY : src/ProtontherapyRun.i
+
+# target to preprocess a source file
+src/ProtontherapyRun.cc.i:
+	$(MAKE) -f CMakeFiles/ProtonTherapyG4.dir/build.make CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.i
+.PHONY : src/ProtontherapyRun.cc.i
+
+src/ProtontherapyRun.s: src/ProtontherapyRun.cc.s
+
+.PHONY : src/ProtontherapyRun.s
+
+# target to generate assembly for a file
+src/ProtontherapyRun.cc.s:
+	$(MAKE) -f CMakeFiles/ProtonTherapyG4.dir/build.make CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.s
+.PHONY : src/ProtontherapyRun.cc.s
+
 src/ProtontherapyRunAction.o: src/ProtontherapyRunAction.cc.o
 
 .PHONY : src/ProtontherapyRunAction.o
@@ -822,6 +849,9 @@ help:
 	@echo "... src/ProtontherapyPrimaryGeneratorMessenger.o"
 	@echo "... src/ProtontherapyPrimaryGeneratorMessenger.i"
 	@echo "... src/ProtontherapyPrimaryGeneratorMessenger.s"
+	@echo "... src/ProtontherapyRun.o"
+	@echo "... src/ProtontherapyRun.i"
+	@echo "... src/ProtontherapyRun.s"
 	@echo "... src/ProtontherapyRunAction.o"
 	@echo "... src/ProtontherapyRunAction.i"
 	@echo "... src/ProtontherapyRunAction.s"

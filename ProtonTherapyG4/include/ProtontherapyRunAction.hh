@@ -35,7 +35,7 @@
 #include <vector>
 
 class G4Run;
-class ProtontherapyRun; 
+class ProtontherapyRun;
 
 class ProtontherapyRunAction : public G4UserRunAction
 {
@@ -53,10 +53,10 @@ public:
   // of primary particles in the phantom
 
   void AddHadronicProcess();
-  // Counts the number of hadronic processes 
+  // Counts the number of hadronic processes
   // of primary particles in the phantom
 
-private:  
+private:
   ProtontherapyRun* fProtontherapyrun;
   // vector of names of Multifunctional detector
   std::vector<G4String> fSDName;
@@ -64,6 +64,3 @@ private:
   G4int hadronic;
 };
 #endif
-
-
-

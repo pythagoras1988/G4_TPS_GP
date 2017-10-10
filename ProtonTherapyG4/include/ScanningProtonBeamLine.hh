@@ -52,8 +52,6 @@ public:
 
     virtual void ConstructSDandField();
 
-    void SetScorer(G4LogicalVolume*);
-
     std::set<G4LogicalVolume*> fScorers;
 
     void ProtontherapyRangeShifter();

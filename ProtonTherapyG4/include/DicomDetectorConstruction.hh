@@ -63,6 +63,10 @@ public:
     DicomDetectorConstruction(G4LogicalVolume*);
     ~DicomDetectorConstruction();
 
+    set<G4LogicalVolume*> GetScorerLogicalVolume();
+
+    G4int fNVoxelX, fNVoxelY, fNVoxelZ;
+
 protected:
     void InitialisationOfMaterials();
     // create the original materials
@@ -74,8 +78,11 @@ protected:
 
     void ConstructContainerVolume();
 
+    void SetScorer(G4LogicalVolume*);
+
 protected:
     ProtontherapyDicomAsciiReader* DicomReader;
+    set<G4LogicalVolume*> fScorers;
     G4Material* fAir;
     G4Box* fContainer_solid;
     G4LogicalVolume* fContainer_logic;
@@ -89,7 +96,6 @@ protected:
     vector<G4ThreeVector> fSliceRefPosition;
 
     G4ThreeVector fDirectionCosine_row, fDirectionCosine_col;
-    G4int fNVoxelX, fNVoxelY, fNVoxelZ;
     G4double fVoxelHalfDimX, fVoxelHalfDimY, fVoxelHalfDimZ;
 
     G4bool fConstructed;

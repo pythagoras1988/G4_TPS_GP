@@ -18,6 +18,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRunAction.cc.o"
   "CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPhysicsListMessenger.cc.o"
   "CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyDicomAsciiReader.cc.o"
+  "CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.o"
   "CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryController.cc.o"
   "CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryMessenger.cc.o"
   "CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPrimaryGeneratorAction.cc.o"

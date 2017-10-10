@@ -513,9 +513,33 @@ CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyDicomAsciiReader.cc.o.provides: 
 CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyDicomAsciiReader.cc.o.provides.build: CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyDicomAsciiReader.cc.o
 
 
+CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.o: CMakeFiles/ProtonTherapyG4.dir/flags.make
+CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.o: /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyRun.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.o -c /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyRun.cc
+
+CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyRun.cc > CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.i
+
+CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyRun.cc -o CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.s
+
+CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.o.requires:
+
+.PHONY : CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.o.requires
+
+CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.o.provides: CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.o.requires
+	$(MAKE) -f CMakeFiles/ProtonTherapyG4.dir/build.make CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.o.provides.build
+.PHONY : CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.o.provides
+
+CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.o.provides.build: CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.o
+
+
 CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryController.cc.o: CMakeFiles/ProtonTherapyG4.dir/flags.make
 CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryController.cc.o: /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyGeometryController.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryController.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryController.cc.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryController.cc.o -c /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyGeometryController.cc
 
 CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryController.cc.i: cmake_force
@@ -539,7 +563,7 @@ CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryController.cc.o.provides
 
 CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryMessenger.cc.o: CMakeFiles/ProtonTherapyG4.dir/flags.make
 CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryMessenger.cc.o: /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyGeometryMessenger.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryMessenger.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryMessenger.cc.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryMessenger.cc.o -c /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyGeometryMessenger.cc
 
 CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryMessenger.cc.i: cmake_force
@@ -563,7 +587,7 @@ CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryMessenger.cc.o.provides.
 
 CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPrimaryGeneratorAction.cc.o: CMakeFiles/ProtonTherapyG4.dir/flags.make
 CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPrimaryGeneratorAction.cc.o: /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyPrimaryGeneratorAction.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPrimaryGeneratorAction.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPrimaryGeneratorAction.cc.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPrimaryGeneratorAction.cc.o -c /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyPrimaryGeneratorAction.cc
 
 CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPrimaryGeneratorAction.cc.i: cmake_force
@@ -606,6 +630,7 @@ ProtonTherapyG4_OBJECTS = \
 "CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRunAction.cc.o" \
 "CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPhysicsListMessenger.cc.o" \
 "CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyDicomAsciiReader.cc.o" \
+"CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.o" \
 "CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryController.cc.o" \
 "CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryMessenger.cc.o" \
 "CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPrimaryGeneratorAction.cc.o"
@@ -632,6 +657,7 @@ ProtonTherapyG4: CMakeFiles/ProtonTherapyG4.dir/src/ScanningProtonBeamLineMessen
 ProtonTherapyG4: CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRunAction.cc.o
 ProtonTherapyG4: CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPhysicsListMessenger.cc.o
 ProtonTherapyG4: CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyDicomAsciiReader.cc.o
+ProtonTherapyG4: CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.o
 ProtonTherapyG4: CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryController.cc.o
 ProtonTherapyG4: CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryMessenger.cc.o
 ProtonTherapyG4: CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPrimaryGeneratorAction.cc.o
@@ -667,7 +693,7 @@ ProtonTherapyG4: /home/higgsino/Documents/geant4.10.02.p02-install/lib/libG4inte
 ProtonTherapyG4: /home/higgsino/Documents/geant4.10.02.p02-install/lib/libG4global.so
 ProtonTherapyG4: /home/higgsino/Documents/geant4.10.02.p02-install/lib/libG4clhep.so
 ProtonTherapyG4: CMakeFiles/ProtonTherapyG4.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Linking CXX executable ProtonTherapyG4"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Linking CXX executable ProtonTherapyG4"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ProtonTherapyG4.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -694,6 +720,7 @@ CMakeFiles/ProtonTherapyG4.dir/requires: CMakeFiles/ProtonTherapyG4.dir/src/Scan
 CMakeFiles/ProtonTherapyG4.dir/requires: CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRunAction.cc.o.requires
 CMakeFiles/ProtonTherapyG4.dir/requires: CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPhysicsListMessenger.cc.o.requires
 CMakeFiles/ProtonTherapyG4.dir/requires: CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyDicomAsciiReader.cc.o.requires
+CMakeFiles/ProtonTherapyG4.dir/requires: CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyRun.cc.o.requires
 CMakeFiles/ProtonTherapyG4.dir/requires: CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryController.cc.o.requires
 CMakeFiles/ProtonTherapyG4.dir/requires: CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyGeometryMessenger.cc.o.requires
 CMakeFiles/ProtonTherapyG4.dir/requires: CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPrimaryGeneratorAction.cc.o.requires

@@ -2628,6 +2628,12 @@ G4VHitsCollection.hh
 vector
 -
 
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4HCtable.hh
+globals.hh
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/globals.hh
+vector
+-
+
 /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4HadFinalState.hh
 globals.hh
 /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/globals.hh
@@ -3532,6 +3538,24 @@ G4ModelingParameters.icc
 
 /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4MscStepLimitType.hh
 
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4MultiFunctionalDetector.hh
+G4VSensitiveDetector.hh
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VSensitiveDetector.hh
+G4VHit.hh
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VHit.hh
+G4Step.hh
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Step.hh
+G4HCofThisEvent.hh
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4HCofThisEvent.hh
+G4VReadOutGeometry.hh
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VReadOutGeometry.hh
+G4TouchableHistory.hh
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4TouchableHistory.hh
+G4CollectionNameVector.hh
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4CollectionNameVector.hh
+vector
+-
+
 /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4MuonMinus.hh
 globals.hh
 /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/globals.hh
@@ -3935,6 +3959,16 @@ pwdefs.hh
 /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/pwdefs.hh
 G4AutoLock.hh
 /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4AutoLock.hh
+
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4PSDoseDeposit.hh
+G4VPrimitiveScorer.hh
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VPrimitiveScorer.hh
+G4THitsMap.hh
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4THitsMap.hh
+
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4PSDoseDeposit3D.hh
+G4PSDoseDeposit.hh
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4PSDoseDeposit.hh
 
 /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4PVParameterised.hh
 G4PVReplica.hh
@@ -6484,6 +6518,22 @@ globals.hh
 G4EventManager.hh
 /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4EventManager.hh
 
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4SDManager.hh
+globals.hh
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/globals.hh
+G4SDStructure.hh
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4SDStructure.hh
+G4HCtable.hh
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4HCtable.hh
+
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4SDStructure.hh
+globals.hh
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/globals.hh
+G4VSensitiveDetector.hh
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VSensitiveDetector.hh
+vector
+-
+
 /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4SPBaryon.hh
 globals.hh
 /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/globals.hh
@@ -8040,6 +8090,14 @@ G4ReactionProduct.hh
 G4ThreeVector.hh
 /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4ThreeVector.hh
 
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VPrimitiveScorer.hh
+globals.hh
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/globals.hh
+G4VSDFilter.hh
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VSDFilter.hh
+G4MultiFunctionalDetector.hh
+/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4MultiFunctionalDetector.hh
+
 /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VProcess.hh
 globals.hh
 /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/globals.hh
@@ -8918,6 +8976,16 @@ G4UImessenger.hh
 globals.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/globals.hh
 
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapyRun.hh
+G4Run.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/G4Run.hh
+G4Event.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/G4Event.hh
+G4THitsMap.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/G4THitsMap.hh
+vector
+-
+
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapyRunAction.hh
 G4UserRunAction.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/G4UserRunAction.hh
@@ -8925,6 +8993,8 @@ G4RunManager.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/G4RunManager.hh
 globals.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/globals.hh
+vector
+-
 
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapyStepMax.hh
 G4VDiscreteProcess.hh
@@ -8965,6 +9035,8 @@ G4VisAttributes.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/G4VisAttributes.hh
 G4LogicalVolume.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/G4LogicalVolume.hh
+set
+-
 
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ScanningProtonBeamLineMessenger.hh
 globals.hh
@@ -9014,6 +9086,8 @@ G4VisAttributes.hh
 G4Color.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4Color.hh
 vector
+-
+set
 -
 
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/LocalIonIonInelasticPhysic.cc
@@ -9338,6 +9412,16 @@ G4UIcmdWithADouble.hh
 G4SystemOfUnits.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4SystemOfUnits.hh
 
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyRun.cc
+ProtontherapyRun.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyRun.hh
+G4SDManager.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4SDManager.hh
+G4MultiFunctionalDetector.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4MultiFunctionalDetector.hh
+G4VPrimitiveScorer.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4VPrimitiveScorer.hh
+
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyRunAction.cc
 ProtontherapyRunAction.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyRunAction.hh
@@ -9349,12 +9433,20 @@ G4RunManager.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4RunManager.hh
 G4UImanager.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4UImanager.hh
+G4SystemOfUnits.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4SystemOfUnits.hh
 G4ios.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4ios.hh
 G4Timer.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4Timer.hh
-ProtontherapyRunAction.hh
-/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyRunAction.hh
+G4THitsMap.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4THitsMap.hh
+ProtontherapyRun.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyRun.hh
+vector
+-
+fstream
+-
 
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyStepMax.cc
 ProtontherapyStepMax.hh
@@ -9459,6 +9551,18 @@ G4MagIntegratorDriver.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4MagIntegratorDriver.hh
 G4HelixImplicitEuler.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4HelixImplicitEuler.hh
+G4SDManager.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4SDManager.hh
+G4MultiFunctionalDetector.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4MultiFunctionalDetector.hh
+G4PSDoseDeposit.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4PSDoseDeposit.hh
+G4PSDoseDeposit3D.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4PSDoseDeposit3D.hh
+set
+-
+vector
+-
 
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ScanningProtonBeamLineMessenger.cc
 ScanningProtonBeamLineMessenger.hh

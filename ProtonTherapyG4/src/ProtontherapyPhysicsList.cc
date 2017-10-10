@@ -339,7 +339,7 @@ void ProtontherapyPhysicsList::SetCuts()
     // At moment, only 'DetectorLog' is defined as G4Region
     //
 
-    G4String regName[] = {"phantom"};
+    G4String regName[] = {"phantomContainer"};
     G4double fuc = 1.;
     for(G4int i=0;i<1;i++)
     {
@@ -349,5 +349,6 @@ void ProtontherapyPhysicsList::SetCuts()
         reg->SetProductionCuts(cuts);
         fuc *= 10.;
     }
+
 
 }

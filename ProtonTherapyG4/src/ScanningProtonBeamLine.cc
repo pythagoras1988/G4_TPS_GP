@@ -967,6 +967,7 @@ void ScanningProtonBeamLine::SetMagneticField(G4ThreeVector value)
 }
 
 // This section is for scoring manager
+
 #include "G4SDManager.hh"
 #include "G4MultiFunctionalDetector.hh"
 #include "G4PSDoseDeposit.hh"
@@ -974,16 +975,10 @@ void ScanningProtonBeamLine::SetMagneticField(G4ThreeVector value)
 #include <set>
 #include <vector>
 
-void ScanningProtonBeamLine::SetScorer(G4LogicalVolume* voxel_logic)
-{
-  G4cout << "\t SET SCORER : " << voxel_logic->GetName() << G4endl; 
-  fScorers.insert(voxel_logic);
-}
-
-void DicomDetectorConstruction::ConstructSDandField()
+void ScanningProtonBeamLine::ConstructSDandField()
 {
   G4cout << "\t CONSTRUCT SD AND FIELD" << G4endl;
-  
+
   // Sensitive Detector Name
   G4String concreteSDname = "phantomSD";
   std::vector<G4String> scorer_names;
@@ -994,23 +989,21 @@ void DicomDetectorConstruction::ConstructSDandField()
   //
   // Define MultiFunctionalDetector with name.
   // declare MFDet as a MultiFunctionalDetector scorer
-  G4MultiFunctionalDetector* MFDet = 
+  G4MultiFunctionalDetector* MFDet =
     new G4MultiFunctionalDetector(concreteSDname);
   G4SDManager::GetSDMpointer()->AddNewDetector( MFDet );
 
-  fNVoxelX = protontherapyDetectorConstruction->fNVoxelX; 
-  fNVoxelY = protontherapyDetectorConstruction->fNVoxelY; 
-  fNVoxelZ = protontherapyDetectorConstruction->fNVoxelZ;
+  G4int fNVoxelX = protontherapyDetectorConstruction->fNVoxelX;
+  G4int fNVoxelY = protontherapyDetectorConstruction->fNVoxelY;
+  G4int fNVoxelZ = protontherapyDetectorConstruction->fNVoxelZ;
+
+  G4cout<<fNVoxelX<<" "<<fNVoxelY<<" "<<fNVoxelZ<<G4endl;
 
   G4VPrimitiveScorer* dosedep = new G4PSDoseDeposit3D("DoseDeposit", fNVoxelX, fNVoxelY, fNVoxelZ);
   MFDet->RegisterPrimitive(dosedep);
-  
+
+  fScorers = protontherapyDetectorConstruction->GetScorerLogicalVolume();
   for(std::set<G4LogicalVolume*>::iterator ite = fScorers.begin(); ite != fScorers.end(); ++ite) {
     SetSensitiveDetector(*ite, MFDet);
   }
 }
-
-
-
-
-

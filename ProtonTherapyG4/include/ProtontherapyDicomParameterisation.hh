@@ -56,9 +56,9 @@ class ProtontherapyDicomParameterisation : public G4VNestedParameterisation
 {
 public:
 
-  ProtontherapyDicomParameterisation(const G4ThreeVector& voxelSize,
-                                     std::vector<G4Material*>& mat,
-                                     vector<G4double>&, vector<G4double>&);
+  ProtontherapyDicomParameterisation(const G4ThreeVector voxelSize,
+                                     std::vector<G4Material*> mat,
+                                     vector<G4double>, vector<G4double>);
   ~ProtontherapyDicomParameterisation();
 
   G4Material* ComputeMaterial(G4VPhysicalVolume *currentVol,

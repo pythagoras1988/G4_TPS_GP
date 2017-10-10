@@ -6,7 +6,7 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //
-//  Constructor. 
+//  Constructor.
 ProtontherapyRun::ProtontherapyRun()
 : G4Run()
 { }
@@ -36,9 +36,7 @@ ProtontherapyRun::~ProtontherapyRun()
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//
-// Destructor
-//    clear all data members.
+
 void ProtontherapyRun::ConstructMFD(const vector<G4String>& mfdName)
 {
 
@@ -63,7 +61,7 @@ void ProtontherapyRun::ConstructMFD(const vector<G4String>& mfdName)
         G4VPrimitiveScorer* scorer = mfd->GetPrimitive(icol);
 
         // collection name and collectionID for HitsCollection,
-        // where type of HitsCollection is G4THitsMap in case 
+        // where type of HitsCollection is G4THitsMap in case
         // of primitive scorer.
         // The collection name is given by <MFD name>/<Primitive Scorer name>.
         G4String collectionName = scorer->GetName();
@@ -79,7 +77,7 @@ void ProtontherapyRun::ConstructMFD(const vector<G4String>& mfdName)
           fCollName.push_back(fullCollectionName);
           fCollID.push_back(collectionID);
           fRunMap.push_back(new G4THitsMap<G4double>(detName,collectionName));
-        } 
+        }
 
         else {
           G4cout << "** collection " << fullCollectionName << " not found. "
@@ -98,15 +96,16 @@ void ProtontherapyRun::ConstructMFD(const vector<G4String>& mfdName)
 void ProtontherapyRun::RecordEvent(const G4Event* aEvent)
 {
   G4Run::RecordEvent(aEvent);
-  
-  //G4cout << "Dicom Run :: Recording event " << aEvent->GetEventID() 
+
+  //G4cout << "Dicom Run :: Recording event " << aEvent->GetEventID()
   //<< "..." << G4endl;
   //=============================
   // HitsCollection of This Event
   //============================
   G4HCofThisEvent* HCE = aEvent->GetHCofThisEvent();
+  //G4cout<<"Collected HITS!!!" << G4endl;
   if (!HCE) return;
-  
+
   //=======================================================
   // Sum up HitsMap of this Event  into HitsMap of this RUN
   //=======================================================
@@ -126,11 +125,8 @@ void ProtontherapyRun::RecordEvent(const G4Event* aEvent)
 
       //G4cout << "Summing EvtMap into RunMap at " << i << "..." << G4endl;
       //======================================================
-    } //else {
-    //G4cout << "Null pointer to EvtMap at " << i << "..." << G4endl;
-    //}
+    }
   }
-    
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -170,9 +166,9 @@ G4THitsMap<G4double>* ProtontherapyRun::GetHitsMap(const G4String& detName,
 //    <MultiFunctional Detector Name>/<Primitive Scorer Name>
 G4THitsMap<G4double>* ProtontherapyRun::GetHitsMap(const G4String& fullName) const
 {
-  
+
   //G4THitsMap<G4double>* hitsmap = 0;
-  
+
   G4int Ncol = fCollName.size();
   for ( G4int i = 0; i < Ncol; i++){
     if ( fCollName[i] == fullName ){

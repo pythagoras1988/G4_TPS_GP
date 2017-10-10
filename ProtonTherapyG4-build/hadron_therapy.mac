@@ -40,8 +40,8 @@
 /twiss/beta 6.6
 /twiss/emittance_y 2.1
 /twiss/emittance_z 2.0
-/gun/energy 150.0 MeV
-/beamLine/setField 0.0 0.3 0.1
+/gun/energy 180.0 MeV
+/beamLine/setField 0.0 0.0 0.0
 
 # Suggested values of cut and step:
 # Set cuts OUTSIDE the detector
@@ -50,9 +50,9 @@
 
 # Set cuts ONLY inside the detector
 #
-#/run/setCutForRegion phantom 1. mm
+/run/setCutForRegion phantomContainer 1. mm
 
-#/Step/waterPhantomStepMax 0.5 mm
+/Step/waterPhantomStepMax 0.5 mm
 
 ###################################################
 # USE THE FOLLOWING FOR A VOXELLIZED DETECTOR
@@ -76,7 +76,7 @@
 #/vis/modeling/trajectories/drawByParticleID-0/set gamma green
 #/vis/modeling/trajectories/drawByParticleID-0/set neutron cyan
 
-#/tracking/storeTrajectory 0
+#/tracking/storeTrajectory 1
 #/vis/scene/endOfEventAction accumulate
 #/vis/viewer/update
 
@@ -90,4 +90,4 @@
 # Default material is liquid water (G4_WATER)
 #/changePhantom/material G4_Pb
 
-/run/beamOn 1
+/run/beamOn 10000
