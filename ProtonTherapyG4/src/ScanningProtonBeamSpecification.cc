@@ -14,8 +14,7 @@ ScanningProtonBeamSpecification::ScanningProtonBeamSpecification()
   constantWeight(false)
 {
   ReadEnergyListFile();
-  if(!constantWeight) {ReadWeightDataToMemory();}
-  else {ApplyConstantWeightScanning();}
+  ReadWeightDataToMemory();
 }
 
 ScanningProtonBeamSpecification::~ScanningProtonBeamSpecification()
@@ -38,44 +37,43 @@ void ScanningProtonBeamSpecification::ReadEnergyListFile() {
 }
 
 void ScanningProtonBeamSpecification::ReadWeightDataToMemory() {
-  for(int k; k<numEnergyLayers; k++){
+  G4int counter = 0;
+  G4double tempDouble;
+  vector<G4double> tempVector;
+
+  for(int k; k<numEnergyLayers; k++) {
     string fname("T_"+to_str(energyList[k]*10000)+".txt");
-    fWeightData[energyList[k]] = ReadEachWeightData(fDirectory+"/"+fname);
+    ifstream readFile(fname); 
+
+    if (readFile.is_open()) { 
+      while(!readFile.eof()) { 
+        tempVector.push_back(energyList[k]);
+        for (int kk=0; kk<3; kk++) {
+          readFile >> tempDouble; 
+          if (constantWeight&&kk==2) {tempDouble = fConstantWeightValue;}
+          if (kk==2) {tempDouble *= fFluenceConstant;}
+          tempVector.push_back(tempDouble);
+        }
+        fWeightData[counter] = tempVector;
+        tempVector.clear();
+        counter++;
+      }
+    }
+    readFile.close();
     G4cout<<"Finished Reading Weight data file "<<k<<G4endl;
   }
-}
 
-vector<vector<G4double>> ScanningProtonBeamSpecification::ReadEachWeightData(string fname) {
-  vector<vector<G4double>> weightData;
-  vector<G4double> tempVector;
-  G4double tempDouble;
-  totalWeight = 0;
-  ifstream readFile(fname);
-
-  if (readFile.is_open()) {
-    while(!readFile.eof()) {
-      for (int k=0;k<3;k++) {
-        readFile>>tempDouble;
-        if(constantWeight&&k==2) {
-          tempDouble = fConstantWeightValue;
-        }
-        if(k==2) {
-          tempVector.push_back(tempDouble*fFluenceConstant);
-        }
-        tempVector.push_back(tempDouble);
-      }
-      weightData.push_back(tempVector);
-      tempVector.clear();
-    }
-  }
-  readFile.close();
-  if (weightData.size()==0) {
+  if (fWeightData.size()==0) {
     G4Exception("ScanningProtonBeamSpecification","000",RunMustBeAborted,"No weight data from file!");
   }
-  return weightData;
 }
 
-map<G4double,vector<vector<G4double>>> GetWeightData() {
+G4int ScanningProtonBeamSpecification::GetNumberOfEvents() {
+  return fWeightData.size();
+}
+
+
+map<G4int,vector<G4double>> GetWeightDataMap() {
   return fWeightData;
 }
 

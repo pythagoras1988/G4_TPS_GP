@@ -10,8 +10,9 @@ class ScanningProtonBeamSpecification {
     ScanningProtonBeamSpecification();
     ~ScanningProtonBeamSpecification();
 
-    map<G4double,vector<vector<G4double>>> GetWeightData();
+    map<G4int,vector<G4double>> GetWeightDataMap();
     vector<double> GetEnergyList();
+    G4int GetNumberOfEvents();
 
   private:
     string fDirectory;
@@ -21,12 +22,11 @@ class ScanningProtonBeamSpecification {
     G4double fFluenceConstant;
     G4double fConstantWeightValue;
     G4double fTotalWeight;
-    map<G4double,vector<vector<G4double>>> fWeightData;
+    map<G4int,vector<G4double>> fWeightData;
 
     void CalibrateEnergy();
     void ReadEnergyListFile();
     void ReadWeightDataToMemory();
-    vector<vector<G4double>> ReadEachWeightData(string);
 
 };
 #endif

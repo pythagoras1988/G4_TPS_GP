@@ -64,15 +64,13 @@ private:
   G4double yp_sample, zp_sample;
   G4double dc_y, dc_z, dc_x;
   G4double var_y, var_yp, var_z, var_zp, cov_y, cov_z;
-  map<G4double,vector<vector<G4double>>> weightData
 
 private:
   //G4GeneralParticleSource* particleGun;
   G4ParticleGun* particleGun;
-  map<G4double,vector<vector<G4double>>> weightData;
+  map<G4double,vector<G4double>> weightData;
   vector<double> energyLayerData; 
-  G4int counterEnergy;
-  G4int counterPosition;
+
 };
 
 #endif

@@ -66,6 +66,8 @@ ProtontherapyPrimaryGeneratorAction::ProtontherapyPrimaryGeneratorAction()
   beta      = 6.6;
   */
   scanSpecification = new ScanningProtonBeamSpecification();
+  weightData = scanSpecification->GetWeightData();
+  energyLayerData = scanSpecification->GetEnergyList();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -76,19 +78,16 @@ ProtontherapyPrimaryGeneratorAction::~ProtontherapyPrimaryGeneratorAction()
 }
 
 void ProtontherapyPrimaryGeneratorAction::SetEnergyAndField(G4int eventID) {
-  weightData = scanSpecification->GetWeightData();
-  energyLayerData = scanSpecification->GetEnergyList();
+  vector<G4double> weightDataPerMap;
+  weightDataPerEnergy= weightData[eventID];
+  G4double xPos = weightDataPerEnergy[1];
+  G4double yPos = weightDataPerEnergy[2];
+  G4int fluence = static_cast<G4int> (int) weightDataPerEnergy[3];
 
-  vector<vector<G4double>> weightDataPerEnergy;
-  weightDataPerEnergy= weightData[energyLayerData[counterEnergy]];
-  G4double xPos = weightDataPerEnergy[counterPosition][0];
-  G4double yPos = weightDataPerEnergy[counterPosition][1];
-  G4int fluence = static_cast<G4int> weightDataPerEnergy[2];
+  G4double field_x = xPos/10*sqrt(weightDataPerEnergy[0])/180;
+  G4double field_y = yPos/10*sqrt(weightDataPerEnergy[0])/180;
 
-  G4double field_x = xPos/10*sqrt(energyLayerData[counterEnergy])/180;
-  G4double field_y = yPos/10*sqrt(energyLayerData[counterEnergy])/180;
-
-  particleGun->SetParticleEnergy(energyLayerData[counterEnergy]*MeV);
+  particleGun->SetParticleEnergy(weightDataPerEnergy[0]*MeV);
   particleGun->SetNumberOfParticles(fluence);
   
 }
@@ -98,12 +97,12 @@ void ProtontherapyPrimaryGeneratorAction::SetEnergyAndField(G4int eventID) {
   {
     // Implement Scanning
     G4int eventID = aEvent->GetEventID();
-    weightData = scanSpecification -> GetWeightData();
     SetEnergyAndField(eventID);
 
     // Determine Covariance matrix
     gamma     = (1 + alpha*alpha) / beta;
     xPos      = -236.1*cm;
+    xpos      = -770.0*mm;
 
     var_y = epsilon_y * beta;
     var_z = epsilon_z * beta;
