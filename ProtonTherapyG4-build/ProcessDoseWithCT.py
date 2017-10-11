@@ -111,7 +111,9 @@ if __name__=="__main__":
         zSlice = (numericArray[k,7]-minZ)/binsizeZ
         zSlice = int(zSlice)
         pylab.title("z="+str(zSlice))
+        pylab.colorbar()
         doseData = dose3d[:,:,zSlice].reshape(NVoxelX,NVoxelY)
-        pylab.imshow(doseData.T,cmap=pylab.cm.jet,alpha=0.9)
+        pylab.imshow(doseData.T,cmap=pylab.cm.jet,alpha=0.6)
 
         pylab.savefig(fnameList[k][0:-6]+".pdf")
+        pylab.close()

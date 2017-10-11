@@ -28,22 +28,28 @@
 
 #include "ProtontherapyPrimaryGeneratorAction.hh"
 #include "ProtontherapyPrimaryGeneratorMessenger.hh"
+#include "ScanningProtonBeamSpecification.hh"
+#include "ProtontherapyRunAction.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4Event.hh"
 #include "G4ParticleGun.hh"
 #include "G4GeneralParticleSource.hh"
 #include "G4ParticleTable.hh"
 #include "G4ParticleDefinition.hh"
+#include "G4RunManager.hh"
 #include "Randomize.hh"
 
 #include <math.h>
 #include <fstream>
+#include <math>
 #define pi 3.14159265358979323846;
 
 using namespace std;
 
 /////////////////////////////////////////////////////////////////////////////
 ProtontherapyPrimaryGeneratorAction::ProtontherapyPrimaryGeneratorAction()
+: counterPosition(0),
+  counterEnergy(0)
 {
   messenger = new ProtontherapyPrimaryGeneratorMessenger(this);
   // Definition of the General particle Source
@@ -59,6 +65,7 @@ ProtontherapyPrimaryGeneratorAction::ProtontherapyPrimaryGeneratorAction()
   alpha     = 2.4;
   beta      = 6.6;
   */
+  scanSpecification = new ScanningProtonBeamSpecification();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -67,9 +74,33 @@ ProtontherapyPrimaryGeneratorAction::~ProtontherapyPrimaryGeneratorAction()
   delete particleGun;
 
 }
+
+void ProtontherapyPrimaryGeneratorAction::SetEnergyAndField(G4int eventID) {
+  weightData = scanSpecification->GetWeightData();
+  energyLayerData = scanSpecification->GetEnergyList();
+
+  vector<vector<G4double>> weightDataPerEnergy;
+  weightDataPerEnergy= weightData[energyLayerData[counterEnergy]];
+  G4double xPos = weightDataPerEnergy[counterPosition][0];
+  G4double yPos = weightDataPerEnergy[counterPosition][1];
+  G4int fluence = static_cast<G4int> weightDataPerEnergy[2];
+
+  G4double field_x = xPos/10*sqrt(energyLayerData[counterEnergy])/180;
+  G4double field_y = yPos/10*sqrt(energyLayerData[counterEnergy])/180;
+
+  particleGun->SetParticleEnergy(energyLayerData[counterEnergy]*MeV);
+  particleGun->SetNumberOfParticles(fluence);
+  
+}
+
   /////////////////////////////////////////////////////////////////////////////
   void ProtontherapyPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   {
+    // Implement Scanning
+    G4int eventID = aEvent->GetEventID();
+    weightData = scanSpecification -> GetWeightData();
+    SetEnergyAndField(eventID);
+
     // Determine Covariance matrix
     gamma     = (1 + alpha*alpha) / beta;
     xPos      = -236.1*cm;
@@ -80,8 +111,6 @@ ProtontherapyPrimaryGeneratorAction::~ProtontherapyPrimaryGeneratorAction()
     var_zp = epsilon_z * gamma;
     cov_y    = 1 * alpha * epsilon_y;
     cov_z    = 1 * alpha * epsilon_z;
-
-    //G4cout << alpha <<'\t'<<beta<<'\t'<<gamma<<G4endl;
 
     // Perform Cholesky Decomposition on the covariance matrix for (a b)
     //                                                             (b c)
@@ -106,6 +135,7 @@ ProtontherapyPrimaryGeneratorAction::~ProtontherapyPrimaryGeneratorAction()
     particleGun->SetParticleMomentumDirection(G4ThreeVector(dc_x,dc_y,dc_z));
     particleGun->SetParticlePosition(G4ThreeVector(xPos,y_sample,z_sample));
 
+    /*
     ofstream saveFile;
     saveFile.open("inital_phase_space.txt",ios_base::app);
     if(saveFile.is_open()) {
@@ -115,7 +145,7 @@ ProtontherapyPrimaryGeneratorAction::~ProtontherapyPrimaryGeneratorAction()
       saveFile << zp_sample << '\n';
     }
     saveFile.close();
-
+    */
 
     particleGun -> GeneratePrimaryVertex( anEvent );
     }

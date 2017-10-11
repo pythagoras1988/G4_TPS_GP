@@ -101,9 +101,10 @@ G4Track* theTrack = aStep->GetTrack();
 
 
 // Kill tracks when incident particle exceed the water phantom dimension
-
+/*
 if (PostStepX>30.0) {
   theTrack->SetTrackStatus(fStopAndKill);
 }
+*/
 
 }

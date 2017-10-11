@@ -36,8 +36,9 @@
 
 class G4GeneralParticleSource;
 class G4Event;
-
+class ScanningProtonBeamSpecification;
 class ProtontherapyPrimaryGeneratorMessenger;
+
 class ProtontherapyPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 {
 public:
@@ -54,6 +55,8 @@ public:
   void SetTwissEmittance_z(G4double);
 
 private:
+  void SetEnergyAndField(G4int);
+  ScanningProtonBeamSpecification* scanSpecification;
   ProtontherapyPrimaryGeneratorMessenger* messenger;
   G4double epsilon_y, epsilon_z;
   G4double alpha, beta, gamma;
@@ -61,11 +64,15 @@ private:
   G4double yp_sample, zp_sample;
   G4double dc_y, dc_z, dc_x;
   G4double var_y, var_yp, var_z, var_zp, cov_y, cov_z;
+  map<G4double,vector<vector<G4double>>> weightData
 
 private:
   //G4GeneralParticleSource* particleGun;
   G4ParticleGun* particleGun;
-  G4double sigmaX;
+  map<G4double,vector<vector<G4double>>> weightData;
+  vector<double> energyLayerData; 
+  G4int counterEnergy;
+  G4int counterPosition;
 };
 
 #endif
