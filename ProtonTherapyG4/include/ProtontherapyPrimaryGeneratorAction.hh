@@ -53,6 +53,7 @@ public:
   void SetTwissBeta(G4double);
   void SetTwissEmittance_y(G4double);
   void SetTwissEmittance_z(G4double);
+  static G4int GetTotalEvents() {return totalEvents;}
 
 private:
   void SetEnergyAndField(G4int);
@@ -67,9 +68,11 @@ private:
 
 private:
   //G4GeneralParticleSource* particleGun;
+  static G4int totalEvents;
   G4ParticleGun* particleGun;
   map<G4double,vector<G4double>> weightData;
   vector<double> energyLayerData; 
+  G4double xPos, yPos;
 
 };
 

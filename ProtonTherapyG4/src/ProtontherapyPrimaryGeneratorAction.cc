@@ -48,8 +48,8 @@ using namespace std;
 
 /////////////////////////////////////////////////////////////////////////////
 ProtontherapyPrimaryGeneratorAction::ProtontherapyPrimaryGeneratorAction()
-: counterPosition(0),
-  counterEnergy(0)
+: yPos(0),
+  zPos(0)
 {
   messenger = new ProtontherapyPrimaryGeneratorMessenger(this);
   // Definition of the General particle Source
@@ -68,6 +68,7 @@ ProtontherapyPrimaryGeneratorAction::ProtontherapyPrimaryGeneratorAction()
   scanSpecification = new ScanningProtonBeamSpecification();
   weightData = scanSpecification->GetWeightData();
   energyLayerData = scanSpecification->GetEnergyList();
+  totalEvents = scanSpecification->GetNumberOfEvents();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -80,12 +81,12 @@ ProtontherapyPrimaryGeneratorAction::~ProtontherapyPrimaryGeneratorAction()
 void ProtontherapyPrimaryGeneratorAction::SetEnergyAndField(G4int eventID) {
   vector<G4double> weightDataPerMap;
   weightDataPerEnergy= weightData[eventID];
-  G4double xPos = weightDataPerEnergy[1];
-  G4double yPos = weightDataPerEnergy[2];
+  yPos = weightDataPerEnergy[1]*mm;
+  zPos = weightDataPerEnergy[2]*mm;
   G4int fluence = static_cast<G4int> (int) weightDataPerEnergy[3];
 
-  G4double field_x = xPos/10*sqrt(weightDataPerEnergy[0])/180;
-  G4double field_y = yPos/10*sqrt(weightDataPerEnergy[0])/180;
+  G4double field_x = yPos/10*sqrt(weightDataPerEnergy[0])/180;
+  G4double field_y = zPos/10*sqrt(weightDataPerEnergy[0])/180;
 
   particleGun->SetParticleEnergy(weightDataPerEnergy[0]*MeV);
   particleGun->SetNumberOfParticles(fluence);
@@ -132,7 +133,7 @@ void ProtontherapyPrimaryGeneratorAction::SetEnergyAndField(G4int eventID) {
 
     //Set particlegun
     particleGun->SetParticleMomentumDirection(G4ThreeVector(dc_x,dc_y,dc_z));
-    particleGun->SetParticlePosition(G4ThreeVector(xPos,y_sample,z_sample));
+    particleGun->SetParticlePosition(G4ThreeVector(xPos,yPos+y_sample,zPos+z_sample));
 
     /*
     ofstream saveFile;
