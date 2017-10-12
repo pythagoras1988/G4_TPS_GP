@@ -86,6 +86,7 @@ void MaterialConstruction::CreateElementalWeights() {
       //G4cout<<startHU<<G4endl;
     }
   }
+  readFile.close();
 }
 
 void MaterialConstruction::CreateMaterials() {

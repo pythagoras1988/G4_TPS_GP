@@ -64,6 +64,7 @@ void ProtontherapyDicomAsciiReader::ReadToMemory(){
       fnumSlice++;
     }
   }
+  readFile.close();
   // Initialize the size of the vector of MasterData
   InitializeMasterData(ncol,nrow,fnumSlice);
 
@@ -93,6 +94,7 @@ void ProtontherapyDicomAsciiReader::ReadAsciiFile(string fname, G4int zSlice) {
       }
     }
   }
+  readFile.close();
 }
 
 void ProtontherapyDicomAsciiReader::InitializeMasterData(G4int x, G4int y, G4int z) {

@@ -8969,6 +8969,10 @@ G4ParticleGun.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/G4ParticleGun.hh
 globals.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/globals.hh
+vector
+-
+map
+-
 
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapyPrimaryGeneratorMessenger.hh
 G4UImessenger.hh
@@ -9043,6 +9047,16 @@ globals.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/globals.hh
 G4UImessenger.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/G4UImessenger.hh
+
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ScanningProtonBeamSpecification.hh
+globals.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/globals.hh
+vector
+-
+map
+-
+string
+-
 
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/DicomDetectorConstruction.cc
 globals.hh
@@ -9203,6 +9217,8 @@ G4VisAttributes.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyDicomParameterisation.cc
 ProtontherapyDicomParameterisation.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyDicomParameterisation.hh
+G4SystemOfUnits.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4SystemOfUnits.hh
 G4VPhysicalVolume.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4VPhysicalVolume.hh
 G4VTouchable.hh
@@ -9379,6 +9395,10 @@ ProtontherapyPrimaryGeneratorAction.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyPrimaryGeneratorAction.hh
 ProtontherapyPrimaryGeneratorMessenger.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyPrimaryGeneratorMessenger.hh
+ScanningProtonBeamSpecification.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ScanningProtonBeamSpecification.hh
+ProtontherapyRunAction.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyRunAction.hh
 G4SystemOfUnits.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4SystemOfUnits.hh
 G4Event.hh
@@ -9391,8 +9411,12 @@ G4ParticleTable.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4ParticleTable.hh
 G4ParticleDefinition.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4ParticleDefinition.hh
+G4RunManager.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4RunManager.hh
 Randomize.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/Randomize.hh
+globals.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/globals.hh
 math.h
 -
 fstream
@@ -9579,4 +9603,20 @@ G4UIcmdWith3Vector.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4UIcmdWith3Vector.hh
 G4SystemOfUnits.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4SystemOfUnits.hh
+
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ScanningProtonBeamSpecification.cc
+ScanningProtonBeamSpecification.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ScanningProtonBeamSpecification.hh
+G4SystemOfUnits.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4SystemOfUnits.hh
+globals.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/globals.hh
+fstream
+-
+vector
+-
+map
+-
+string
+-
 

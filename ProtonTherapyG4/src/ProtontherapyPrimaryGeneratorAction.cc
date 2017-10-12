@@ -38,10 +38,10 @@
 #include "G4ParticleDefinition.hh"
 #include "G4RunManager.hh"
 #include "Randomize.hh"
+#include "globals.hh"
 
 #include <math.h>
 #include <fstream>
-#include <math>
 #define pi 3.14159265358979323846;
 
 using namespace std;
@@ -66,9 +66,10 @@ ProtontherapyPrimaryGeneratorAction::ProtontherapyPrimaryGeneratorAction()
   beta      = 6.6;
   */
   scanSpecification = new ScanningProtonBeamSpecification();
-  weightData = scanSpecification->GetWeightData();
+  weightData = scanSpecification->GetWeightDataMap();
   energyLayerData = scanSpecification->GetEnergyList();
-  totalEvents = scanSpecification->GetNumberOfEvents();
+  G4int totalEvents = scanSpecification->GetNumberOfEvents();
+  G4cout<<totalEvents<<G4endl;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -80,30 +81,32 @@ ProtontherapyPrimaryGeneratorAction::~ProtontherapyPrimaryGeneratorAction()
 
 void ProtontherapyPrimaryGeneratorAction::SetEnergyAndField(G4int eventID) {
   vector<G4double> weightDataPerMap;
-  weightDataPerEnergy= weightData[eventID];
-  yPos = weightDataPerEnergy[1]*mm;
-  zPos = weightDataPerEnergy[2]*mm;
-  G4int fluence = static_cast<G4int> (int) weightDataPerEnergy[3];
+  weightDataPerMap= weightData[eventID];
+  yPos = weightDataPerMap[1]/10*mm;
+  zPos = weightDataPerMap[2]/10*mm;
+  G4int fluence;
+  fluence = static_cast<G4int> (weightDataPerMap[3]);
 
-  G4double field_x = yPos/10*sqrt(weightDataPerEnergy[0])/180;
-  G4double field_y = zPos/10*sqrt(weightDataPerEnergy[0])/180;
+  G4double field_x, field_y;
+  field_x = yPos/10*sqrt(weightDataPerMap[0])/180;
+  field_y = zPos/10*sqrt(weightDataPerMap[0])/180;
 
-  particleGun->SetParticleEnergy(weightDataPerEnergy[0]*MeV);
+  particleGun->SetParticleEnergy(weightDataPerMap[0]*MeV);
   particleGun->SetNumberOfParticles(fluence);
-  
+
 }
 
   /////////////////////////////////////////////////////////////////////////////
   void ProtontherapyPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   {
     // Implement Scanning
-    G4int eventID = aEvent->GetEventID();
+    G4int eventID = anEvent->GetEventID();
     SetEnergyAndField(eventID);
 
     // Determine Covariance matrix
     gamma     = (1 + alpha*alpha) / beta;
     xPos      = -236.1*cm;
-    xpos      = -770.0*mm;
+    xPos      = -770.0*mm;
 
     var_y = epsilon_y * beta;
     var_z = epsilon_z * beta;

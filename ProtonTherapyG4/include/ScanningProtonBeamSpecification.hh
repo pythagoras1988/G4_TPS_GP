@@ -1,6 +1,9 @@
+#include "globals.hh"
 #include <vector>
 #include <map>
 #include <string>
+
+using namespace std;
 
 #ifndef ScanningProtonBeamSpecification_hh
 #define ScanningProtonBeamSpecification_hh 1

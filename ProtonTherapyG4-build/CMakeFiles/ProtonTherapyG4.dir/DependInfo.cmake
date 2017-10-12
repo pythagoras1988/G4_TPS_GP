@@ -27,6 +27,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapySteppingAction.cc" "/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4-build/CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapySteppingAction.cc.o"
   "/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ScanningProtonBeamLine.cc" "/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4-build/CMakeFiles/ProtonTherapyG4.dir/src/ScanningProtonBeamLine.cc.o"
   "/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ScanningProtonBeamLineMessenger.cc" "/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4-build/CMakeFiles/ProtonTherapyG4.dir/src/ScanningProtonBeamLineMessenger.cc.o"
+  "/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ScanningProtonBeamSpecification.cc" "/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4-build/CMakeFiles/ProtonTherapyG4.dir/src/ScanningProtonBeamSpecification.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

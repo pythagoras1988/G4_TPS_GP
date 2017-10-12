@@ -788,6 +788,33 @@ src/ScanningProtonBeamLineMessenger.cc.s:
 	$(MAKE) -f CMakeFiles/ProtonTherapyG4.dir/build.make CMakeFiles/ProtonTherapyG4.dir/src/ScanningProtonBeamLineMessenger.cc.s
 .PHONY : src/ScanningProtonBeamLineMessenger.cc.s
 
+src/ScanningProtonBeamSpecification.o: src/ScanningProtonBeamSpecification.cc.o
+
+.PHONY : src/ScanningProtonBeamSpecification.o
+
+# target to build an object file
+src/ScanningProtonBeamSpecification.cc.o:
+	$(MAKE) -f CMakeFiles/ProtonTherapyG4.dir/build.make CMakeFiles/ProtonTherapyG4.dir/src/ScanningProtonBeamSpecification.cc.o
+.PHONY : src/ScanningProtonBeamSpecification.cc.o
+
+src/ScanningProtonBeamSpecification.i: src/ScanningProtonBeamSpecification.cc.i
+
+.PHONY : src/ScanningProtonBeamSpecification.i
+
+# target to preprocess a source file
+src/ScanningProtonBeamSpecification.cc.i:
+	$(MAKE) -f CMakeFiles/ProtonTherapyG4.dir/build.make CMakeFiles/ProtonTherapyG4.dir/src/ScanningProtonBeamSpecification.cc.i
+.PHONY : src/ScanningProtonBeamSpecification.cc.i
+
+src/ScanningProtonBeamSpecification.s: src/ScanningProtonBeamSpecification.cc.s
+
+.PHONY : src/ScanningProtonBeamSpecification.s
+
+# target to generate assembly for a file
+src/ScanningProtonBeamSpecification.cc.s:
+	$(MAKE) -f CMakeFiles/ProtonTherapyG4.dir/build.make CMakeFiles/ProtonTherapyG4.dir/src/ScanningProtonBeamSpecification.cc.s
+.PHONY : src/ScanningProtonBeamSpecification.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -870,6 +897,9 @@ help:
 	@echo "... src/ScanningProtonBeamLineMessenger.o"
 	@echo "... src/ScanningProtonBeamLineMessenger.i"
 	@echo "... src/ScanningProtonBeamLineMessenger.s"
+	@echo "... src/ScanningProtonBeamSpecification.o"
+	@echo "... src/ScanningProtonBeamSpecification.i"
+	@echo "... src/ScanningProtonBeamSpecification.s"
 .PHONY : help
 
 

@@ -30,7 +30,7 @@
 //
 
 #include "ProtontherapyDicomParameterisation.hh"
-
+#include "G4SystemOfUnits.hh"
 #include "G4VPhysicalVolume.hh"
 #include "G4VTouchable.hh"
 #include "G4ThreeVector.hh"
@@ -169,6 +169,10 @@ ComputeTransformation(const G4int copyNo, G4VPhysicalVolume* physVol) const
     // replicated volume. Here only we need to define is z positions of voxels.
     physVol->SetTranslation(G4ThreeVector(0.,0.,(2.*static_cast<double>(copyNo)
                                                 +1.)*fdZ - fdZ*fnZ));
+    /*
+    G4RotationMatrix* rm = new G4RotationMatrix;
+    rm->rotateZ(90*deg);
+    physVol->SetRotation(rm); */
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -9,6 +9,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyDicomDetectorConstruction.cc.o"
   "CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyDicomParameterisation.cc.o"
   "CMakeFiles/ProtonTherapyG4.dir/src/DicomDetectorConstruction.cc.o"
+  "CMakeFiles/ProtonTherapyG4.dir/src/ScanningProtonBeamSpecification.cc.o"
   "CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyStepMax.cc.o"
   "CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPhysicsList.cc.o"
   "CMakeFiles/ProtonTherapyG4.dir/src/ScanningProtonBeamLine.cc.o"

@@ -90,10 +90,9 @@ int main(int argc ,char ** argv)
 
     //************************MT
     runManager->SetUserInitialization(new ProtontherapyActionInitialization);
-
-    G4int totalEvents = ProtontherapyPrimaryGeneratorAction::GetTotalEvents();
-
-    runManager->BeamOn(totalEvents);
+    G4int totalEvents;
+    G4cout<<"Number of total Events = "<<totalEvents<<G4endl;
+    //runManager->BeamOn(16570);
 
     // Get the pointer to the visualization manager
 #ifdef G4VIS_USE

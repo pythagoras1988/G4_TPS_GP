@@ -84,10 +84,10 @@
 # Display the event number
 # during the run
 #
-/event/printEventNumber 500
+/event/printEventNumber 2
 
 
 # Default material is liquid water (G4_WATER)
 #/changePhantom/material G4_Pb
 
-/run/beamOn 300000
+/run/beamOn 16570
