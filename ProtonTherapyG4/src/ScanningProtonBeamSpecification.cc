@@ -13,7 +13,7 @@ ScanningProtonBeamSpecification::ScanningProtonBeamSpecification()
   fConstantWeightValue(0.1),
   fFluenceConstant(10000),
   fTotalWeight(0),
-  constantWeight(false)
+  constantWeight(true)
 {
   ReadEnergyListFile();
   ReadWeightDataToMemory();

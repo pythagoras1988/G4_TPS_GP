@@ -59,6 +59,7 @@ public:
   void SetTwissEmittance_y(G4double);
   void SetTwissEmittance_z(G4double);
   //static G4int GetTotalEvents() {return totalEvents;}
+  static G4int totalEvents;
 
 private:
   void SetEnergyAndField(G4int);
@@ -79,4 +80,7 @@ private:
   G4double yPos, zPos;
 
 };
+
+//G4int ProtontherapyPrimaryGeneratorAction::totalEvents=0;
+
 #endif
