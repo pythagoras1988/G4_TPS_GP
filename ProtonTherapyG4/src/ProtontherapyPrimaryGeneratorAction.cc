@@ -68,7 +68,7 @@ ProtontherapyPrimaryGeneratorAction::ProtontherapyPrimaryGeneratorAction()
   scanSpecification = new ScanningProtonBeamSpecification();
   weightData = scanSpecification->GetWeightDataMap();
   energyLayerData = scanSpecification->GetEnergyList();
-  totalEvents = scanSpecification->GetNumberOfEvents();
+  G4int totalEvents = scanSpecification->GetNumberOfEvents();
   G4cout<<totalEvents<<G4endl;
 }
 
@@ -85,7 +85,7 @@ void ProtontherapyPrimaryGeneratorAction::SetEnergyAndField(G4int eventID) {
   G4int k;
   int fluenceCounter(0);
 
-  for (k=0;k<weightData.size();k++) { 
+  for (k=0;k<weightData.size();k++) {
     weightDataPerMap = weightData[k];
     fluenceCounter += weightDataPerMap[3];
     if (eventID<=fluenceCounter) {break;}
@@ -96,8 +96,8 @@ void ProtontherapyPrimaryGeneratorAction::SetEnergyAndField(G4int eventID) {
   field_x = yPos/10*sqrt(weightDataPerMap[0])/180;
   field_y = zPos/10*sqrt(weightDataPerMap[0])/180;
 
-  particleGun->SetParticleEnergy((weightDataPerMap[0]+80)*MeV);
-  
+  particleGun->SetParticleEnergy((weightDataPerMap[0])*MeV);
+
 }
 
   /////////////////////////////////////////////////////////////////////////////

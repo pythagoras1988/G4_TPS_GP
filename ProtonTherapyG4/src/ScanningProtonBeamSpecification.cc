@@ -11,9 +11,9 @@ using namespace std;
 ScanningProtonBeamSpecification::ScanningProtonBeamSpecification()
 : fDirectory("Spots List"),
   fConstantWeightValue(0.1),
-  fFluenceConstant(10000),
+  fFluenceConstant(3000),
   fTotalWeight(0),
-  constantWeight(true), 
+  constantWeight(true),
   constantEnergy(true)
 {
   ReadEnergyListFile();
@@ -39,12 +39,6 @@ void ScanningProtonBeamSpecification::ReadEnergyListFile() {
     }
   }
   readFile.close();
-  if (constantEnergy) { 
-    //mainly for debugging use
-    for(vector<G4double>::iterator it=energyList.begin();it!=energyList.end(); ++it) { 
-      *it = 250.0; // MeV
-    }
-  }
   numEnergyLayers = energyList.size();
 }
 
@@ -63,16 +57,20 @@ void ScanningProtonBeamSpecification::ReadWeightDataToMemory() {
     if (readFile.is_open()) {
       readFile>>tempString;
       while(!readFile.eof()) {
-        tempVector.push_back(energyList[k]);
+        //For debugging use
+        if (!constantEnergy) {tempVector.push_back(energyList[k]);}
+        else {tempVector.push_back(250.0);} // in MeV}
         for (int kk=0; kk<3; kk++) {
           if (kk!=2) {getline(readFile,tempString,',');}
           else {getline(readFile,tempString);}
+          //G4cout<<tempString<<G4endl;
           if(!tempString.empty()) {
             tempDouble = stod(tempString);
             if (constantWeight&&kk==2) {tempDouble = fConstantWeightValue;}
             if (kk==2) {
               tempDouble *= fFluenceConstant;
               numberOfEvents += tempDouble;
+              //G4cout<<numberOfEvents<<G4endl;
             }
             tempVector.push_back(tempDouble);
             //G4cout<<tempDouble<<G4endl;
@@ -93,7 +91,8 @@ void ScanningProtonBeamSpecification::ReadWeightDataToMemory() {
 }
 
 G4int ScanningProtonBeamSpecification::GetNumberOfEvents() {
-  return static_cast<G4int> numberOfEvents;
+  G4int numEvents = static_cast<G4int> (numberOfEvents);
+  return numEvents;
 }
 
 
