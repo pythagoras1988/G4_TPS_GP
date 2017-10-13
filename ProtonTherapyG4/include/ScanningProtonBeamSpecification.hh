@@ -22,9 +22,11 @@ class ScanningProtonBeamSpecification {
     int numEnergyLayers;
     vector<double> energyList;
     bool constantWeight;
+    bool constantEnergy;
     G4double fFluenceConstant;
     G4double fConstantWeightValue;
     G4double fTotalWeight;
+    G4double numberOfEvents;
     map<G4int,vector<G4double>> fWeightData;
 
     void CalibrateEnergy();
