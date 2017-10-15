@@ -32,20 +32,13 @@
 #include "G4UIcmdWithADoubleAndUnit.hh"
 #include "G4UIcmdWithAString.hh"
 #include "G4UIcmdWith3Vector.hh"
+#include "G4UIcmdWithABool.hh"
 #include "G4SystemOfUnits.hh"
 
 ScanningProtonBeamLineMessenger::ScanningProtonBeamLineMessenger(ScanningProtonBeamLine* beamLine)
 :scanningProton(beamLine)
 
 {
-    changeTheBeamLineDir = new G4UIdirectory("/ChangeBeamLine/");
-    changeTheBeamLineDir -> SetGuidance("Command to change the transport beam line");
-
-    changeTheBeamLineNameCmd = new G4UIcmdWithAString("/ChangeBeamLine/beamLineName",this);
-    changeTheBeamLineNameCmd -> SetGuidance("Insert the name of the beam line you want simulate");
-    changeTheBeamLineNameCmd -> SetParameterName("List",false);
-    changeTheBeamLineNameCmd -> AvailableForStates(G4State_PreInit);
-
     beamLineDir = new G4UIdirectory("/beamLine/");
     beamLineDir -> SetGuidance("set specification of range shifter");
 
@@ -76,6 +69,17 @@ ScanningProtonBeamLineMessenger::ScanningProtonBeamLineMessenger(ScanningProtonB
     magneticFieldCmd -> SetParameterName("field X", "field Y", "field Z", false);
     magneticFieldCmd -> AvailableForStates(G4State_Idle);
 
+    changeFieldAngleCmd = new G4UIcmdWith3Vector("/beamline/changeFieldAngle",this); 
+    changeFieldAngleCmd -> SetGuidance("Change the field angle of the proton beam for TPS sinmulation");
+    changeFieldAngleCmd -> SetParameterName("angleX", "angleY", "angleZ", false);
+    changeFieldAngleCmd -> AvailableForStates(G4State_Idle);
+
+    dicomChoiceCmd = new G4UIcmdWithABool("/beamline/ActivateDicom", this); 
+    dicomChoiceCmd -> SetGuidance("Activate Dicom data or usual cuboid phantom");
+    dicomChoiceCmd -> SetParameterName("dicomBool",true);
+    dicomChoiceCmd -> SetDefaultValue(true);
+    dicomChoiceCmd -> AvailableForStates(G4State_Idle);
+
 }
 
 ScanningProtonBeamLineMessenger::~ScanningProtonBeamLineMessenger()
@@ -85,6 +89,8 @@ ScanningProtonBeamLineMessenger::~ScanningProtonBeamLineMessenger()
     delete rangeShifterXSizeCmd;
     delete rangeShifterMatCmd;
     delete magneticFieldCmd;
+    delete changeFieldAngleCmd;
+    delete dicomChoiceCmd;
     delete rangeShifterDir;
     delete beamLineDir;
 }
@@ -106,5 +112,13 @@ void ScanningProtonBeamLineMessenger::SetNewValue(G4UIcommand* command,G4String 
     else if( command == magneticFieldCmd) {
       scanningProton -> SetMagneticField(magneticFieldCmd->GetNew3VectorValue(newValue));
     }
+
+    else if( command == changeFieldAngleCmd) {
+      scanningProton -> SetFieldAngle(changeFieldAngleCmd->GetNew3VectorValue(newValue));
+    } 
+
+    else if( command == dicomChoiceCmd) {
+      scanningProton -> SetDicomActivation(dicomChoiceCmd->GetNewBoolValue(newValue));
+    }     
 
 }

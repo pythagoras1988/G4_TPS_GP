@@ -35,6 +35,7 @@
 #include "G4Tubs.hh"
 #include "G4VisAttributes.hh"
 #include "G4LogicalVolume.hh"
+#include "G4RotationMatrix.hh"
 #include <set>
 
 class G4VPhysicalVolume;
@@ -89,12 +90,19 @@ public:
 
     void SetMagneticField(G4ThreeVector);
 
+    void SetFieldAngle(G4ThreeVector);
+
+    void SetDicomActivation(G4Bool);
+
 
 private:
     static ScanningProtonBeamLine* instance;
-    //passive proton line dimensions
+    //Scanning proton line dimensions
     void SetDefaultDimensions();
     void ConstructScanningProtonBeamLine();
+
+    G4ThreeVector fieldRotVector;
+    G4RotationMatrix* fieldRotMatrix;
 
     // geometry component
     ScanningProtonBeamLineMessenger* scanningMessenger;

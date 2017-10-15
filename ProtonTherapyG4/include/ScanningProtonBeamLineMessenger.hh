@@ -38,6 +38,7 @@ class G4UIdirectory;
 class G4UIcmdWithADoubleAndUnit;
 class G4UIcmdWithAString;
 class G4UIcmdWith3Vector;
+class G4UIcmdWithABool
 
 class ScanningProtonBeamLineMessenger: public G4UImessenger
 {
@@ -51,9 +52,6 @@ private:
 
   // Pointer to the detector component
   ScanningProtonBeamLine* scanningProton;
-
-  G4UIdirectory* changeTheBeamLineDir;
-  G4UIcmdWithAString*        changeTheBeamLineNameCmd; // Control the name of the beam line
 
   G4UIdirectory* beamLineDir;  // Control of the beam line
 
@@ -73,5 +71,9 @@ private:
   // the beam line
 
   G4UIcmdWith3Vector* magneticFieldCmd;
+
+  G4UIcmdWith3Vector* changeFieldAngleCmd;
+
+  G4UIcmdWithABool* dicomChoiceCmd;
 };
 #endif

@@ -29,6 +29,7 @@
 #include "G4LogicalVolume.hh"
 #include "G4VPhysicalVolume.hh"
 #include "G4PVPlacement.hh"
+#include "G4RotationMatrix.hh"
 #include "G4Material.hh"
 #include "G4Element.hh"
 #include "G4UIcommand.hh"
@@ -59,7 +60,7 @@ using CLHEP::g;
 using CLHEP::mg;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-DicomDetectorConstruction::DicomDetectorConstruction(G4LogicalVolume* logicTreatmentRoom)
+DicomDetectorConstruction::DicomDetectorConstruction(G4LogicalVolume* logicTreatmentRoom, G4ThreeVector fieldRotMatrix)
  : fWorld_logic(logicTreatmentRoom),
 
    fNVoxelX(0),
@@ -68,6 +69,7 @@ DicomDetectorConstruction::DicomDetectorConstruction(G4LogicalVolume* logicTreat
    fVoxelHalfDimX(0),
    fVoxelHalfDimY(0),
    fVoxelHalfDimZ(0),
+   fRotMatrix(fieldRotMatrix)
 
    fConstructed(false)
 {
@@ -152,8 +154,12 @@ void DicomDetectorConstruction::ConstructContainerVolume() {
 
   G4ThreeVector posCentreVoxels(fOffsetX,fOffsetY,fOffsetZ);
 
+  G4RotationMatrix* rm = new G4RotationMatrix;
+  rm->rotateY(fRotMatrix[1]);
+  rm->rotateZ(fRotMatrix[2]);
+
   fContainer_phys =
-    new G4PVPlacement(0,  // rotation
+    new G4PVPlacement(rm,  // rotation
                       posCentreVoxels,
                       fContainer_logic,     // The logic volume
                       "phantomContainer",  // Name
