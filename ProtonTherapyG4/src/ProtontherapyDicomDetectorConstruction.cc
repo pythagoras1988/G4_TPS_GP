@@ -49,8 +49,8 @@
 #include "G4VisAttributes.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-ProtontherapyDicomDetectorConstruction::ProtontherapyDicomDetectorConstruction(G4LogicalVolume* logicTreatmentRoom)
-:DicomDetectorConstruction(logicTreatmentRoom)
+ProtontherapyDicomDetectorConstruction::ProtontherapyDicomDetectorConstruction(G4LogicalVolume* logicTreatmentRoom, G4ThreeVector fieldRotMatrix)
+:DicomDetectorConstruction(logicTreatmentRoom,fieldRotMatrix)
 {
   ConstructPhantom();
 }
