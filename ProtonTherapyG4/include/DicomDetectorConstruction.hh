@@ -60,12 +60,14 @@ class DicomDetectorConstruction
 {
 public:
 
-    DicomDetectorConstruction(G4LogicalVolume*,G4ThreeVector);
+    DicomDetectorConstruction(G4LogicalVolume*);
     ~DicomDetectorConstruction();
 
     set<G4LogicalVolume*> GetScorerLogicalVolume();
+    void ChangeFieldAngle(G4ThreeVector);
 
     G4int fNVoxelX, fNVoxelY, fNVoxelZ;
+    static G4bool useDicom;
 
 protected:
     void InitialisationOfMaterials();
@@ -95,7 +97,6 @@ protected:
     vector<G4double> fHUThresholdVector;
     vector<G4ThreeVector> fSliceRefPosition;
 
-    G4ThreeVector fRotMatrix;
     G4ThreeVector fDirectionCosine_row, fDirectionCosine_col;
     G4double fVoxelHalfDimX, fVoxelHalfDimY, fVoxelHalfDimZ;
 

@@ -51,13 +51,15 @@
 #include "G4MagIntegratorDriver.hh"
 #include "G4HelixImplicitEuler.hh"
 
+G4String ScanningProtonBeamLine::dicomDirectory = "LungRT01"; //default mode to use Dicom activation
+G4String ScanningProtonBeamLine::scanOption = "scanning";
+
 /////////////////////////////////////////////////////////////////////////////
 ScanningProtonBeamLine::ScanningProtonBeamLine():
  physicalTreatmentRoom(0),protontherapyDetectorConstruction(0),physiVacuumPipe1(0),physiVacuumZone1(0), physiVacuumPipe2(0),physiVacuumZone2(0),physiKaptonWindow(0), physiMagnet1(0),
 solidRangeShifterBox(0), logicRangeShifterBox(0), physiRangeShifterBox(0), physiSpotPositionMonitorMotherVolume(0),
 physiFirstMonitorLayer1(0), physiFirstMonitorLayer2(0), physiFirstMonitorLayer3(0), physiFirstMonitorLayer4(0), physiFirstMonitorLayer5(0),
-physiSecondMonitorLayer1(0), physiSecondMonitorLayer2(0), physiSecondMonitorLayer3(0), physiSecondMonitorLayer4(0), physiSecondMonitorLayer5(0),
-fieldRotVector(0),fieldRotMatrix(0)
+physiSecondMonitorLayer1(0), physiSecondMonitorLayer2(0), physiSecondMonitorLayer3(0), physiSecondMonitorLayer4(0), physiSecondMonitorLayer5(0)
 //physiHoleNozzleSupport(0),
 {
     // Messenger to change parameters of the passiveProtonBeamLine geometry
@@ -84,7 +86,7 @@ G4VPhysicalVolume* ScanningProtonBeamLine::Construct()
     if (!protontherapyDetectorConstruction)
         //***************************** PW ***************************************
         // HadrontherapyDetectorConstruction builds ONLY the phantom and the detector with its associated ROGeometry
-        protontherapyDetectorConstruction = new ProtontherapyDicomDetectorConstruction(logicTreatmentRoom,fieldRotVector);
+        protontherapyDetectorConstruction = new ProtontherapyDicomDetectorConstruction(logicTreatmentRoom);
 
     return physicalTreatmentRoom;
 }
@@ -966,13 +968,18 @@ void ScanningProtonBeamLine::SetMagneticField(G4ThreeVector value)
   logicMagnetX->SetFieldManager(fieldMgr,true);
 }
 
-void ScanningProtonBeamLine::SetFieldAngle(G4ThreeVector rotVector) { 
-    rotVector[0] = 0.; 
-    fieldRotVector = rotVector;
+void ScanningProtonBeamLine::SetFieldAngle(G4ThreeVector rotVector) {
+    rotVector[0] = 0.;
+    //G4cout<<fieldRotVector[1]<<","<<fieldRotVector[2]<<G4endl;
+    protontherapyDetectorConstruction->ChangeFieldAngle(rotVector);
 }
 
-void ScanningProtonBeamLine::SetDicomActivation(G4Bool option) { 
-    
+void ScanningProtonBeamLine::SetDicomDirectory(G4String fname) {
+  dicomDirectory = fname;
+}
+
+void ScanningProtonBeamLine::SetScanOption(G4String fname) {
+  scanOption = fname;
 }
 
 // This section is for scoring manager
@@ -1016,4 +1023,3 @@ void ScanningProtonBeamLine::ConstructSDandField()
     SetSensitiveDetector(*ite, MFDet);
   }
 }
-

@@ -45,6 +45,9 @@ class ProtontherapyDicomDetectorConstruction;
 class ScanningProtonBeamLine : public G4VUserDetectorConstruction
 {
 public:
+    static G4String dicomDirectory;
+
+    static G4String scanOption;
 
     ScanningProtonBeamLine();
     ~ScanningProtonBeamLine();
@@ -92,17 +95,15 @@ public:
 
     void SetFieldAngle(G4ThreeVector);
 
-    void SetDicomActivation(G4Bool);
+    void SetDicomDirectory(G4String);
 
+    void SetScanOption(G4String);
 
 private:
     static ScanningProtonBeamLine* instance;
     //Scanning proton line dimensions
     void SetDefaultDimensions();
     void ConstructScanningProtonBeamLine();
-
-    G4ThreeVector fieldRotVector;
-    G4RotationMatrix* fieldRotMatrix;
 
     // geometry component
     ScanningProtonBeamLineMessenger* scanningMessenger;

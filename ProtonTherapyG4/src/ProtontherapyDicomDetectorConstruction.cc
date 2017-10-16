@@ -41,6 +41,7 @@
 #include "G4Region.hh"
 #include "G4PVPlacement.hh"
 #include "G4PVParameterised.hh"
+#include "ScanningProtonBeamLine.hh"
 
 #include "ProtontherapyDicomDetectorConstruction.hh"
 #include "ProtontherapyDicomParameterisation.hh"
@@ -49,8 +50,8 @@
 #include "G4VisAttributes.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-ProtontherapyDicomDetectorConstruction::ProtontherapyDicomDetectorConstruction(G4LogicalVolume* logicTreatmentRoom, G4ThreeVector fieldRotMatrix)
-:DicomDetectorConstruction(logicTreatmentRoom,fieldRotMatrix)
+ProtontherapyDicomDetectorConstruction::ProtontherapyDicomDetectorConstruction(G4LogicalVolume* logicTreatmentRoom)
+:DicomDetectorConstruction(logicTreatmentRoom)
 {
   ConstructPhantom();
 }
@@ -99,7 +100,9 @@ void ProtontherapyDicomDetectorConstruction::ConstructPhantom()
     //    e.g. nested parameterisation handles material
     //    and transfomation of voxels.)
     G4ThreeVector voxelSize(fVoxelHalfDimX,fVoxelHalfDimY,fVoxelHalfDimZ);
-    ProtontherapyDicomParameterisation* param = new ProtontherapyDicomParameterisation(voxelSize, fMaterials, fMasterHUData, fHUThresholdVector);
+    ProtontherapyDicomParameterisation* param = new ProtontherapyDicomParameterisation(voxelSize,
+                                                fMaterials, fMasterHUData,
+                                                fHUThresholdVector);
 
     new G4PVParameterised("phantom",    // their name
                           logicVoxel, // their logical volume

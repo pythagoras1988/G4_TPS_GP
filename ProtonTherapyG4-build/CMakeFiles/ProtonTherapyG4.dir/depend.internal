@@ -152,7 +152,10 @@ CMakeFiles/ProtonTherapyG4.dir/ProtonTherapyG4.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4BertiniProtonBuilder.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4BlockingList.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4BlockingList.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Box.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Box.icc
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4BsMesonZero.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4CSGSolid.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4CascadeInterface.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4ChargedGeantino.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4ChipsAntiBaryonElasticXS.hh
@@ -390,6 +393,7 @@ CMakeFiles/ProtonTherapyG4.dir/ProtonTherapyG4.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4PionZero.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Plane3D.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Point3D.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Polyhedron.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Positron.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Pow.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4PrimaryParticle.hh
@@ -482,7 +486,10 @@ CMakeFiles/ProtonTherapyG4.dir/ProtonTherapyG4.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4TrajectoryModelFactories.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Transform3D.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Triton.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Tubs.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Tubs.icc
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Types.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UBox.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UIExecutive.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UIcmdWithABool.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UIcommand.hh
@@ -492,6 +499,8 @@ CMakeFiles/ProtonTherapyG4.dir/ProtonTherapyG4.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UImessenger.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UIparameter.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UItokenNum.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4USolid.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UTubs.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UnknownParticle.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Upsilon.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UserEventAction.hh
@@ -596,6 +605,7 @@ CMakeFiles/ProtonTherapyG4.dir/ProtonTherapyG4.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4XicPlus.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4XicZero.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4ios.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/HepPolyhedron.h
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/Randomize.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/evmandefs.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/evtdefs.hh
@@ -619,6 +629,7 @@ CMakeFiles/ProtonTherapyG4.dir/ProtonTherapyG4.cc.o
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapyPrimaryGeneratorMessenger.hh
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapyRunAction.hh
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapySteppingAction.hh
+ /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ScanningProtonBeamLine.hh
 CMakeFiles/ProtonTherapyG4.dir/src/DicomDetectorConstruction.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Geometry/BasicVector3D.h
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Geometry/Normal3D.h
@@ -836,6 +847,8 @@ CMakeFiles/ProtonTherapyG4.dir/src/DicomDetectorConstruction.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4TrackingMessenger.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4TrajectoryContainer.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Transform3D.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Tubs.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Tubs.icc
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Types.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UBox.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UIcommand.hh
@@ -844,6 +857,7 @@ CMakeFiles/ProtonTherapyG4.dir/src/DicomDetectorConstruction.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UIparameter.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UItokenNum.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4USolid.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UTubs.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UserStackingAction.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UserSteppingAction.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UserTrackingAction.hh
@@ -861,6 +875,7 @@ CMakeFiles/ProtonTherapyG4.dir/src/DicomDetectorConstruction.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VTouchable.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VTouchable.icc
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VTrajectory.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VUserDetectorConstruction.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VUserEventInformation.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VUserTrackInformation.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VVolumeMaterialScanner.hh
@@ -888,6 +903,7 @@ CMakeFiles/ProtonTherapyG4.dir/src/DicomDetectorConstruction.cc.o
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/MaterialConstruction.hh
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapyDicomAsciiReader.hh
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapyDicomDetectorConstruction.hh
+ /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ScanningProtonBeamLine.hh
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/DicomDetectorConstruction.cc
 CMakeFiles/ProtonTherapyG4.dir/src/LocalIonIonInelasticPhysic.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Random/DualRand.h
@@ -1548,19 +1564,77 @@ CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyActionInitialization.cc.o
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapySteppingAction.hh
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyActionInitialization.cc
 CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyDicomAsciiReader.cc.o
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Geometry/BasicVector3D.h
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Geometry/Normal3D.h
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Geometry/Point3D.h
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Geometry/Transform3D.h
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Geometry/Transform3D.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Geometry/Vector3D.h
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Units/PhysicalConstants.h
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Units/SystemOfUnits.h
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Utility/defs.h
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Vector/AxisAngle.h
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Vector/AxisAngle.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Vector/LorentzVector.h
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Vector/LorentzVector.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Vector/Rotation.h
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Vector/Rotation.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Vector/RotationInterfaces.h
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Vector/RotationInterfaces.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Vector/RotationX.h
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Vector/RotationX.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Vector/RotationY.h
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Vector/RotationY.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Vector/RotationZ.h
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Vector/RotationZ.icc
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Vector/ThreeVector.h
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Vector/ThreeVector.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4AutoLock.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Box.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Box.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4CSGSolid.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Color.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Colour.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4ExceptionSeverity.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4GeomSplitter.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4LogicalVolume.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4LogicalVolume.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Normal3D.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Point3D.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Polyhedron.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Region.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Region.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4RotationMatrix.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4String.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4String.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Threading.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4ThreeVector.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Transform3D.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Tubs.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Tubs.icc
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Types.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UBox.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4USolid.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UTubs.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VPhysicalVolume.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VPhysicalVolume.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VSolid.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VSolid.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VUserDetectorConstruction.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VisAttributes.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VisAttributes.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Visible.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Visible.icc
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4ios.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/HepPolyhedron.h
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/geomdefs.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/geomwdefs.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/globals.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/templates.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/tls.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/windefs.hh
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapyDicomAsciiReader.hh
+ /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ScanningProtonBeamLine.hh
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyDicomAsciiReader.cc
 CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyDicomDetectorConstruction.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Geometry/BasicVector3D.h
@@ -1612,15 +1686,19 @@ CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyDicomDetectorConstruction.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Threading.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4ThreeVector.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Transform3D.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Tubs.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Tubs.icc
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Types.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UBox.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4USolid.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UTubs.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VNestedParameterisation.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VPVParameterisation.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VPhysicalVolume.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VPhysicalVolume.icc
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VSolid.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VSolid.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VUserDetectorConstruction.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VVolumeMaterialScanner.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VisAttributes.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VisAttributes.icc
@@ -1638,6 +1716,7 @@ CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyDicomDetectorConstruction.cc.o
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapyDicomAsciiReader.hh
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapyDicomDetectorConstruction.hh
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapyDicomParameterisation.hh
+ /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ScanningProtonBeamLine.hh
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyDicomDetectorConstruction.cc
 CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyDicomParameterisation.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Geometry/BasicVector3D.h
@@ -1714,9 +1793,12 @@ CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyDicomParameterisation.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Threading.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4ThreeVector.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Transform3D.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Tubs.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Tubs.icc
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Types.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UBox.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4USolid.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UTubs.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VNestedParameterisation.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VPVParameterisation.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VPhysicalVolume.hh
@@ -1725,6 +1807,7 @@ CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyDicomParameterisation.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VSolid.icc
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VTouchable.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VTouchable.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VUserDetectorConstruction.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VVisManager.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VVolumeMaterialScanner.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VisAttributes.hh
@@ -1739,7 +1822,10 @@ CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyDicomParameterisation.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/templates.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/tls.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/windefs.hh
+ /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/DicomDetectorConstruction.hh
+ /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapyDicomAsciiReader.hh
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapyDicomParameterisation.hh
+ /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ScanningProtonBeamLine.hh
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyDicomParameterisation.cc
 CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyEventAction.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Geometry/BasicVector3D.h
@@ -3150,6 +3236,12 @@ CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPhysicsListMessenger.cc.o
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapyPhysicsListMessenger.hh
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyPhysicsListMessenger.cc
 CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPrimaryGeneratorAction.cc.o
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Geometry/BasicVector3D.h
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Geometry/Normal3D.h
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Geometry/Point3D.h
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Geometry/Transform3D.h
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Geometry/Transform3D.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Geometry/Vector3D.h
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Random/DualRand.h
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Random/JamesRandom.h
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/CLHEP/Random/MTwistEngine.h
@@ -3225,9 +3317,14 @@ CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPrimaryGeneratorAction.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4AuxiliaryNavServices.icc
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4BlockingList.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4BlockingList.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Box.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Box.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4CSGSolid.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Cache.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4CacheDetails.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4ClassificationOfNewTrack.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Color.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Colour.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4DCofThisEvent.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4DataInterpolation.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4DataVector.hh
@@ -3277,6 +3374,7 @@ CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPrimaryGeneratorAction.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4NavigationLogger.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Navigator.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Navigator.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Normal3D.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4NormalNavigation.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4NormalNavigation.icc
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4OrderedTable.hh
@@ -3300,6 +3398,8 @@ CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPrimaryGeneratorAction.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4PhysicsVector.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4PhysicsVector.icc
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4PhysicsVectorType.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Point3D.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Polyhedron.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4PrimaryParticle.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4PrimaryTransformer.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4PrimaryVertex.hh
@@ -3357,12 +3457,18 @@ CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPrimaryGeneratorAction.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4TrackingManager.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4TrackingMessenger.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4TrajectoryContainer.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Transform3D.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Tubs.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Tubs.icc
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Types.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UBox.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UIcommand.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UIdirectory.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UImessenger.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UIparameter.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UItokenNum.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4USolid.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UTubs.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UserRunAction.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UserStackingAction.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UserSteppingAction.hh
@@ -3382,13 +3488,19 @@ CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPrimaryGeneratorAction.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VTouchable.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VTouchable.icc
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VTrajectory.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VUserDetectorConstruction.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VUserEventInformation.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VUserPrimaryGeneratorAction.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VUserTrackInformation.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VVolumeMaterialScanner.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VisAttributes.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VisAttributes.icc
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Visible.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Visible.icc
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VoxelNavigation.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4VoxelNavigation.icc
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4ios.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/HepPolyhedron.h
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/Randomize.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/evmandefs.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/evtdefs.hh
@@ -3404,6 +3516,7 @@ CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPrimaryGeneratorAction.cc.o
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapyPrimaryGeneratorAction.hh
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapyPrimaryGeneratorMessenger.hh
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapyRunAction.hh
+ /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ScanningProtonBeamLine.hh
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ScanningProtonBeamSpecification.hh
  /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyPrimaryGeneratorAction.cc
 CMakeFiles/ProtonTherapyG4.dir/src/ProtontherapyPrimaryGeneratorMessenger.cc.o
@@ -4875,6 +4988,7 @@ CMakeFiles/ProtonTherapyG4.dir/src/ScanningProtonBeamLineMessenger.cc.o
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4Types.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UBox.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UIcmdWith3Vector.hh
+ /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UIcmdWithABool.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UIcmdWithADoubleAndUnit.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UIcmdWithAString.hh
  /home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4/G4UIcommand.hh

@@ -44,6 +44,7 @@
 #include "ProtontherapyDicomAsciiReader.hh"
 #include "ProtontherapyDicomDetectorConstruction.hh"
 #include "MaterialConstruction.hh"
+#include "ScanningProtonBeamLine.hh"
 
 #include "G4VisAttributes.hh"
 #include "G4Color.hh"
@@ -52,6 +53,7 @@
 #include <set>
 
 using namespace std;
+G4bool DicomDetectorConstruction::useDicom = true;
 
 using CLHEP::m;
 using CLHEP::cm3;
@@ -60,7 +62,7 @@ using CLHEP::g;
 using CLHEP::mg;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-DicomDetectorConstruction::DicomDetectorConstruction(G4LogicalVolume* logicTreatmentRoom, G4ThreeVector fieldRotMatrix)
+DicomDetectorConstruction::DicomDetectorConstruction(G4LogicalVolume* logicTreatmentRoom)
  : fWorld_logic(logicTreatmentRoom),
 
    fNVoxelX(0),
@@ -69,7 +71,6 @@ DicomDetectorConstruction::DicomDetectorConstruction(G4LogicalVolume* logicTreat
    fVoxelHalfDimX(0),
    fVoxelHalfDimY(0),
    fVoxelHalfDimZ(0),
-   fRotMatrix(fieldRotMatrix)
 
    fConstructed(false)
 {
@@ -77,7 +78,20 @@ DicomDetectorConstruction::DicomDetectorConstruction(G4LogicalVolume* logicTreat
     fConstructed = true;
     InitialisationOfMaterials();
     ReadPhantomData();
+    if (!useDicom) {
+      G4ThreeVector phantomVoxelSize, phantomDimension;
+      phantomVoxelSize = G4ThreeVector(1,1,1); // In mm
+      phantomDimension = G4ThreeVector(300,300,300); // In mm
+
+      fVoxelHalfDimX = phantomVoxelSize[0]/2*mm;
+      fVoxelHalfDimY = phantomVoxelSize[1]/2*mm;
+      fVoxelHalfDimZ = phantomVoxelSize[2]/2*mm;
+      fNVoxelX       = static_cast<G4int> (phantomDimension[0]/phantomVoxelSize[0]);
+      fNVoxelY       = static_cast<G4int> (phantomDimension[1]/phantomVoxelSize[1]);
+      fNVoxelZ       = static_cast<G4int> (phantomDimension[2]/phantomVoxelSize[2]);
+    }
     ConstructContainerVolume();
+
   //  StartConstructPhantom();
   }
 }
@@ -154,12 +168,8 @@ void DicomDetectorConstruction::ConstructContainerVolume() {
 
   G4ThreeVector posCentreVoxels(fOffsetX,fOffsetY,fOffsetZ);
 
-  G4RotationMatrix* rm = new G4RotationMatrix;
-  rm->rotateY(fRotMatrix[1]);
-  rm->rotateZ(fRotMatrix[2]);
-
   fContainer_phys =
-    new G4PVPlacement(rm,  // rotation
+    new G4PVPlacement(0,  // rotation
                       posCentreVoxels,
                       fContainer_logic,     // The logic volume
                       "phantomContainer",  // Name
@@ -172,6 +182,14 @@ void DicomDetectorConstruction::ConstructContainerVolume() {
     G4Region*  aRegion = new G4Region("phantomContainer");
     fContainer_logic -> SetRegion(aRegion);
     aRegion -> AddRootLogicalVolume(fContainer_logic);
+}
+
+void DicomDetectorConstruction::ChangeFieldAngle(G4ThreeVector rotVector) {
+  G4RotationMatrix* rm = new G4RotationMatrix;
+  rm->rotateY(rotVector[1]*deg);
+  rm->rotateZ(rotVector[2]*deg);
+  fContainer_phys->SetRotation(rm);
+  G4RunManager::GetRunManager() -> GeometryHasBeenModified();
 }
 
 void DicomDetectorConstruction::SetScorer(G4LogicalVolume* voxel_logic)

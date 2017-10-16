@@ -38,7 +38,7 @@ class G4UIdirectory;
 class G4UIcmdWithADoubleAndUnit;
 class G4UIcmdWithAString;
 class G4UIcmdWith3Vector;
-class G4UIcmdWithABool
+class G4UIcmdWithABool;
 
 class ScanningProtonBeamLineMessenger: public G4UImessenger
 {
@@ -74,6 +74,8 @@ private:
 
   G4UIcmdWith3Vector* changeFieldAngleCmd;
 
-  G4UIcmdWithABool* dicomChoiceCmd;
+  G4UIcmdWithAString* dicomDirectoryCmd;
+
+  G4UIcmdWithAString* scanningOptionCmd;
 };
 #endif

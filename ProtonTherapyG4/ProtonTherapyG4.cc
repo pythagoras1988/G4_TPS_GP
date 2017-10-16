@@ -6,6 +6,7 @@
 #include "ProtontherapyEventAction.hh"
 #include "ProtontherapyPhysicsList.hh"
 #include "ProtontherapyPrimaryGeneratorAction.hh"
+#include "ScanningProtonBeamLine.hh"
 #include "ProtontherapyRunAction.hh"
 #include "Randomize.hh"
 
@@ -91,7 +92,8 @@ int main(int argc ,char ** argv)
     //************************MT
     runManager->SetUserInitialization(new ProtontherapyActionInitialization);
     //G4int totalEvents = ProtontherapyPrimaryGeneratorAction::totalEvents;
-    //runManager->BeamOn(totalEvents);
+    if (ScanningProtonBeamLine::scanOption=="scanning")
+    {runManager->BeamOn(ProtontherapyPrimaryGeneratorAction::totalEvents);}
 
     // Get the pointer to the visualization manager
 #ifdef G4VIS_USE

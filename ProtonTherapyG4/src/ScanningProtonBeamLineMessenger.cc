@@ -69,17 +69,20 @@ ScanningProtonBeamLineMessenger::ScanningProtonBeamLineMessenger(ScanningProtonB
     magneticFieldCmd -> SetParameterName("field X", "field Y", "field Z", false);
     magneticFieldCmd -> AvailableForStates(G4State_Idle);
 
-    changeFieldAngleCmd = new G4UIcmdWith3Vector("/beamline/changeFieldAngle",this); 
+    changeFieldAngleCmd = new G4UIcmdWith3Vector("/beamLine/changeFieldAngle",this);
     changeFieldAngleCmd -> SetGuidance("Change the field angle of the proton beam for TPS sinmulation");
     changeFieldAngleCmd -> SetParameterName("angleX", "angleY", "angleZ", false);
     changeFieldAngleCmd -> AvailableForStates(G4State_Idle);
 
-    dicomChoiceCmd = new G4UIcmdWithABool("/beamline/ActivateDicom", this); 
-    dicomChoiceCmd -> SetGuidance("Activate Dicom data or usual cuboid phantom");
-    dicomChoiceCmd -> SetParameterName("dicomBool",true);
-    dicomChoiceCmd -> SetDefaultValue(true);
-    dicomChoiceCmd -> AvailableForStates(G4State_Idle);
+    dicomDirectoryCmd = new G4UIcmdWithAString("/beamLine/dicomDirectory",this);
+    dicomDirectoryCmd -> SetGuidance("Set dicom directory containing Ascii files");
+    dicomDirectoryCmd -> SetParameterName("directory",false);
+    dicomDirectoryCmd -> AvailableForStates(G4State_Idle);
 
+    scanningOptionCmd = new G4UIcmdWithAString("/beamLine/scanningOption",this);
+    scanningOptionCmd -> SetGuidance("Set Scanning Options");
+    scanningOptionCmd -> SetParameterName("Scan Option",false);
+    scanningOptionCmd -> AvailableForStates(G4State_Idle);
 }
 
 ScanningProtonBeamLineMessenger::~ScanningProtonBeamLineMessenger()
@@ -90,7 +93,8 @@ ScanningProtonBeamLineMessenger::~ScanningProtonBeamLineMessenger()
     delete rangeShifterMatCmd;
     delete magneticFieldCmd;
     delete changeFieldAngleCmd;
-    delete dicomChoiceCmd;
+    delete dicomDirectoryCmd;
+    delete scanningOptionCmd;
     delete rangeShifterDir;
     delete beamLineDir;
 }
@@ -115,10 +119,13 @@ void ScanningProtonBeamLineMessenger::SetNewValue(G4UIcommand* command,G4String 
 
     else if( command == changeFieldAngleCmd) {
       scanningProton -> SetFieldAngle(changeFieldAngleCmd->GetNew3VectorValue(newValue));
-    } 
+    }
 
-    else if( command == dicomChoiceCmd) {
-      scanningProton -> SetDicomActivation(dicomChoiceCmd->GetNewBoolValue(newValue));
-    }     
+    else if (command == dicomDirectoryCmd) {
+      scanningProton -> SetDicomDirectory(newValue);
+    }
 
+    else if (command == scanningOptionCmd) {
+      scanningProton -> SetScanOption(newValue);
+    }
 }

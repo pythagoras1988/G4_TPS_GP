@@ -29,6 +29,7 @@
 #include "ProtontherapyPrimaryGeneratorAction.hh"
 #include "ProtontherapyPrimaryGeneratorMessenger.hh"
 #include "ScanningProtonBeamSpecification.hh"
+#include "ScanningProtonBeamLine.hh"
 #include "ProtontherapyRunAction.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4Event.hh"
@@ -45,6 +46,7 @@
 #define pi 3.14159265358979323846;
 
 using namespace std;
+G4int ProtontherapyPrimaryGeneratorAction::totalEvents;
 
 /////////////////////////////////////////////////////////////////////////////
 ProtontherapyPrimaryGeneratorAction::ProtontherapyPrimaryGeneratorAction()
@@ -68,7 +70,7 @@ ProtontherapyPrimaryGeneratorAction::ProtontherapyPrimaryGeneratorAction()
   scanSpecification = new ScanningProtonBeamSpecification();
   weightData = scanSpecification->GetWeightDataMap();
   energyLayerData = scanSpecification->GetEnergyList();
-  G4int totalEvents = scanSpecification->GetNumberOfEvents();
+  totalEvents = scanSpecification->GetNumberOfEvents();
   G4cout<<totalEvents<<G4endl;
 }
 
@@ -103,14 +105,16 @@ void ProtontherapyPrimaryGeneratorAction::SetEnergyAndField(G4int eventID) {
   /////////////////////////////////////////////////////////////////////////////
   void ProtontherapyPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   {
+    xPos      = -236.1*cm;
     // Implement Scanning
-    G4int eventID = anEvent->GetEventID();
-    SetEnergyAndField(eventID);
+    if (ScanningProtonBeamLine::scanOption == "scanning") {
+      G4int eventID = anEvent->GetEventID();
+      SetEnergyAndField(eventID);
+      xPos      = -770.0*mm;
+    }
 
     // Determine Covariance matrix
     gamma     = (1 + alpha*alpha) / beta;
-    xPos      = -236.1*cm;
-    xPos      = -770.0*mm;
 
     var_y = epsilon_y * beta;
     var_z = epsilon_z * beta;

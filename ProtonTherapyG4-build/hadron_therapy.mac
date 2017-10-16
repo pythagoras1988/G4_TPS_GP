@@ -36,12 +36,15 @@
 #/control/cout/setCerrFile worker_error.txt
 #########################
 
+/beamLine/setField 0.0 0.0 0.0
+/beamLine/changeFieldAngle 0.0 0.0 -90.0
+#/beamLine/SetDicomDirectory LungRT01
+/beamLine/scanningOption pristine
 /twiss/alpha 2.4
 /twiss/beta 6.6
-/twiss/emittance_y 2.1
-/twiss/emittance_z 2.0
-/gun/energy 230.0 MeV
-/beamLine/setField 0.0 0.0 0.0
+/twiss/emittance_y 6 # 2.1
+/twiss/emittance_z 6 # 2.0
+/gun/energy 180.0 MeV
 
 # Suggested values of cut and step:
 # Set cuts OUTSIDE the detector
@@ -90,4 +93,5 @@
 # Default material is liquid water (G4_WATER)
 #/changePhantom/material G4_Pb
 
-/run/beamOn 4960800
+/run/beamOn 300000
+#/run/beamOn 10

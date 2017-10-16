@@ -1,4 +1,5 @@
 #include "ProtontherapyDicomAsciiReader.hh"
+#include "ScanningProtonBeamLine.hh"
 #include "globals.hh"
 #include "G4Types.hh"
 #include "G4ThreeVector.hh"
@@ -11,7 +12,7 @@ using namespace std;
 
 ProtontherapyDicomAsciiReader::ProtontherapyDicomAsciiReader()
 : fnumSlice(0),
-  baseDirectory("LungRT01"),
+  baseDirectory(static_cast<string> (ScanningProtonBeamLine::dicomDirectory)),
   refPositionVector(0)
 {
 	ReadToMemory();

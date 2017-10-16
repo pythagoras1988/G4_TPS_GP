@@ -82,7 +82,7 @@ class Construct3dDose:
 if __name__=="__main__":
     fileName_dose = "dose.out"
     dirName_dicom = "LungRT01_ascii"
-    fileName_specsFile = "LungRT01_specsFile.txt"
+    fileName_spcsFile = "LungRT01_specsFile.txt"
     dirName_outputFile = "LungRT01_outFile"
     nameList = [fileName_dose, dirName_dicom, fileName_specsFile,dirName_outputFile]
 

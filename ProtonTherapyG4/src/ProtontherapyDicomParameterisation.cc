@@ -30,6 +30,8 @@
 //
 
 #include "ProtontherapyDicomParameterisation.hh"
+#include "DicomDetectorConstruction.hh"
+#include "ScanningProtonBeamLine.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4VPhysicalVolume.hh"
 #include "G4VTouchable.hh"
@@ -114,8 +116,8 @@ ComputeMaterial(G4VPhysicalVolume* physVol, const G4int iz,
         << copyID  << "," << matIndex << "," << fHUThresholdVector[matIndex] << "..."<< G4endl;
     }
 
-    //mate = G4NistManager::Instance()->FindOrBuildMaterial("G4_WATER");
-    mate = fMaterials[matIndex];
+    if (DicomDetectorConstruction::useDicom) {mate = fMaterials[matIndex];}
+    else {mate = G4NistManager::Instance()->FindOrBuildMaterial("G4_WATER");}
     /*
     if (voxelHU>1400) {physVol->GetLogicalVolume()->SetVisAttributes(fColors[matIndex]);}
     else {physVol->GetLogicalVolume()->SetVisAttributes(G4VisAttributes::GetInvisible());}

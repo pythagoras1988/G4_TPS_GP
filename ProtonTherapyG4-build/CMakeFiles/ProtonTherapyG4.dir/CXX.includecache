@@ -8815,6 +8815,8 @@ ProtontherapyPhysicsList.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/ProtontherapyPhysicsList.hh
 ProtontherapyPrimaryGeneratorAction.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/ProtontherapyPrimaryGeneratorAction.hh
+ScanningProtonBeamLine.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/ScanningProtonBeamLine.hh
 ProtontherapyRunAction.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/ProtontherapyRunAction.hh
 Randomize.hh
@@ -9039,6 +9041,8 @@ G4VisAttributes.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/G4VisAttributes.hh
 G4LogicalVolume.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/G4LogicalVolume.hh
+G4RotationMatrix.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/G4RotationMatrix.hh
 set
 -
 
@@ -9069,6 +9073,8 @@ G4VPhysicalVolume.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4VPhysicalVolume.hh
 G4PVPlacement.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4PVPlacement.hh
+G4RotationMatrix.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4RotationMatrix.hh
 G4Material.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4Material.hh
 G4Element.hh
@@ -9095,6 +9101,8 @@ ProtontherapyDicomDetectorConstruction.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyDicomDetectorConstruction.hh
 MaterialConstruction.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/MaterialConstruction.hh
+ScanningProtonBeamLine.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ScanningProtonBeamLine.hh
 G4VisAttributes.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4VisAttributes.hh
 G4Color.hh
@@ -9175,6 +9183,8 @@ G4RunManager.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyDicomAsciiReader.cc
 ProtontherapyDicomAsciiReader.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyDicomAsciiReader.hh
+ScanningProtonBeamLine.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ScanningProtonBeamLine.hh
 globals.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/globals.hh
 G4Types.hh
@@ -9205,6 +9215,8 @@ G4PVPlacement.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4PVPlacement.hh
 G4PVParameterised.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4PVParameterised.hh
+ScanningProtonBeamLine.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ScanningProtonBeamLine.hh
 ProtontherapyDicomDetectorConstruction.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyDicomDetectorConstruction.hh
 ProtontherapyDicomParameterisation.hh
@@ -9217,6 +9229,10 @@ G4VisAttributes.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyDicomParameterisation.cc
 ProtontherapyDicomParameterisation.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyDicomParameterisation.hh
+DicomDetectorConstruction.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/DicomDetectorConstruction.hh
+ScanningProtonBeamLine.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ScanningProtonBeamLine.hh
 G4SystemOfUnits.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4SystemOfUnits.hh
 G4VPhysicalVolume.hh
@@ -9397,6 +9413,8 @@ ProtontherapyPrimaryGeneratorMessenger.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyPrimaryGeneratorMessenger.hh
 ScanningProtonBeamSpecification.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ScanningProtonBeamSpecification.hh
+ScanningProtonBeamLine.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ScanningProtonBeamLine.hh
 ProtontherapyRunAction.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/ProtontherapyRunAction.hh
 G4SystemOfUnits.hh
@@ -9601,6 +9619,8 @@ G4UIcmdWithAString.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4UIcmdWithAString.hh
 G4UIcmdWith3Vector.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4UIcmdWith3Vector.hh
+G4UIcmdWithABool.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4UIcmdWithABool.hh
 G4SystemOfUnits.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/src/G4SystemOfUnits.hh
 
