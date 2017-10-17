@@ -47,7 +47,7 @@ int main(int argc ,char ** argv)
     //************************MT*********************
     #ifdef G4MULTITHREADED
         G4MTRunManager* runManager = new G4MTRunManager;
-        //runManager->SetNumberOfThreads(8); // Is equal to 2 by default, it can be setted also with the macro command: /run/numberOfThread 2
+        runManager->SetNumberOfThreads(8); // Is equal to 2 by default, it can be setted also with the macro command: /run/numberOfThread 2
     #else
        G4RunManager* runManager = new G4RunManager;
     #endif
@@ -92,8 +92,8 @@ int main(int argc ,char ** argv)
     //************************MT
     runManager->SetUserInitialization(new ProtontherapyActionInitialization);
     //G4int totalEvents = ProtontherapyPrimaryGeneratorAction::totalEvents;
-    if (ScanningProtonBeamLine::scanOption=="scanning")
-    {runManager->BeamOn(ProtontherapyPrimaryGeneratorAction::totalEvents);}
+
+    runManager->Initialize();
 
     // Get the pointer to the visualization manager
 #ifdef G4VIS_USE
@@ -120,6 +120,9 @@ int main(int argc ,char ** argv)
         G4String fileName = argv[1];
         UImanager -> ApplyCommand(command+fileName);
     }
+
+    if (ScanningProtonBeamLine::scanOption=="scanning")
+    {runManager->BeamOn(ProtontherapyPrimaryGeneratorAction::totalEvents);}
 
 
 #ifdef G4VIS_USE

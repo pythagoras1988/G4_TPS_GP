@@ -11,10 +11,10 @@ using namespace std;
 ScanningProtonBeamSpecification::ScanningProtonBeamSpecification()
 : fDirectory("Spots List"),
   fConstantWeightValue(0.1),
-  fFluenceConstant(3000),
+  fFluenceConstant(25000),
   fTotalWeight(0),
-  constantWeight(true),
-  constantEnergy(true)
+  constantWeight(false),
+  constantEnergy(false)
 {
   ReadEnergyListFile();
   ReadWeightDataToMemory();

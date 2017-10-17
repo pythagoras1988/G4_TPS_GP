@@ -27,8 +27,8 @@
 ##########################
 # Initialisation procedure
 #
-#/run/numberOfThreads 8
-/run/initialize
+#/run/numberOfThreads 1
+#/run/initialize
 #/process/em/deexcitation phantom false false false
 #/process/em/fluo false
 #/process/em/auger false
@@ -37,14 +37,14 @@
 #########################
 
 /beamLine/setField 0.0 0.0 0.0
-/beamLine/changeFieldAngle 0.0 0.0 -90.0
+/beamLine/changeFieldAngle 0.0 0.0 -110.0
 #/beamLine/SetDicomDirectory LungRT01
-/beamLine/scanningOption pristine
+/beamLine/scanningOption scanning
 /twiss/alpha 2.4
 /twiss/beta 6.6
 /twiss/emittance_y 6 # 2.1
 /twiss/emittance_z 6 # 2.0
-/gun/energy 180.0 MeV
+#/gun/energy 180.0 MeV
 
 # Suggested values of cut and step:
 # Set cuts OUTSIDE the detector
@@ -93,5 +93,5 @@
 # Default material is liquid water (G4_WATER)
 #/changePhantom/material G4_Pb
 
-/run/beamOn 300000
+#/run/beamOn 300000
 #/run/beamOn 10

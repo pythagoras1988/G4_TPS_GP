@@ -33,6 +33,7 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # Preprocessor definitions for this target.
 set(CMAKE_TARGET_DEFINITIONS_CXX
+  "G4MULTITHREADED"
   "G4UI_USE"
   "G4UI_USE_TCSH"
   "G4VERBOSE"
@@ -42,7 +43,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/home/higgsino/Documents/geant4.10.02.p02-install/include/Geant4"
+  "/home/higgsino/Documents/geant4.10.02.p02-install-new/include/Geant4"
   "/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include"
   )
 

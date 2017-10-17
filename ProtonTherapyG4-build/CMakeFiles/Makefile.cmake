@@ -7,12 +7,12 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "/home/higgsino/Documents/geant4.10.02.p02-install/lib/Geant4-10.2.2/Geant4Config.cmake"
-  "/home/higgsino/Documents/geant4.10.02.p02-install/lib/Geant4-10.2.2/Geant4ConfigVersion.cmake"
-  "/home/higgsino/Documents/geant4.10.02.p02-install/lib/Geant4-10.2.2/Geant4LibraryDepends-relwithdebinfo.cmake"
-  "/home/higgsino/Documents/geant4.10.02.p02-install/lib/Geant4-10.2.2/Geant4LibraryDepends.cmake"
-  "/home/higgsino/Documents/geant4.10.02.p02-install/lib/Geant4-10.2.2/Modules/IntelCompileFeatures.cmake"
-  "/home/higgsino/Documents/geant4.10.02.p02-install/lib/Geant4-10.2.2/UseGeant4.cmake"
+  "/home/higgsino/Documents/geant4.10.02.p02-install-new/lib/Geant4-10.2.2/Geant4Config.cmake"
+  "/home/higgsino/Documents/geant4.10.02.p02-install-new/lib/Geant4-10.2.2/Geant4ConfigVersion.cmake"
+  "/home/higgsino/Documents/geant4.10.02.p02-install-new/lib/Geant4-10.2.2/Geant4LibraryDepends-relwithdebinfo.cmake"
+  "/home/higgsino/Documents/geant4.10.02.p02-install-new/lib/Geant4-10.2.2/Geant4LibraryDepends.cmake"
+  "/home/higgsino/Documents/geant4.10.02.p02-install-new/lib/Geant4-10.2.2/Modules/IntelCompileFeatures.cmake"
+  "/home/higgsino/Documents/geant4.10.02.p02-install-new/lib/Geant4-10.2.2/UseGeant4.cmake"
   "CMakeFiles/3.5.1/CMakeCCompiler.cmake"
   "CMakeFiles/3.5.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.5.1/CMakeSystem.cmake"

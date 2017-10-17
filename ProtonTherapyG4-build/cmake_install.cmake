@@ -44,7 +44,7 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ProtonTherapyG4")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ProtonTherapyG4"
-         OLD_RPATH "/home/higgsino/Documents/geant4.10.02.p02-install/lib:"
+         OLD_RPATH "/home/higgsino/Documents/geant4.10.02.p02-install-new/lib:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ProtonTherapyG4")

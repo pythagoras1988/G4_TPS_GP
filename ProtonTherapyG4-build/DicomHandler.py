@@ -23,7 +23,7 @@ class ErrorHandler:
 		if not os.path.isdir(fname):
 			os.mkdir(fname) # only work for unix env
 		else:
-			#os.rmdir(fname) #raise IOError when the directory is not empty
+			os.rmdir(fname) #raise IOError when the directory is not empty
 			pass
 
 class ConvertDicomData:

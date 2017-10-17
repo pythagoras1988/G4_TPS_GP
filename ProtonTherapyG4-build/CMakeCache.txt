@@ -166,7 +166,10 @@ CMAKE_STRIP:FILEPATH=/usr/bin/strip
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
 //No help, variable specified on the command line.
-Geant4_DIR:UNINITIALIZED=/home/higgsino/Documents/geant4.10.02.p02-install/lib/Geant4-10.2.2
+CMake_DIR:UNINITIALIZED=/home/higgsino/Documents/geant4.10.02.p02-install-new/lib/Geant4-10.2.2
+
+//No help, variable specified on the command line.
+Geant4_DIR:UNINITIALIZED=/home/higgsino/Documents/geant4.10.02.p02-install-new/lib/Geant4-10.2.2
 
 //Value Computed by CMake
 ProtonTherapyG4_BINARY_DIR:STATIC=/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4-build
