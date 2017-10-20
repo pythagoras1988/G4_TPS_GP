@@ -34,6 +34,7 @@
 
 #include "globals.hh"
 #include "ProtontherapyDicomAsciiReader.hh"
+#include "MaterialConstruction.hh"
 #include "G4VPhysicalVolume.hh"
 #include "G4LogicalVolume.hh"
 #include "G4VisAttributes.hh"
@@ -44,6 +45,7 @@
 using namespace std;
 
 class G4Material;
+
 class G4Box;
 
 //*******************************************************
@@ -90,6 +92,7 @@ protected:
     G4LogicalVolume* fContainer_logic;
     G4VPhysicalVolume* fContainer_phys;
     G4LogicalVolume* fWorld_logic;
+    MaterialConstruction* materialConstruction;
 
     G4int fNoFiles; // number of DICOM files
     vector<G4Material*> fMaterials;

@@ -100,6 +100,11 @@ DicomDetectorConstruction::DicomDetectorConstruction(G4LogicalVolume* logicTreat
 DicomDetectorConstruction::~DicomDetectorConstruction()
 {
   delete DicomReader;
+  fMasterHUData.clear();
+  fMaterials.clear();
+  fHUThresholdVector.clear();
+  delete materialConstruction;
+
 }
 
 void DicomDetectorConstruction::ReadPhantomData() {
@@ -127,9 +132,10 @@ void DicomDetectorConstruction::UpdateGeometry() {
 void DicomDetectorConstruction::InitialisationOfMaterials()
 {
   fAir =  G4NistManager::Instance()->FindOrBuildMaterial("G4_AIR"); // Build Air
-  MaterialConstruction* materialConstruction = new MaterialConstruction; // Build phantom materials
+  materialConstruction = new MaterialConstruction; // Build phantom materials
   fMaterials = materialConstruction->GetMaterialSets();
   fHUThresholdVector = materialConstruction->GetHUThresholdVector();
+  //delete materialConstruction;
 }
 
 void DicomDetectorConstruction::ConstructContainerVolume() {

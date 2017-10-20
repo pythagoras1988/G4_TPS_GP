@@ -58,6 +58,7 @@ ProtontherapySteppingAction::~ProtontherapySteppingAction()
 /////////////////////////////////////////////////////////////////////////////
 void ProtontherapySteppingAction::UserSteppingAction(const G4Step* aStep)
 {
+  /*
 G4StepPoint* PreStep = aStep->GetPreStepPoint();
 G4StepPoint* PostStep = aStep->GetPostStepPoint();
 
@@ -101,7 +102,6 @@ G4Track* theTrack = aStep->GetTrack();
 
 
 // Kill tracks when incident particle exceed the water phantom dimension
-/*
 if (PostStepX>30.0) {
   theTrack->SetTrackStatus(fStopAndKill);
 }

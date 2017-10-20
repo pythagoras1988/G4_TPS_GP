@@ -157,6 +157,7 @@ void ProtontherapyRunAction::EndOfRunAction(const G4Run* aRun)
 
   G4cout << "Finished : End of Run Action " << aRun->GetRunID() << G4endl;
 
+
 }
 void ProtontherapyRunAction::AddEMProcess()
 {

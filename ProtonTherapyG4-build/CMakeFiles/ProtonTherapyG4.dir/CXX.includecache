@@ -8939,6 +8939,8 @@ globals.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/globals.hh
 ProtontherapyDicomAsciiReader.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/ProtontherapyDicomAsciiReader.hh
+MaterialConstruction.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/MaterialConstruction.hh
 G4VPhysicalVolume.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/G4VPhysicalVolume.hh
 G4LogicalVolume.hh
@@ -9001,6 +9003,8 @@ G4Types.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/G4Types.hh
 G4ThreeVector.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/G4ThreeVector.hh
+G4Material.hh
+/home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/G4Material.hh
 G4VNestedParameterisation.hh
 /home/higgsino/hadrontherapy-build/G4_TPS/ProtonTherapyG4/include/G4VNestedParameterisation.hh
 
