@@ -78,6 +78,8 @@ ProtontherapyPrimaryGeneratorAction::ProtontherapyPrimaryGeneratorAction()
 ProtontherapyPrimaryGeneratorAction::~ProtontherapyPrimaryGeneratorAction()
 {
   delete particleGun;
+  delete scanSpecification;
+  delete messenger;
 
 }
 

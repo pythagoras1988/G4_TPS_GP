@@ -20,6 +20,8 @@ ProtontherapyDicomAsciiReader::ProtontherapyDicomAsciiReader()
 
 ProtontherapyDicomAsciiReader::~ProtontherapyDicomAsciiReader()
 {
+  fMasterHUData.clear();
+  
 }
 
 void ProtontherapyDicomAsciiReader::ReadToMemory(){

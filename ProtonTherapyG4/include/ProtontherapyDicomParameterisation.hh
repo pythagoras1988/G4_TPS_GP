@@ -37,6 +37,7 @@
 #include "globals.hh"
 #include "G4Types.hh"
 #include "G4ThreeVector.hh"
+#include "G4Material.hh"
 #include "G4VNestedParameterisation.hh"
 
 using namespace std;
@@ -56,8 +57,8 @@ class ProtontherapyDicomParameterisation : public G4VNestedParameterisation
 {
 public:
 
-  ProtontherapyDicomParameterisation(const G4ThreeVector voxelSize,
-                                     std::vector<G4Material*> mat,
+  ProtontherapyDicomParameterisation(const G4ThreeVector& voxelSize,
+                                     std::vector<G4Material*>& mat,
                                      vector<G4double>, vector<G4double>);
   ~ProtontherapyDicomParameterisation();
 

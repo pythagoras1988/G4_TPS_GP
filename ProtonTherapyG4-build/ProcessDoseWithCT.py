@@ -115,5 +115,5 @@ if __name__=="__main__":
         doseData = dose3d[:,:,zSlice].reshape(NVoxelX,NVoxelY)
         pylab.imshow(doseData.T,cmap=pylab.cm.jet,alpha=0.6)
 
-        pylab.savefig(fnameList[k][0:-6]+".pdf")
+        pylab.savefig(dirName_outputFile + "/" + fnameList[k][0:-6]+".pdf")
         pylab.close()
