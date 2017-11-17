@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 import csv
 import math
 
+global FLAG_NAN = True
+global FLAG_COMPUTE_TAU = False
+
 class ErrorHandler:
     def __init__(self,nameList):
         self._checkFile_dose(nameList[0])
@@ -64,7 +67,8 @@ class Construct3dDose:
         # initialize 3d array of dose
         print NVoxel
         self.dose3d = np.zeros((NVoxel[0],NVoxel[1],NVoxel[2]))
-        self.dose3d[:] = np.NAN
+        if FLAG_NAN:
+            self.dose3d[:] = np.NAN
         self._construct3darray()
 
     def _construct3darray(self):
@@ -129,7 +133,10 @@ class Construct3dLET:
 
             if self._CheckBoundary(indexTuple,self.Nx+2,self.Ny+2,self.Nz+2):
                 if self.edep2Data[k][0] == 0 or self.edepData[k][1]==0:
-                    self.let3d[indexTuple[0]-1,indexTuple[1]-1,indexTuple[2]-1] = np.nan
+                    if FLAG_NAN:
+                        self.let3d[indexTuple[0]-1,indexTuple[1]-1,indexTuple[2]-1] = np.nan
+                    else:
+                        self.let3d[indexTuple[0]-1,indexTuple[1]-1,indexTuple[2]-1] = 0
                 else:
                     self.let3d[indexTuple[0]-1,indexTuple[1]-1,indexTuple[2]-1] = self.edep2Data[k][1]/self.edepData[k][1]
                     #print self.let3d[indexTuple[0]-1,indexTuple[1]-1,indexTuple[2]-1]
@@ -226,54 +233,52 @@ if __name__=="__main__":
             pylab.savefig(dirName_outputFile + "/" + fnameList[k][0:-6]+"_dsb.pdf")
             pylab.close()
 
-            '''
-            # For comparing maximal dose and DSBs
+            if FLAG_COMPUTE_TAU:
+                # For comparing maximal dose and DSBs
+                doseMax=np.zeros(100)
+                dsbMax=np.zeros(100)
+                for l in range(200,300):
+                    doseVector = doseData[:,l].reshape(512)
+                    dsbVector  = dsbData[l,:].reshape(512)
+                    doseMax[l-200] = np.argmax(doseVector)
+                    dsbMax[l-200] = np.argmax(dsbVector[(doseMax[l-200]-5):(doseMax[l-200]+5)]) - 5 + doseMax[l-200]
 
-            doseMax=np.zeros(100)
-            dsbMax=np.zeros(100)
-            for l in range(200,300):
-                doseVector = doseData[:,l].reshape(512)
-                dsbVector  = dsbData[l,:].reshape(512)
-                doseMax[l-200] = np.argmax(doseVector)
-                dsbMax[l-200] = np.argmax(dsbVector[(doseMax[l-200]-5):(doseMax[l-200]+5)]) - 5 + doseMax[l-200]
+                pylab.plot(doseMax,'r-', label='Dose')
+                pylab.plot(dsbMax,'b-', label = 'DSB')
+                pylab.ylabel('Position of maximal values')
+                pylab.legend()
+                pylab.show()
 
-            pylab.plot(doseMax,'r-', label='Dose')
-            pylab.plot(dsbMax,'b-', label = 'DSB')
-            pylab.ylabel('Position of maximal values')
-            pylab.legend()
-            pylab.show()
+                break
 
-            break
+                # Process the tau variable
 
-            # Process the tau variable
+                tauData = np.zeros((NVoxelX,NVoxelY))
+                tauData[:] = np.NAN
+                for m in range(NVoxelX):
+                    #print m
+                    for mm in range(NVoxelY):
+                        if not (math.isnan(dsbData[m,mm]) or math.isnan(doseData[m,mm])) and dsbData[m,mm]>0.:
+                            tmp1 = sum(np.multiply((dsbData[m,mm] - dsbData)>0,(doseData[m,mm] - doseData)>0) +
+                                np.multiply((dsbData[m,mm] - dsbData)<0,(doseData[m,mm] - doseData)<0))
 
-            tauData = np.zeros((NVoxelX,NVoxelY))
-            tauData[:] = np.NAN
-            for m in range(NVoxelX):
-                #print m
-                for mm in range(NVoxelY):
-                    if not (math.isnan(dsbData[m,mm]) or math.isnan(doseData[m,mm])) and dsbData[m,mm]>0.:
-                        tmp1 = sum(np.multiply((dsbData[m,mm] - dsbData)>0,(doseData[m,mm] - doseData)>0) +
-                            np.multiply((dsbData[m,mm] - dsbData)<0,(doseData[m,mm] - doseData)<0))
+                            tmp2 = sum(np.multiply((dsbData[m,mm] - dsbData)>0,(doseData[m,mm] - doseData)<0) +
+                                np.multiply((dsbData[m,mm] - dsbData)<0,(doseData[m,mm] - doseData)>0))
 
-                        tmp2 = sum(np.multiply((dsbData[m,mm] - dsbData)>0,(doseData[m,mm] - doseData)<0) +
-                            np.multiply((dsbData[m,mm] - dsbData)<0,(doseData[m,mm] - doseData)>0))
+                            tmp1 = sum(tmp1)
+                            tmp2 = sum(tmp2)
+                            #print tmp1,tmp2
+                            tauData[m,mm] = float(tmp1-tmp2)/(NVoxelX*NVoxelY)
+                            #print tauData[m,mm]
+                        else:
+                            continue
 
-                        tmp1 = sum(tmp1)
-                        tmp2 = sum(tmp2)
-                        #print tmp1,tmp2
-                        tauData[m,mm] = float(tmp1-tmp2)/(NVoxelX*NVoxelY)
-                        #print tauData[m,mm]
-                    else:
-                        continue
+                pylab.imshow(dicomData,cmap=pylab.cm.bone)
+                pylab.title("z="+str(zSlice))
 
-            pylab.imshow(dicomData,cmap=pylab.cm.bone)
-            pylab.title("z="+str(zSlice))
-
-            ind = np.where(letMapArr==zSlice)
-            pylab.imshow(tauData,cmap=pylab.cm.jet,alpha=0.6)
-            pylab.clim(-0.10,0.4)
-            pylab.colorbar()
-            pylab.savefig(dirName_outputFile + "/" + fnameList[k][0:-6]+"_tau.pdf")
-            pylab.close()
-            '''
+                ind = np.where(letMapArr==zSlice)
+                pylab.imshow(tauData,cmap=pylab.cm.jet,alpha=0.6)
+                pylab.clim(-0.10,0.4)
+                pylab.colorbar()
+                pylab.savefig(dirName_outputFile + "/" + fnameList[k][0:-6]+"_tau.pdf")
+                pylab.close()
