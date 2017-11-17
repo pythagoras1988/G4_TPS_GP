@@ -67,7 +67,7 @@ class CreateConstantWeightSpotList(SaveData):
 
 if __name__=="__main__":
 	constantWeight_FLAG = True;
-	energy = 180 #in MeV
+	energy = 220 #in MeV
 	ErrorHandler()
 	print "shit"
 	if constantWeight_FLAG:

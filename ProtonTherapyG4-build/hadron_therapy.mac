@@ -37,7 +37,7 @@
 #########################
 
 /beamLine/setField 0.0 0.0 0.0
-/beamLine/changeFieldAngle 0.0 0.0 -110.0
+/beamLine/changeFieldAngle 0.0 0.0 -90.0
 #/beamLine/SetDicomDirectory LungRT01
 /beamLine/scanningOption scanning
 /twiss/alpha 2.4
@@ -55,7 +55,7 @@
 #
 /run/setCutForRegion phantomContainer 1. mm
 
-/Step/waterPhantomStepMax 0.5 mm
+/Step/waterPhantomStepMax 0.1 mm
 
 ###################################################
 # USE THE FOLLOWING FOR A VOXELLIZED DETECTOR

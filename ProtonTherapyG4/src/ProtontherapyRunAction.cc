@@ -29,6 +29,7 @@
 #include "ProtontherapyRunAction.hh"
 #include "ProtontherapyEventAction.hh"
 #include "G4Run.hh"
+#include "DicomDetectorConstruction.hh"
 #include "G4RunManager.hh"
 #include "G4UImanager.hh"
 #include "G4SystemOfUnits.hh"
@@ -40,14 +41,77 @@
 #include <fstream>
 
 ProtontherapyRunAction::ProtontherapyRunAction()
-//: fProtontherapyrun(0)
 {
     fSDName.push_back(G4String("phantomSD"));
+
+    // Start Analysis manager for LET scoring
+    auto analysisManager = G4AnalysisManager::Instance();
+    analysisManager->SetVerboseLevel(1);
+    analysisManager->SetFileName("LET_D");
+    analysisManager->SetActivation(true);
+    //analysisManager->Ascii(true);
+
+    G4int nbinX, nbinY, nbinZ;
+    G4double binSizeX, binSizeY, binSizeZ;
+
+    nbinX = DicomDetectorConstruction::NumOfVoxels_global[0];
+    nbinY = DicomDetectorConstruction::NumOfVoxels_global[1];
+    nbinZ = DicomDetectorConstruction::NumOfVoxels_global[2];
+    nbinZ = 3;
+    nbinY = 512;
+    nbinX = 512;
+
+    binSizeX = DicomDetectorConstruction::SizeOfVoxels_global[0];
+    binSizeY = DicomDetectorConstruction::SizeOfVoxels_global[1];
+    binSizeZ = DicomDetectorConstruction::SizeOfVoxels_global[2];
+    binSizeX = 0.976562;
+    binSizeY = 0.976562;
+    binSizeZ = 2;
+
+    binSizeX = 1;
+    binSizeY = 1;
+    binSizeZ = 1;
+
+    G4int ih = analysisManager->CreateH3("1", "edep2",
+                      nbinX, 0, binSizeX*nbinX,
+                      nbinY, 0, binSizeY*nbinY,
+                      nbinZ, 30.5, 33.5);
+    analysisManager->SetH3Activation(ih, true);
+    G4cout<<ih<<G4endl;
+    G4cout<<nbinX<<nbinY<<nbinZ<<G4endl;
+
+    ih = analysisManager->CreateH3("2", "edep",
+                      nbinX, 0, binSizeX*nbinX,
+                      nbinY, 0, binSizeY*nbinY,
+                      nbinZ, 30.5, 33.5);
+    analysisManager->SetH3Activation(ih, true);
+    G4cout<<ih<<G4endl;
+
+    /*
+    G4int ih = analysisManager->CreateH3("1", "edep2",
+                      nbinX, -binSizeX*nbinX/2, binSizeX*nbinX/2,
+                      nbinY, -binSizeY*nbinY/2, binSizeY*nbinY/2,
+                      nbinZ, -binSizeZ*nbinZ/2, binSizeZ*nbinZ/2,
+                      "mm", "mm", "mm");
+    analysisManager->SetH3Activation(ih, true);
+    G4cout<<ih<<G4endl;
+    G4cout<<nbinX<<nbinY<<nbinZ<<G4endl;
+
+    ih = analysisManager->CreateH3("2", "edep",
+                      nbinX, -binSizeX*nbinX/2, binSizeX*nbinX/2,
+                      nbinY, -binSizeY*nbinY/2, binSizeY*nbinY/2,
+                      nbinZ, -binSizeZ*nbinZ/2, binSizeZ*nbinZ/2,
+                      "mm", "mm", "mm");
+    analysisManager->SetH3Activation(ih, true);
+    G4cout<<ih<<G4endl;
+    */
+
 }
 
 ProtontherapyRunAction::~ProtontherapyRunAction()
 {
     fSDName.clear();
+    delete G4AnalysisManager::Instance();
 }
 
 G4Run* ProtontherapyRunAction::GenerateRun() {
@@ -62,6 +126,12 @@ void ProtontherapyRunAction::BeginOfRunAction(const G4Run* aRun)
 
     electromagnetic = 0;
     hadronic = 0;
+
+    G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+    if ( analysisManager->IsActive() ) {
+      analysisManager->OpenFile();
+      G4cout<<"start analysis manager"<<G4endl;
+    }
 }
 
 void ProtontherapyRunAction::EndOfRunAction(const G4Run* aRun)
@@ -154,6 +224,13 @@ void ProtontherapyRunAction::EndOfRunAction(const G4Run* aRun)
 
     }
   }
+
+  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+  if ( analysisManager->IsActive() ) {
+  analysisManager->Write();
+  analysisManager->CloseFile();
+}
+
 
   G4cout << "Finished : End of Run Action " << aRun->GetRunID() << G4endl;
 

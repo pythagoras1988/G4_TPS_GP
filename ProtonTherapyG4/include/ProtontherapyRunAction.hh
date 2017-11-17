@@ -32,6 +32,7 @@
 #include "G4UserRunAction.hh"
 #include "G4RunManager.hh"
 #include "globals.hh"
+#include "g4csv.hh"
 #include <vector>
 
 class G4Run;

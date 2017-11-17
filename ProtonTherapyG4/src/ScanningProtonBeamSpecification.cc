@@ -11,7 +11,7 @@ using namespace std;
 ScanningProtonBeamSpecification::ScanningProtonBeamSpecification()
 : fDirectory("Spots List"),
   fConstantWeightValue(0.1),
-  fFluenceConstant(500000),
+  fFluenceConstant(1000000),
   fTotalWeight(0),
   constantWeight(false),
   constantEnergy(false)

@@ -68,8 +68,10 @@ public:
     set<G4LogicalVolume*> GetScorerLogicalVolume();
     void ChangeFieldAngle(G4ThreeVector);
 
-    G4int fNVoxelX, fNVoxelY, fNVoxelZ;
     static G4bool useDicom;
+    static G4ThreeVector NumOfVoxels_global;
+    static G4ThreeVector SizeOfVoxels_global;
+    G4int fNVoxelX, fNVoxelY, fNVoxelZ;
 
 protected:
     void InitialisationOfMaterials();

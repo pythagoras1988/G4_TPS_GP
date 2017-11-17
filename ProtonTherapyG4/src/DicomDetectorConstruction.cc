@@ -54,6 +54,8 @@
 
 using namespace std;
 G4bool DicomDetectorConstruction::useDicom = true;
+G4ThreeVector DicomDetectorConstruction::NumOfVoxels_global = G4ThreeVector(0,0,0);
+G4ThreeVector DicomDetectorConstruction::SizeOfVoxels_global = G4ThreeVector(0,0,0);
 
 using CLHEP::m;
 using CLHEP::cm3;
@@ -91,8 +93,10 @@ DicomDetectorConstruction::DicomDetectorConstruction(G4LogicalVolume* logicTreat
       fNVoxelZ       = static_cast<G4int> (phantomDimension[2]/phantomVoxelSize[2]);
     }
     ConstructContainerVolume();
-
-  //  StartConstructPhantom();
+    DicomDetectorConstruction::NumOfVoxels_global = G4ThreeVector(fNVoxelX,
+                                                    fNVoxelY, fNVoxelZ);
+    DicomDetectorConstruction::SizeOfVoxels_global = G4ThreeVector(fVoxelHalfDimX*2,
+                                                    fVoxelHalfDimY*2, fVoxelHalfDimZ*2);
   }
 }
 
